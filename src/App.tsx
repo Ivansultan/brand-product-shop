@@ -1,11 +1,14 @@
+import { ApolloProvider } from "@apollo/client";
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import client from "./graphql/client";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <ApolloProvider client={client}>
+        <h1>Hello</h1>
+      </ApolloProvider>
     </div>
   );
 }

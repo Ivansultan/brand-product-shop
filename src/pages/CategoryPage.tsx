@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 type Product = {
-  id: number;
+  id: string;
   name: string;
 };
 
@@ -36,11 +36,32 @@ class CategoryPage extends React.Component<Props, State> {
       return <div>Loading...</div>;
     }
     return (
-      <div>
-        <h1>CategoryPage</h1>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ flexWrap: "wrap" }}>
+        <h1>Category page</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "yellow",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
           {category.products.map((product) => {
-            return <Link to={`/product/${product.id}`}>{product.name}</Link>;
+            return (
+              <Link to={`/product/${product.id}`}>
+                <div
+                  style={{
+                    backgroundColor: "red",
+                    width: "356px",
+                    height: "338px",
+                    margin: 5,
+                  }}
+                >
+                  {product.name}
+                </div>
+              </Link>
+            );
           })}
         </div>
       </div>
@@ -55,6 +76,18 @@ const categoryQuery = gql`
       products {
         id
         name
+        attributes {
+          id
+          name
+          type
+          items {
+            value
+          }
+        }
+        prices {
+          currency
+          amount
+        }
       }
     }
   }

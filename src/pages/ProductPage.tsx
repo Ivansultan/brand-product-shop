@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { graphql } from "@apollo/client/react/hoc/graphql";
 import React from "react";
 import { compose } from "recompose";
+import store from "../store";
 import { withParams } from "../utils";
 
 type State = {};
@@ -27,6 +28,13 @@ class ProductPage extends React.Component<Props, State> {
     super(props);
     this.state = {};
   }
+
+  addProductToCart = () => {
+    store.dispatch({
+      type: "CART_ADD_ITEM",
+      payload: { productId: this.props.params.id },
+    });
+  };
 
   render() {
     const { loading, product } = this.props.data;
@@ -56,7 +64,7 @@ class ProductPage extends React.Component<Props, State> {
           </div>
           <div style={{ marginTop: 10 }}>
             <button>
-              <p>ADD TO CART</p>
+              <p onClick={this.addProductToCart}>ADD TO CART</p>
             </button>
           </div>
         </div>

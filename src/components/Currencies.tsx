@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 // type Props = {};
 type State = { visibility: boolean };
 
-type Currency = string;
+export type Currency = "USD" | "EUR";
 
 type CurrencyQueryResult = {
   loading: boolean;

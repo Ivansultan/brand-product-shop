@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import { AppState } from "../reducer";
 
-type Props = {};
+type StateProps = {
+  cartItems: AppState["cartItems"];
+};
+type OwnProps = {};
+type Props = OwnProps & StateProps;
+
 type State = { visibility: boolean };
 
 class Cart extends React.Component<Props, State> {
@@ -40,7 +48,13 @@ class Cart extends React.Component<Props, State> {
                 border: "1px solid red",
                 display: "flex", // to hide use "none"
               }}
-            ></div>
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {this.props.cartItems.map((item) => {
+                  return <div>{item}</div>;
+                })}
+              </div>
+            </div>
           ) : (
             <div
               style={{
@@ -54,4 +68,10 @@ class Cart extends React.Component<Props, State> {
   }
 }
 
-export default Cart;
+const mapStateToProps = (state: AppState): StateProps => ({
+  cartItems: state.cartItems,
+});
+
+export default compose(
+  connect<StateProps, {}, OwnProps>(mapStateToProps as any)
+)(Cart as any);

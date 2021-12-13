@@ -23,6 +23,7 @@ class App extends React.Component<Props, State> {
         <ApolloProvider client={client}>
           <div>
             <Header />
+            {/* https://github.com/remix-run/react-router/issues/8146#issuecomment-947860640 */}
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<CategoryPage />} />

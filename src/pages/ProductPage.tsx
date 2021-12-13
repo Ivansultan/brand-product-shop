@@ -1,10 +1,12 @@
 import { gql } from "@apollo/client";
-import { graphql } from "@apollo/client/react/hoc";
+import { graphql } from "@apollo/client/react/hoc/graphql";
 import React from "react";
+import { compose } from "recompose";
+import { withParams } from "../utils";
 
 type State = {};
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   description: string;
@@ -16,6 +18,7 @@ type ProductQueryResult = {
 };
 
 type Props = {
+  params: { id: Product["id"] };
   data: ProductQueryResult;
 };
 
@@ -63,8 +66,8 @@ class ProductPage extends React.Component<Props, State> {
 }
 
 const productQuery = gql`
-  query {
-    product(id: "ps-5") {
+  query Product($id: String!) {
+    product(id: $id) {
       id
       name
       description
@@ -72,4 +75,15 @@ const productQuery = gql`
   }
 `;
 
-export default (graphql(productQuery as any) as any)(ProductPage);
+const productQueryOptions = {
+  options: (props: Props) => ({
+    variables: {
+      id: props.params.id,
+    },
+  }),
+};
+
+export default compose(
+  withParams,
+  graphql<any, any>(productQuery, productQueryOptions)
+)(ProductPage as any);

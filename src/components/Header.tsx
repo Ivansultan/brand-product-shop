@@ -5,6 +5,8 @@ import Currencies from "./Currencies";
 type Props = {};
 type State = {};
 
+export type Currency = "USD" | "EUR";
+
 class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -72,17 +74,6 @@ class Header extends React.Component<Props, State> {
             }}
             alt="IconApple"
             src="https://img2.freepng.ru/20180319/lfq/kisspng-iphone-computer-icons-apple-icon-image-format-app-os7-style-metro-ui-icon-5ab06b3988a639.3893383015215112255597.jpg"
-          />
-
-          <img
-            style={{
-              width: "15px",
-              height: "21px",
-              marginTop: "28px",
-              // marginLeft: "459px",
-            }}
-            src="https://w7.pngwing.com/pngs/881/42/png-transparent-icon-dollar-sign-united-states-dollar-dollar-sign-text-logo-number.png"
-            alt="IconDollar"
           />
           <Currencies />
           <Cart />

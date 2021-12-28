@@ -1,19 +1,25 @@
 import React from "react";
 import { graphql } from "@apollo/client/react/hoc";
 import gql from "graphql-tag";
+import store from "../store";
+import { AppState } from "../reducer";
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
-// type Props = {};
+type Props = OwnProps & StoreProps;
 type State = { visibility: boolean };
 
-export type Currency = "USD" | "EUR";
+type OwnProps = {
+  data: CurrencyQueryResult;
+};
 
 type CurrencyQueryResult = {
   loading: boolean;
-  currencies: Currency[];
+  currencies: AppState["currency"][];
 };
 
-type Props = {
-  data: CurrencyQueryResult;
+type StoreProps = {
+  currency: AppState["currency"];
 };
 
 class Currencies extends React.Component<Props, State> {
@@ -25,6 +31,13 @@ class Currencies extends React.Component<Props, State> {
     };
   }
 
+  changeCurrency = (currency: AppState["currency"]) => {
+    store.dispatch({
+      type: "SET_CURRENCY",
+      payload: { currency },
+    });
+  };
+
   render() {
     const { loading, currencies } = this.props.data;
     if (loading) {
@@ -32,6 +45,7 @@ class Currencies extends React.Component<Props, State> {
     }
     return (
       <div>
+        {this.props.currency}
         <button
           style={{ marginTop: "28px", border: "transparent" }}
           onClick={() => {
@@ -43,32 +57,47 @@ class Currencies extends React.Component<Props, State> {
             src="https://e7.pngegg.com/pngimages/795/703/png-clipart-arrow-computer-icons-down-arrow-angle-rectangle.png"
             alt="DropdownIcon"
           />
-          {this.state.visibility ? (
-            <div
-              style={{
-                position: "absolute",
-                top: 50,
-                right: 110,
-                width: 100,
-                height: 150, // remove it
-                border: "1px solid red",
-                display: "flex", // to hide use "none"
-              }}
-            >
-              <div>
-                {currencies.map((currency) => (
-                  <ul>{currency}</ul>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "none",
-              }}
-            ></div>
-          )}
         </button>
+        {this.state.visibility ? (
+          <div
+            style={{
+              position: "absolute",
+              top: 50,
+              right: 110,
+              width: 120,
+              height: 190,
+              border: "1px solid red",
+              display: "flex", // to hide use "none"
+            }}
+          >
+            <div>
+              {currencies.map((currency) => (
+                <ul>
+                  <button
+                    style={
+                      currency === this.props.currency
+                        ? { background: "yellow" }
+                        : {}
+                    }
+                    key={currency}
+                    onClick={() => {
+                      currency !== this.props.currency &&
+                        this.changeCurrency(currency);
+                    }}
+                  >
+                    {currency}
+                  </button>
+                </ul>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "none",
+            }}
+          ></div>
+        )}
       </div>
     );
   }
@@ -80,4 +109,13 @@ const currencyQuery = gql`
   }
 `;
 
-export default (graphql(currencyQuery as any) as any)(Currencies);
+const mapStateToProps = (state: AppState): StoreProps => {
+  return {
+    currency: state.currency,
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  graphql(currencyQuery as any) as any
+)(Currencies as any);

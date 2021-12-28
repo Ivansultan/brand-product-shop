@@ -1,7 +1,16 @@
-import { Currency } from "./components/Currencies";
 import { Product } from "./pages/ProductPage";
 
-export type AppState = { cartItems: Product["id"][]; currency: Currency };
+type CartItem = {
+  id: string;
+  quantity: number;
+};
+
+type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
+
+export type AppState = {
+  cartItems: CartItem[];
+  currency: Currency;
+};
 
 const initialState: AppState = {
   cartItems: [],
@@ -14,9 +23,13 @@ type CartItemsPayload = {
   productId: Product["id"];
 };
 
+type CurrencyPayload = {
+  currency: Currency;
+};
+
 type Action = {
   type: ActionType;
-  payload: CartItemsPayload;
+  payload: CartItemsPayload | CurrencyPayload;
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
@@ -24,9 +37,24 @@ const rootReducer = (state = initialState, action: Action): AppState => {
     case "CART_ADD_ITEM":
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload.productId],
+        cartItems: [
+          ...state.cartItems,
+          { id: (action.payload as CartItemsPayload).productId, quantity: 1 },
+        ],
       };
-    // TODO: write `case "CART_REMOVE_ITEM"`
+    case "CART_REMOVE_ITEM":
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (item) => item.id !== (action.payload as CartItemsPayload).productId
+        ),
+      };
+    case "SET_CURRENCY":
+      const newState = {
+        ...state,
+        currency: (action.payload as CurrencyPayload).currency,
+      };
+      return newState;
     default:
       return state;
   }

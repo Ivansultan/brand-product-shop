@@ -4,13 +4,30 @@ import React from "react";
 import { compose } from "recompose";
 import store from "../store";
 import { withParams } from "../utils";
+import { AppState } from "../reducer";
+import { connect } from "react-redux";
 
-type State = {};
+export const getPrice = (
+  prices: Price[],
+  currency: AppState["currency"]
+): Price => {
+  return prices.filter((item) => item.currency === currency)[0];
+};
+
+type State = {
+  visibility: boolean;
+};
+
+type Price = {
+  currency: AppState["currency"];
+  amount: number;
+};
 
 export type Product = {
   id: string;
   name: string;
   description: string;
+  prices: Price[];
 };
 
 type ProductQueryResult = {
@@ -18,15 +35,22 @@ type ProductQueryResult = {
   product: Product;
 };
 
-type Props = {
+type StoreProps = {
+  cartItems: AppState["cartItems"];
+  currency: AppState["currency"];
+};
+type OwnProps = {
   params: { id: Product["id"] };
   data: ProductQueryResult;
 };
+type Props = OwnProps & StoreProps;
 
 class ProductPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {};
+    this.state = {
+      visibility: false,
+    };
   }
 
   addProductToCart = () => {
@@ -36,11 +60,30 @@ class ProductPage extends React.Component<Props, State> {
     });
   };
 
+  deleteProductFromCart = () => {
+    store.dispatch({
+      type: "CART_REMOVE_ITEM",
+      payload: { productId: this.props.params.id },
+    });
+  };
+
   render() {
     const { loading, product } = this.props.data;
+    const { currency } = this.props;
     if (loading) {
       return <div>Loading...</div>;
     }
+
+    const inCart = this.props.cartItems
+      .map((item) => item.id)
+      .includes(product.id);
+    const cartButtonTitle = inCart ? "Remove" : "Add to Cart";
+    const cartButtonCallback = inCart
+      ? this.deleteProductFromCart
+      : this.addProductToCart;
+
+    const price = getPrice(product.prices, currency);
+
     return (
       <div>
         <div>
@@ -58,14 +101,12 @@ class ProductPage extends React.Component<Props, State> {
           </div>
           <div>
             <big>PRICE:</big>
+            <div style={{ marginTop: 10 }}>{price.currency}</div>
+            <div>{price.amount}</div>
           </div>
+
           <div style={{ marginTop: 10 }}>
-            <big>$</big>
-          </div>
-          <div style={{ marginTop: 10 }}>
-            <button>
-              <p onClick={this.addProductToCart}>ADD TO CART</p>
-            </button>
+            <button onClick={cartButtonCallback}>{cartButtonTitle}</button>
           </div>
         </div>
       </div>
@@ -79,19 +120,40 @@ const productQuery = gql`
       id
       name
       description
+      prices {
+        currency
+        amount
+      }
     }
   }
 `;
 
 const productQueryOptions = {
-  options: (props: Props) => ({
-    variables: {
-      id: props.params.id,
-    },
-  }),
+  options: (props: Props) => {
+    return {
+      variables: {
+        id: props.params.id,
+      },
+    };
+  },
+};
+
+const currencyQuery = gql`
+  query {
+    currencies
+  }
+`;
+
+const mapStateToProps = (state: AppState): StoreProps => {
+  return {
+    cartItems: state.cartItems,
+    currency: state.currency,
+  };
 };
 
 export default compose(
   withParams,
-  graphql<any, any>(productQuery, productQueryOptions)
+  graphql(currencyQuery as any) as any,
+  graphql<any, any>(productQuery, productQueryOptions),
+  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
 )(ProductPage as any);

@@ -1,14 +1,13 @@
 import { Product } from "./pages/ProductPage";
 
-type CartItem = {
-  id: string;
+type CartProduct = Product & {
   quantity: number;
 };
 
 type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
 export type AppState = {
-  cartItems: CartItem[];
+  cartItems: CartProduct[];
   currency: Currency;
 };
 
@@ -17,10 +16,15 @@ const initialState: AppState = {
   currency: "USD",
 };
 
-type ActionType = "CART_ADD_ITEM" | "CART_REMOVE_ITEM" | "SET_CURRENCY";
+type ActionType =
+  | "CART_ADD_ITEM"
+  | "CART_REMOVE_ITEM"
+  | "SET_CURRENCY"
+  | "CART_INCREMENT_ITEM"
+  | "CART_DECREMENT_ITEM";
 
 type CartItemsPayload = {
-  productId: Product["id"];
+  product: Product;
 };
 
 type CurrencyPayload = {
@@ -39,14 +43,35 @@ const rootReducer = (state = initialState, action: Action): AppState => {
         ...state,
         cartItems: [
           ...state.cartItems,
-          { id: (action.payload as CartItemsPayload).productId, quantity: 1 },
+          { ...(action.payload as CartItemsPayload).product, quantity: 1 },
         ],
       };
     case "CART_REMOVE_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (item) => item.id !== (action.payload as CartItemsPayload).productId
+          (item) => item.id !== (action.payload as CartItemsPayload).product.id
+        ),
+      };
+    case "CART_INCREMENT_ITEM":
+      return {
+        ...state,
+        cartItems: state.cartItems.map((item) =>
+          item.id === (action.payload as CartItemsPayload).product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        ),
+      };
+    case "CART_DECREMENT_ITEM":
+      return {
+        ...state,
+        cartItems: state.cartItems.map((item) =>
+          item.id === (action.payload as CartItemsPayload).product.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
         ),
       };
     case "SET_CURRENCY":

@@ -8,20 +8,28 @@ class QuantityOfProducts extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      count: 0,
+      count: 1,
     };
   }
+
+  handleIncrement = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  handleDecrement = () => {
+    this.setState({
+      count: this.state.count > 1 ? this.state.count - 1 : this.state.count,
+    });
+  };
 
   render() {
     return (
       <div>
-        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-          +
-        </button>
+        <button onClick={this.handleIncrement}>+</button>
         {this.state.count}
-        <button onClick={() => this.setState({ count: this.state.count - 1 })}>
-          -
-        </button>
+        <button onClick={this.handleDecrement}>-</button>
       </div>
     );
   }

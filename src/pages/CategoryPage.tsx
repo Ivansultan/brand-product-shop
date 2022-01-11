@@ -6,6 +6,7 @@ import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import { getPrice } from "./ProductPage";
+import { currencyLabel } from "../utils";
 
 type Price = {
   currency: AppState["currency"];
@@ -92,11 +93,16 @@ class CategoryPage extends React.Component<Props, State> {
                     margin: 5,
                   }}
                 >
-                  <div>{product.gallery.map((item) => item)[0]}</div>
+                  <img
+                    style={{ width: 100, height: 100 }}
+                    alt=""
+                    src={product.gallery[0]}
+                  />
                   <div>{product.name}</div>
                   <div>{product.brand}</div>
                   <div>{price.amount}</div>
-                  <div>{this.props.currency}</div>
+                  {/* <div>{this.props.currency}</div> */}
+                  <div>{currencyLabel[this.props.currency]}</div>
                 </div>
               </Link>
             );

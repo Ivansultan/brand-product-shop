@@ -6,49 +6,44 @@ import store from "../store";
 import { withParams } from "../utils";
 import { AppState } from "../reducer";
 import { connect } from "react-redux";
-import { currencyLabel } from "../utils";
 
-export const getPrice = (
-  prices: Price[],
-  currency: AppState["currency"]
-): Price => {
+export const getPrice = (prices, currency) => {
   return prices.filter((item) => item.currency === currency)[0];
 };
 
-type State = {
-  visibility: boolean;
-};
+// type State = {
+//   visibility: boolean;
+// };
 
-type Price = {
-  currency: AppState["currency"];
-  amount: number; // price for 1 item
-};
+// type Price = {
+//   amount: number;
+// };
 
-export type Product = {
-  id: string;
-  name: string;
-  description: string;
-  prices: Price[];
-  gallery: string;
-};
+// export type Product = {
+//   id: string;
+//   name: string;
+//   description: string;
+//   prices: Price[];
+//   gallery: string;
+// };
 
-type ProductQueryResult = {
-  loading: boolean;
-  product: Product;
-};
+// type ProductQueryResult = {
+//   loading: boolean;
+//   product: Product;
+// };
 
-type StoreProps = {
-  cartItems: AppState["cartItems"];
-  currency: AppState["currency"];
-};
-type OwnProps = {
-  params: { id: Product["id"] };
-  data: ProductQueryResult;
-};
-type Props = OwnProps & StoreProps;
+// type StoreProps = {
+//   cartItems: AppState["cartItems"];
+//   currency: AppState["currency"];
+// };
+// type OwnProps = {
+//   params: { id: Product["id"] };
+//   data: ProductQueryResult;
+// };
+// type Props = OwnProps & StoreProps;
 
-class ProductPage extends React.Component<Props, State> {
-  constructor(props: Props) {
+class ProductPage extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       visibility: false,
@@ -95,11 +90,6 @@ class ProductPage extends React.Component<Props, State> {
           <div>
             <h3>Product name: {product.name}</h3>
           </div>
-          <img
-            alt=""
-            style={{ width: 100, height: 100 }}
-            src={product.gallery[0]}
-          />
           <div>
             <h3>Product ID: {product.id}</h3>
           </div>
@@ -108,7 +98,7 @@ class ProductPage extends React.Component<Props, State> {
           </div>
           <div>
             <big>PRICE:</big>
-            <div style={{ marginTop: 10 }}>{currencyLabel[price.currency]}</div>
+            <div style={{ marginTop: 10 }}>{price.currency}</div>
             <div>{price.amount}</div>
           </div>
 
@@ -127,7 +117,6 @@ const productQuery = gql`
       id
       name
       description
-      gallery
       prices {
         currency
         amount
@@ -137,7 +126,7 @@ const productQuery = gql`
 `;
 
 const productQueryOptions = {
-  options: (props: Props) => {
+  options: (props) => {
     return {
       variables: {
         id: props.params.id,
@@ -152,7 +141,7 @@ const currencyQuery = gql`
   }
 `;
 
-const mapStateToProps = (state: AppState): StoreProps => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartItems,
     currency: state.currency,
@@ -161,7 +150,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
 
 export default compose(
   withParams,
-  graphql(currencyQuery as any) as any,
-  graphql<any, any>(productQuery, productQueryOptions),
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(ProductPage as any);
+  graphql(currencyQuery),
+  graphql(productQuery, productQueryOptions),
+  connect(mapStateToProps)
+)(ProductPage);

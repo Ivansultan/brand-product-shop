@@ -7,3 +7,11 @@ export function withNavigation(Component: any) {
 export function withParams(Component: any) {
   return (props: any) => <Component {...props} params={useParams()} />;
 }
+
+export const currencyLabel = {
+  USD: "$",
+  GBP: "£",
+  AUD: "$",
+  JPY: "¥",
+  RUB: "₽",
+};

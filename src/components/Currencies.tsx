@@ -5,6 +5,7 @@ import store from "../store";
 import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
+import { currencyLabel } from "../utils";
 
 type Props = OwnProps & StoreProps;
 type State = { visibility: boolean };
@@ -45,7 +46,7 @@ class Currencies extends React.Component<Props, State> {
     }
     return (
       <div>
-        {this.props.currency}
+        {currencyLabel[this.props.currency]}
         <button
           style={{ marginTop: "28px", border: "transparent" }}
           onClick={() => {
@@ -85,6 +86,7 @@ class Currencies extends React.Component<Props, State> {
                         this.changeCurrency(currency);
                     }}
                   >
+                    {currencyLabel[currency]}
                     {currency}
                   </button>
                 </ul>

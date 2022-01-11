@@ -3,6 +3,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import CartPage from "./components/CartPage";
 import Header from "./components/Header";
 import client from "./graphql/client";
 import CategoryPage from "./pages/CategoryPage";
@@ -24,16 +25,15 @@ class App extends React.Component<Props, State> {
       <div className="App">
         <Provider store={store}>
           <ApolloProvider client={client}>
-            <div>
+            {/* https://github.com/remix-run/react-router/issues/8146#issuecomment-947860640 */}
+            <BrowserRouter>
               <Header />
-              {/* https://github.com/remix-run/react-router/issues/8146#issuecomment-947860640 */}
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<CategoryPage />} />
-                  <Route path="/product/:id" element={<ProductPage />} />
-                </Routes>
-              </BrowserRouter>
-            </div>
+              <Routes>
+                <Route path="/" element={<CategoryPage />} />
+                <Route path="/product/:id" element={<ProductPage />} />
+                <Route path="/cart" element={<CartPage />} />
+              </Routes>
+            </BrowserRouter>
           </ApolloProvider>
         </Provider>
       </div>

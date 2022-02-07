@@ -70,10 +70,11 @@ class CategoryPage extends React.Component<Props, State> {
     }
 
     return (
-      <div style={{ flexWrap: "wrap" }}>
-        <h1>Category page</h1>
+      <div style={{ marginTop: "40px", marginBottom: "100px" }}>
+        <h1 style={{ paddingLeft: "100px", margin: 0 }}>Category name</h1>
         <div
           style={{
+            marginTop: "80px",
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
@@ -87,22 +88,26 @@ class CategoryPage extends React.Component<Props, State> {
                 <div
                   key={product.id}
                   style={{
-                    border: "1px solid black",
-                    width: "356px",
-                    height: "338px",
-                    margin: 5,
+                    // border: "1px solid black",
+                    padding: "16px",
+                    backgroundColor: "#f0f5f5",
+                    margin: 15,
                   }}
                 >
                   <img
-                    style={{ width: 100, height: 100 }}
+                    style={{
+                      width: "315px",
+                      height: "315px",
+                    }}
                     alt=""
                     src={product.gallery[0]}
                   />
-                  <div>{product.name}</div>
-                  <div>{product.brand}</div>
-                  <div>{price.amount}</div>
-                  {/* <div>{this.props.currency}</div> */}
-                  <div>{currencyLabel[this.props.currency]}</div>
+                  <div style={{ lineHeight: "28.8px", color: "black" }}>
+                    {product.brand} {product.name}
+                  </div>
+                  <div style={{ color: "black" }}>
+                    {currencyLabel[this.props.currency]} {price.amount}
+                  </div>
                 </div>
               </Link>
             );

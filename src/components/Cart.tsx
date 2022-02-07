@@ -28,7 +28,6 @@ type Product = {
   name: string;
   description: string;
   prices: Price[];
-  gallery: string;
 };
 
 type Price = {
@@ -77,7 +76,7 @@ class Cart extends React.Component<Props, State> {
     return (
       <div>
         <button
-          style={{ marginTop: "28px", border: "transparent" }}
+          style={{ marginLeft: "22px", border: "transparent" }}
           onClick={() => {
             this.setState({ visibility: !this.state.visibility });
           }}

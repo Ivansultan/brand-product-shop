@@ -24,12 +24,24 @@ type Price = {
   amount: number; // price for 1 item
 };
 
+type Item = {
+  displayValue: string;
+  id: string;
+};
+
+type Attribute = {
+  name: string;
+  items: Item[];
+};
+
 export type Product = {
   id: string;
+  brand: string;
   name: string;
   description: string;
   prices: Price[];
-  gallery: string;
+  gallery: string[];
+  attributes: Attribute[];
 };
 
 type ProductQueryResult = {
@@ -79,7 +91,7 @@ class ProductPage extends React.Component<Props, State> {
     const inCart = this.props.cartItems
       .map((item) => item.id)
       .includes(product.id);
-    const cartButtonTitle = inCart ? "Remove" : "Add to Cart";
+    const cartButtonTitle = inCart ? "Remove" : "ADD TO CART";
     const cartButtonCallback = inCart
       ? this.deleteProductFromCart
       : this.addProductToCart;
@@ -87,33 +99,84 @@ class ProductPage extends React.Component<Props, State> {
     const price = getPrice(product.prices, currency);
 
     return (
-      <div>
-        <div>
-          <h1>Product Page</h1>
+      <div
+        style={{
+          paddingLeft: "100px",
+          paddingRight: "100px",
+          marginTop: "73px",
+          flexDirection: "row",
+          display: "flex",
+        }}
+      >
+        <div style={{ flexDirection: "column", display: "flex" }}>
+          {product.gallery.map((image) => {
+            return (
+              <button
+                style={{
+                  backgroundColor: "transparent",
+                  border: "1px solid transparent",
+                  cursor: "pointer",
+                }}
+              >
+                <img
+                  src={image}
+                  alt=""
+                  style={{
+                    width: 97,
+                    height: 87,
+                    // border: "1px solid lightGray",
+                    marginBottom: 30,
+                  }}
+                />
+              </button>
+            );
+          })}
         </div>
-        <div>
+
+        <img
+          alt=""
+          style={{
+            width: 500,
+            height: 460,
+            border: "1px solid lightGray",
+            marginLeft: 20,
+          }}
+          src={product.gallery[0]}
+        />
+
+        <div
+          style={{
+            marginLeft: 70,
+            // backgroundColor: "yellow",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            display: "flex",
+          }}
+        >
           <div>
-            <h3>Product name: {product.name}</h3>
-          </div>
-          <img
-            alt=""
-            style={{ width: 100, height: 100 }}
-            src={product.gallery[0]}
-          />
-          <div>
-            <h3>Product ID: {product.id}</h3>
-          </div>
-          <div>
-            <h3>About product: {product.description}</h3>
-          </div>
-          <div>
-            <big>PRICE:</big>
-            <div style={{ marginTop: 10 }}>{currencyLabel[price.currency]}</div>
-            <div>{price.amount}</div>
+            <h3 style={{ margin: 0, lineHeight: "27px" }}>{product.brand}</h3>
+            <big>{product.name}</big>
           </div>
 
-          <div style={{ marginTop: 10 }}>
-            <button onClick={cartButtonCallback}>{cartButtonTitle}</button>
+          <div>{}</div>
+
+          <div>
+            <p style={{}}>PRICE:</p>
+            <p style={{}}>
+              {currencyLabel[price.currency]} {price.amount}
+            </p>
+            <button
+              onClick={cartButtonCallback}
+              style={{
+                height: 52,
+                width: 292,
+              }}
+            >
+              {cartButtonTitle}
+            </button>
+          </div>
+          <div style={{ width: 292 }}>
+            <p style={{ margin: 0 }}>{product.description}</p>
           </div>
         </div>
       </div>
@@ -126,6 +189,7 @@ const productQuery = gql`
     product(id: $id) {
       id
       name
+      brand
       description
       gallery
       prices {

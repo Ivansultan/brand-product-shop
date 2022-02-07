@@ -27,7 +27,6 @@ type Product = {
   name: string;
   description: string;
   prices: Price[];
-  gallery: string;
 };
 
 type Price = {

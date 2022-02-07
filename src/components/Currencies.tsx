@@ -48,14 +48,14 @@ class Currencies extends React.Component<Props, State> {
       <div>
         {currencyLabel[this.props.currency]}
         <button
-          style={{ marginTop: "28px", border: "transparent" }}
+          style={{ border: "transparent" }}
           onClick={() => {
             this.setState({ visibility: !this.state.visibility });
           }}
         >
           <img
-            style={{ width: 10, height: 8 }}
-            src="https://e7.pngegg.com/pngimages/795/703/png-clipart-arrow-computer-icons-down-arrow-angle-rectangle.png"
+            style={{ width: 10, height: 8, backgroundColor: "white" }}
+            src="https://www.vhv.rs/dpng/d/172-1725836_drop-down-arrow-images-dropdown-icon-png-transparent.png"
             alt="DropdownIcon"
           />
         </button>

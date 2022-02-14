@@ -90,6 +90,10 @@ class Cart extends React.Component<Props, State> {
             alt="IconCart"
           />
         </button>
+
+        {/* <div>{itemsInCart >= 1 ? itemsInCart : {}}</div> */}
+        {itemsInCart}
+
         {this.state.visibility ? (
           <div
             style={{

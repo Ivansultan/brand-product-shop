@@ -32,6 +32,7 @@ type Category = {
 type CategoryQueryResult = {
   loading: boolean;
   category: Category;
+  // product: Product;
 };
 
 type Props = OwnProps & StoreProps & OriginalProps;
@@ -42,9 +43,11 @@ type OriginalProps = {
 
 type StoreProps = {
   currency: AppState["currency"];
+  cartItems: AppState["cartItems"];
 };
 
 type OwnProps = {
+  params: { id: Product["id"] };
   data: CurrencyQueryResult;
 };
 
@@ -82,6 +85,21 @@ class CategoryPage extends React.Component<Props, State> {
           }}
         >
           {category.products.map((product) => {
+            const inItem = this.props.cartItems
+              .map((item) => item.id)
+              .includes(product.id);
+            const itemIcon = inItem ? (
+              <img
+                style={{
+                  width: 24,
+                  height: 16,
+                }}
+                src="https://w7.pngwing.com/pngs/225/984/png-transparent-computer-icons-shopping-cart-encapsulated-postscript-shopping-cart-angle-black-shopping.png"
+                alt="IconCart"
+              />
+            ) : (
+              ""
+            );
             const price = getPrice(product.prices, currency);
             return (
               <Link key={product.id} to={`/product/${product.id}`}>
@@ -102,6 +120,7 @@ class CategoryPage extends React.Component<Props, State> {
                     alt=""
                     src={product.gallery[0]}
                   />
+                  {itemIcon}
                   <div style={{ lineHeight: "28.8px", color: "black" }}>
                     {product.brand} {product.name}
                   </div>
@@ -165,6 +184,7 @@ const amountQuery = gql`
 const mapStateToProps = (state: AppState): StoreProps => {
   return {
     currency: state.currency,
+    cartItems: state.cartItems,
   };
 };
 

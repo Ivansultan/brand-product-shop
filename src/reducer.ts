@@ -9,13 +9,11 @@ type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 export type AppState = {
   cartItems: CartProduct[];
   currency: Currency;
-  // gallery: Gallery;
 };
 
 const initialState: AppState = {
   cartItems: [],
   currency: "USD",
-  // gallery: [],
 };
 
 type ActionType =

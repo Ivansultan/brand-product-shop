@@ -15,3 +15,11 @@ export const currencyLabel = {
   JPY: "¥",
   RUB: "₽",
 };
+
+export const colorProduct = {
+  green: "green",
+  cyan: "cyan",
+  blue: "blue",
+  black: "black",
+  white: "white",
+};

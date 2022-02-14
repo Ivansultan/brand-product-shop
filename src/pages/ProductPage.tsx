@@ -7,6 +7,7 @@ import { withParams } from "../utils";
 import { AppState } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
+import { colorProduct } from "../utils";
 
 export const getPrice = (
   prices: Price[],
@@ -14,6 +15,10 @@ export const getPrice = (
 ): Price => {
   return prices.filter((item) => item.currency === currency)[0];
 };
+
+// const getImage = (gallery: Image[]): Image => {
+//   return gallery.filter((item) => item)[0];
+// };
 
 type State = {
   visibility: boolean;
@@ -27,6 +32,7 @@ type Price = {
 type Item = {
   displayValue: string;
   id: string;
+  colorProduct: string;
 };
 
 type Attribute = {
@@ -34,15 +40,21 @@ type Attribute = {
   items: Item[];
 };
 
+type Image = string;
+
 export type Product = {
   id: string;
   brand: string;
   name: string;
   description: string;
   prices: Price[];
-  gallery: string[];
+  gallery: Image[];
   attributes: Attribute[];
 };
+
+// const processImage = (image: Image) => {
+
+// }
 
 type ProductQueryResult = {
   loading: boolean;
@@ -91,12 +103,21 @@ class ProductPage extends React.Component<Props, State> {
     const inCart = this.props.cartItems
       .map((item) => item.id)
       .includes(product.id);
-    const cartButtonTitle = inCart ? "Remove" : "ADD TO CART";
+    const cartButtonTitle = inCart ? "REMOVE" : "ADD TO CART";
     const cartButtonCallback = inCart
       ? this.deleteProductFromCart
       : this.addProductToCart;
 
     const price = getPrice(product.prices, currency);
+
+    // const colorSize = product.attributes.map((attribute) => {
+    //   console.log(attribute.name);
+    //   attribute.items.map((item) => {
+    //     console.log(item.displayValue);
+    //   });
+    // });
+
+    // const photo = getImage(product.gallery);
 
     return (
       <div
@@ -136,12 +157,13 @@ class ProductPage extends React.Component<Props, State> {
         <img
           alt=""
           style={{
-            width: 500,
-            height: 460,
+            width: "500px",
+            height: "460px",
             border: "1px solid lightGray",
             marginLeft: 20,
           }}
           src={product.gallery[0]}
+          // src={photo}
         />
 
         <div
@@ -149,7 +171,7 @@ class ProductPage extends React.Component<Props, State> {
             marginLeft: 70,
             // backgroundColor: "yellow",
             flexDirection: "column",
-            justifyContent: "space-between",
+            // justifyContent: "space-between",
             display: "flex",
           }}
         >
@@ -158,11 +180,37 @@ class ProductPage extends React.Component<Props, State> {
             <big>{product.name}</big>
           </div>
 
-          <div>{}</div>
+          <div>
+            <div>
+              <p>SIZE:</p>
+            </div>
+            <div
+              style={{
+                justifyContent: "space-between",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              {product.attributes.map((attribute) => {
+                return (
+                  <div>
+                    {attribute.name}
+                    {attribute.items.map((item) => {
+                      return (
+                        <div>
+                          {item.displayValue} {item.colorProduct}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
           <div>
-            <p style={{}}>PRICE:</p>
-            <p style={{}}>
+            <p>PRICE:</p>
+            <p>
               {currencyLabel[price.currency]} {price.amount}
             </p>
             <button
@@ -170,13 +218,14 @@ class ProductPage extends React.Component<Props, State> {
               style={{
                 height: 52,
                 width: 292,
+                backgroundColor: "#5ECE7B",
               }}
             >
               {cartButtonTitle}
             </button>
           </div>
           <div style={{ width: 292 }}>
-            <p style={{ margin: 0 }}>{product.description}</p>
+            <p>{product.description}</p>
           </div>
         </div>
       </div>
@@ -189,9 +238,20 @@ const productQuery = gql`
     product(id: $id) {
       id
       name
-      brand
-      description
+      inStock
       gallery
+      description
+      category
+      brand
+      attributes {
+        id
+        name
+        type
+        items {
+          displayValue
+          id
+        }
+      }
       prices {
         currency
         amount

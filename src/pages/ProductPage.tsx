@@ -7,7 +7,7 @@ import { withParams } from "../utils";
 import { AppState } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
-import { colorProduct } from "../utils";
+import ProductAttributes, { Attribute } from "../components/ProductAttributes";
 
 export const getPrice = (
   prices: Price[],
@@ -27,17 +27,6 @@ type State = {
 type Price = {
   currency: AppState["currency"];
   amount: number; // price for 1 item
-};
-
-type Item = {
-  displayValue: string;
-  id: string;
-  colorProduct: string;
-};
-
-type Attribute = {
-  name: string;
-  items: Item[];
 };
 
 type Image = string;
@@ -68,6 +57,7 @@ type StoreProps = {
 type OwnProps = {
   params: { id: Product["id"] };
   data: ProductQueryResult;
+  // place: "PAGE" | "POPUP";
 };
 type Props = OwnProps & StoreProps;
 
@@ -110,15 +100,6 @@ class ProductPage extends React.Component<Props, State> {
 
     const price = getPrice(product.prices, currency);
 
-    // const colorSize = product.attributes.map((attribute) => {
-    //   console.log(attribute.name);
-    //   attribute.items.map((item) => {
-    //     console.log(item.displayValue);
-    //   });
-    // });
-
-    // const photo = getImage(product.gallery);
-
     return (
       <div
         style={{
@@ -132,7 +113,8 @@ class ProductPage extends React.Component<Props, State> {
         <div style={{ flexDirection: "column", display: "flex" }}>
           {product.gallery.map((image) => {
             return (
-              <button
+              <div
+                key={image}
                 style={{
                   backgroundColor: "transparent",
                   border: "1px solid transparent",
@@ -149,7 +131,7 @@ class ProductPage extends React.Component<Props, State> {
                     marginBottom: 30,
                   }}
                 />
-              </button>
+              </div>
             );
           })}
         </div>
@@ -171,7 +153,6 @@ class ProductPage extends React.Component<Props, State> {
             marginLeft: 70,
             // backgroundColor: "yellow",
             flexDirection: "column",
-            // justifyContent: "space-between",
             display: "flex",
           }}
         >
@@ -180,33 +161,7 @@ class ProductPage extends React.Component<Props, State> {
             <big>{product.name}</big>
           </div>
 
-          <div>
-            <div>
-              <p>SIZE:</p>
-            </div>
-            <div
-              style={{
-                justifyContent: "space-between",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              {product.attributes.map((attribute) => {
-                return (
-                  <div>
-                    {attribute.name}
-                    {attribute.items.map((item) => {
-                      return (
-                        <div>
-                          {item.displayValue} {item.colorProduct}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <ProductAttributes attributes={product.attributes} place="PAGE" />
 
           <div>
             <p>PRICE:</p>

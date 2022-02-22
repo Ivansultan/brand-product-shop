@@ -4,9 +4,9 @@ import { compose } from "recompose";
 import { AppState } from "../reducer";
 import { getPrice } from "../pages/ProductPage";
 import { withParams } from "../utils";
-import store from "../store";
 import { Link } from "react-router-dom";
 import { currencyLabel } from "../utils";
+import CartPage from "./CartPage";
 
 type Props = OwnProps & StoreProps;
 
@@ -17,6 +17,7 @@ type StoreProps = {
 type OwnProps = {
   params: { id: Product["id"] };
   data: CartQueryResult;
+  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
@@ -28,12 +29,26 @@ type Product = {
   name: string;
   description: string;
   prices: Price[];
+  attributes: Attribute[];
 };
 
 type Price = {
   currency: AppState["currency"];
   amount: number;
   quantity: number;
+};
+
+type Attribute = {
+  id: string;
+  name: string;
+  items: Item[];
+  type: string;
+};
+
+type Item = {
+  displayValue: string;
+  id: string;
+  colorProduct: string;
 };
 
 type State = {
@@ -48,19 +63,6 @@ class Cart extends React.Component<Props, State> {
       visibility: false,
     };
   }
-
-  incrementItem = (product: any) => {
-    store.dispatch({
-      type: "CART_INCREMENT_ITEM",
-      payload: { product },
-    });
-  };
-  decrementItem = (product: any) => {
-    store.dispatch({
-      type: "CART_DECREMENT_ITEM",
-      payload: { product },
-    });
-  };
 
   render() {
     const { currency } = this.props;
@@ -91,8 +93,7 @@ class Cart extends React.Component<Props, State> {
           />
         </button>
 
-        {/* <div>{itemsInCart >= 1 ? itemsInCart : {}}</div> */}
-        {itemsInCart}
+        {itemsInCart >= 1 ? itemsInCart : ""}
 
         {this.state.visibility ? (
           <div
@@ -107,49 +108,12 @@ class Cart extends React.Component<Props, State> {
               flexDirection: "column",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {this.props.cartItems.map((cartItem) => {
-                const price = getPrice(cartItem.prices, currency);
-                return (
-                  <div key={cartItem.id}>
-                    {cartItem.name}
-                    {currencyLabel[this.props.currency]}
-                    {price.amount}
+            <CartPage place="POPUP" />
 
-                    <div>
-                      <button
-                        style={{ cursor: "pointer" }}
-                        onClick={() => this.incrementItem(cartItem)}
-                      >
-                        +
-                      </button>
-                      {cartItem.quantity}
-                      <button
-                        style={
-                          cartItem.quantity > 1 ? { cursor: "pointer" } : {}
-                        }
-                        onClick={() => {
-                          if (cartItem.quantity > 1) {
-                            this.decrementItem(cartItem);
-                          }
-                        }}
-                      >
-                        -
-                      </button>
-                    </div>
-
-                    <img
-                      alt=""
-                      style={{ width: 50, height: 50 }}
-                      src={cartItem.gallery[0]}
-                    />
-                  </div>
-                );
-              })}
-            </div>
             <div>
               <p>My Bag, {itemsInCart} items</p>
             </div>
+
             <div
               style={{
                 display: "flex",
@@ -161,6 +125,7 @@ class Cart extends React.Component<Props, State> {
               <p>Total {total} </p>
               {currencyLabel[this.props.currency]}
             </div>
+
             <div
               style={{
                 display: "flex",

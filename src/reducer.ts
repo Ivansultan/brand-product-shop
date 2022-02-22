@@ -6,6 +6,8 @@ type CartProduct = Product & {
 
 type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
+export type place = "PAGE" | "POPUP";
+
 export type AppState = {
   cartItems: CartProduct[];
   currency: Currency;
@@ -32,8 +34,8 @@ type CurrencyPayload = {
 };
 
 type Action = {
-  type: ActionType;
-  payload: CartItemsPayload | CurrencyPayload;
+  type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
+  payload: CartItemsPayload | CurrencyPayload; // Необязательный параметр (тип ActionType, доп. инфа)
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {

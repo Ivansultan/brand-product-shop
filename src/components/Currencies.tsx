@@ -73,7 +73,7 @@ class Currencies extends React.Component<Props, State> {
           >
             <div>
               {currencies.map((currency) => (
-                <ul>
+                <ul key={currency}>
                   <button
                     style={
                       currency === this.props.currency

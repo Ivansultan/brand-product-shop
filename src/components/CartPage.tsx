@@ -6,6 +6,7 @@ import { getPrice } from "../pages/ProductPage";
 import { withParams } from "../utils";
 import store from "../store";
 import { currencyLabel } from "../utils";
+import ProductAttributes from "../components/ProductAttributes";
 
 type Props = OwnProps & StoreProps;
 
@@ -16,6 +17,7 @@ type StoreProps = {
 type OwnProps = {
   params: { id: Product["id"] };
   data: CartQueryResult;
+  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
@@ -71,6 +73,13 @@ class CartPage extends React.Component<Props, State> {
                 {price.amount}
 
                 <div>
+                  <ProductAttributes
+                    attributes={cartItem.attributes}
+                    place="POPUP"
+                  />
+                </div>
+
+                <div>
                   <button
                     style={{ cursor: "pointer" }}
                     onClick={() => this.incrementItem(cartItem)}
@@ -114,4 +123,4 @@ const mapStateToProps = (state: AppState): StoreProps => {
 export default compose(
   withParams,
   connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(CartPage as any);
+)(CartPage as any) as any;

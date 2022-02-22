@@ -21,6 +21,40 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
+    // const first = {
+    //   a: {
+    //     one: 1,
+    //     two: 1,
+    //     three: 1,
+    //     four: 1,
+    //     five: 1,
+    //   },
+    //   b: 2,
+    //   c: 3,
+    //   d: {
+    //     name: "Ivan",
+    //     surname: "Soltynchuk",
+    //     age: 39
+    //   }
+    // };
+
+    // const {a, b, ...rest} = first;
+
+    // const result = {
+    //    ...first,
+    //    c: 7
+    // }
+
+    // const { a, ...other } = first;
+
+    // const other = {
+    //   ...first,
+    //   a: {
+    //     ...first.a,
+    //     one: 2,
+    //   },
+    // };
+
     return (
       <div className="App">
         <Provider store={store}>

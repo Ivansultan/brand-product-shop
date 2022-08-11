@@ -2,11 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { AppState } from "../reducer";
-import { getPrice } from "../pages/ProductPage";
 import { withParams } from "../utils";
-import store from "../store";
-import { currencyLabel } from "../utils";
-import ProductAttributes from "../components/ProductAttributes";
+import Cart from "./Cart";
 
 type Props = OwnProps & StoreProps;
 
@@ -17,7 +14,6 @@ type StoreProps = {
 type OwnProps = {
   params: { id: Product["id"] };
   data: CartQueryResult;
-  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
@@ -46,68 +42,10 @@ class CartPage extends React.Component<Props, State> {
     this.state = {};
   }
 
-  incrementItem = (product: any) => {
-    store.dispatch({
-      type: "CART_INCREMENT_ITEM",
-      payload: { product },
-    });
-  };
-  decrementItem = (product: any) => {
-    store.dispatch({
-      type: "CART_DECREMENT_ITEM",
-      payload: { product },
-    });
-  };
-
   render() {
-    const { currency } = this.props;
     return (
       <div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {this.props.cartItems.map((cartItem) => {
-            const price = getPrice(cartItem.prices, currency);
-            return (
-              <div key={cartItem.id}>
-                {cartItem.name}
-                {currencyLabel[this.props.currency]}
-                {price.amount}
-
-                <div>
-                  <ProductAttributes
-                    attributes={cartItem.attributes}
-                    place="POPUP"
-                  />
-                </div>
-
-                <div>
-                  <button
-                    style={{ cursor: "pointer" }}
-                    onClick={() => this.incrementItem(cartItem)}
-                  >
-                    +
-                  </button>
-                  {cartItem.quantity}
-                  <button
-                    style={cartItem.quantity > 1 ? { cursor: "pointer" } : {}}
-                    onClick={() => {
-                      if (cartItem.quantity > 1) {
-                        this.decrementItem(cartItem);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                </div>
-
-                <img
-                  alt=""
-                  style={{ width: 50, height: 50 }}
-                  src={cartItem.gallery[0]}
-                />
-              </div>
-            );
-          })}
-        </div>
+        <Cart place="PAGE" />
       </div>
     );
   }

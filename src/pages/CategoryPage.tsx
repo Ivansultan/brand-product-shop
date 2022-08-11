@@ -73,15 +73,30 @@ class CategoryPage extends React.Component<Props, State> {
     }
 
     return (
-      <div style={{ marginTop: "40px", marginBottom: "100px" }}>
-        <h1 style={{ paddingLeft: "100px", margin: 0 }}>Category name</h1>
+      <div
+        style={{
+          marginLeft: "100px",
+          marginRight: "102px",
+          // backgroundColor: "red",
+        }}
+      >
+        <h2
+          style={{
+            paddingLeft: "1px",
+            margin: 0,
+            paddingTop: "80px",
+            fontSize: "42px",
+            fontWeight: 400,
+          }}
+        >
+          Category name
+        </h2>
         <div
           style={{
-            marginTop: "80px",
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: "space-between",
             flexWrap: "wrap",
+            // backgroundColor: "green",
           }}
         >
           {category.products.map((product) => {
@@ -89,42 +104,151 @@ class CategoryPage extends React.Component<Props, State> {
               .map((item) => item.id)
               .includes(product.id);
             const itemIcon = inItem ? (
-              <img
+              <div
                 style={{
-                  width: 24,
-                  height: 16,
+                  position: "relative",
+                  float: "left",
+                  marginTop: "-26px",
+                  marginLeft: "290px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "52px",
+                  height: "52px",
+                  backgroundColor: "#5ECE7B",
+                  borderRadius: "26px",
                 }}
-                src="https://w7.pngwing.com/pngs/225/984/png-transparent-computer-icons-shopping-cart-encapsulated-postscript-shopping-cart-angle-black-shopping.png"
-                alt="IconCart"
-              />
+              >
+                <div
+                  style={{
+                    marginLeft: "2px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      top: "4px",
+                      marginRight: "25px",
+                      backgroundColor: "#5ECE7B",
+                      border: "solid #FFFFFF",
+                      borderWidth: "0 2px 2px 0",
+                      display: "inline-block",
+                      padding: "2px",
+                      transform: "rotate(-105deg)",
+                      borderRadius: "1.5px",
+                    }}
+                  ></div>
+
+                  <div
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      backgroundColor: "#5ECE7B",
+                      borderTop: "1.5px solid #FFFFFF",
+                      borderBottom: "3.5px solid #FFFFFF",
+                      borderLeft: "2px solid #FFFFFF",
+                      borderRight: "2px solid #FFFFFF",
+                      margin: "auto",
+                      transform: "perspective(30px) rotateX(-45deg)",
+                      borderRadius: "3px",
+                    }}
+                  ></div>
+
+                  <div
+                    style={{
+                      position: "relative",
+                      bottom: "3px",
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "60%",
+                      justifyContent: "space-around",
+                      // backgroundColor: "red",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "2px",
+                        height: "2px",
+                        backgroundColor: "#5ECE7B",
+                        borderRadius: "3px",
+                        border: "2px solid #FFFFFF",
+                      }}
+                    ></div>
+
+                    <div
+                      style={{
+                        width: "2px",
+                        height: "2px",
+                        backgroundColor: "#5ECE7B",
+                        borderRadius: "3px",
+                        border: "2px solid #FFFFFF",
+                      }}
+                    ></div>
+                  </div>
+                </div>
+                {/* <img
+                  style={{
+                    width: 16,
+                    height: 16,
+                  }}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH6xTvUOEaGNvhxL2HaGfdzcwafH1bVCHzWQ&amp;usqp=CAU"
+                  alt="IconCart"
+                /> */}
+              </div>
             ) : (
               ""
             );
             const price = getPrice(product.prices, currency);
             return (
-              <Link key={product.id} to={`/product/${product.id}`}>
+              <Link
+                style={{ textDecoration: "none" }}
+                key={product.id}
+                to={`/product/${product.id}`}
+              >
                 <div
                   key={product.id}
                   style={{
-                    // border: "1px solid black",
-                    padding: "16px",
-                    backgroundColor: "#f0f5f5",
-                    margin: 15,
+                    marginTop: "103px",
                   }}
                 >
-                  <img
+                  <div
                     style={{
-                      width: "315px",
-                      height: "315px",
+                      border: "1px solid lightGray",
                     }}
-                    alt=""
-                    src={product.gallery[0]}
-                  />
+                  >
+                    <img
+                      style={{
+                        width: "356px",
+                        height: "338px",
+                      }}
+                      alt=""
+                      src={product.gallery[0]}
+                    />
+                  </div>
                   {itemIcon}
-                  <div style={{ lineHeight: "28.8px", color: "black" }}>
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 300,
+                      lineHeight: "160%",
+                      color: "#1D1F22",
+                      marginTop: "24px",
+                    }}
+                  >
                     {product.brand} {product.name}
                   </div>
-                  <div style={{ color: "black" }}>
+                  <div
+                    style={{
+                      color: "#1D1F22",
+                      fontSize: "18px",
+                      fontWeight: 500,
+                      lineHeight: "160%",
+                    }}
+                  >
                     {currencyLabel[this.props.currency]} {price.amount}
                   </div>
                 </div>

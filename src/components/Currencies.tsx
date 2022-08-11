@@ -40,25 +40,63 @@ class Currencies extends React.Component<Props, State> {
   };
 
   render() {
-    const { loading, currencies } = this.props.data;
-    if (loading) {
-      return <div>Loading...</div>;
-    }
+    const { currencies } = this.props.data;
+    // if (loading) {
+    //   return <div>Loading...</div>;
+    // }
     return (
-      <div>
-        {currencyLabel[this.props.currency]}
-        <button
-          style={{ border: "transparent" }}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "28px",
+            width: "12px",
+            height: "29px",
+            // backgroundColor: "red",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {currencyLabel[this.props.currency]}
+        </div>
+        <div
           onClick={() => {
             this.setState({ visibility: !this.state.visibility });
           }}
         >
-          <img
-            style={{ width: 10, height: 8, backgroundColor: "white" }}
-            src="https://www.vhv.rs/dpng/d/172-1725836_drop-down-arrow-images-dropdown-icon-png-transparent.png"
-            alt="DropdownIcon"
-          />
-        </button>
+          {this.state.visibility ? (
+            <div
+              style={{
+                marginTop: "44px",
+                marginLeft: "10px",
+                backgroundColor: "white",
+                border: "solid black",
+                borderWidth: "0 1px 1px 0",
+                display: "inline-block",
+                padding: "2.5px",
+                transform: "rotate(-135deg)",
+              }}
+            ></div>
+          ) : (
+            <div
+              style={{
+                marginTop: "44px",
+                marginLeft: "10px",
+                backgroundColor: "white",
+                border: "solid black",
+                borderWidth: "0 1px 1px 0",
+                display: "inline-block",
+                padding: "2.5px",
+                transform: "rotate(45deg)",
+              }}
+            ></div>
+          )}
+        </div>
         {this.state.visibility ? (
           <div
             style={{
@@ -74,10 +112,10 @@ class Currencies extends React.Component<Props, State> {
             <div>
               {currencies.map((currency) => (
                 <ul key={currency}>
-                  <button
+                  <div
                     style={
                       currency === this.props.currency
-                        ? { background: "yellow" }
+                        ? { background: "#EEEEEE" }
                         : {}
                     }
                     key={currency}
@@ -88,7 +126,7 @@ class Currencies extends React.Component<Props, State> {
                   >
                     {currencyLabel[currency]}
                     {currency}
-                  </button>
+                  </div>
                 </ul>
               ))}
             </div>

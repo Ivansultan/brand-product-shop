@@ -2,11 +2,10 @@ import { Product } from "./pages/ProductPage";
 
 type CartProduct = Product & {
   quantity: number;
+  isSelected?: boolean; // Необязательный параметр
 };
 
 type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
-
-export type place = "PAGE" | "POPUP";
 
 export type AppState = {
   cartItems: CartProduct[];
@@ -24,6 +23,7 @@ type ActionType =
   | "SET_CURRENCY"
   | "CART_INCREMENT_ITEM"
   | "CART_DECREMENT_ITEM";
+// | "SET_ATTRIBUTE";
 
 type CartItemsPayload = {
   product: Product;
@@ -76,6 +76,17 @@ const rootReducer = (state = initialState, action: Action): AppState => {
             : item
         ),
       };
+    // case "SET_ATTRIBUTE":
+    //   return {
+    //     ...state,
+    //     cartItems: state.cartItems.map((cartItem) => {
+    //       return cartItem.attributes.map((attribute) => {
+    //         return attribute.items.map((item) => {
+    //           return item;
+    //         });
+    //       });
+    //     }),
+    //   };
     case "SET_CURRENCY":
       const newState = {
         ...state,

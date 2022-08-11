@@ -21,44 +21,72 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    // const first = {
-    //   a: {
-    //     one: 1,
-    //     two: 1,
-    //     three: 1,
-    //     four: 1,
-    //     five: 1,
-    //   },
-    //   b: 2,
-    //   c: 3,
-    //   d: {
-    //     name: "Ivan",
-    //     surname: "Soltynchuk",
-    //     age: 39
-    //   }
+    // const attributesValue = {
+    //   attributes: [
+    //     {
+    //       id: "Color",
+    //       name: "Color",
+    //       type: "swatch",
+    //       items: [
+    //         {
+    //           displayValue: "Green",
+    //           id: "Green",
+    //         },
+    //         {
+    //           displayValue: "Cyan",
+    //           id: "Cyan",
+    //         },
+    //         {
+    //           displayValue: "Blue",
+    //           id: "Blue",
+    //         },
+    //         {
+    //           displayValue: "Black",
+    //           id: "Black",
+    //         },
+    //         {
+    //           displayValue: "White",
+    //           id: "White",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       id: "Capacity",
+    //       name: "Capacity",
+    //       type: "text",
+    //       items: [
+    //         {
+    //           displayValue: "512G",
+    //           id: "512G",
+    //         },
+    //         {
+    //           displayValue: "1T",
+    //           id: "1T",
+    //           isSelected: true,
+    //         },
+    //       ],
+    //     },
+    //   ],
     // };
 
-    // const {a, b, ...rest} = first;
-
-    // const result = {
-    //    ...first,
-    //    c: 7
-    // }
-
-    // const { a, ...other } = first;
-
-    // const other = {
-    //   ...first,
-    //   a: {
-    //     ...first.a,
-    //     one: 2,
-    //   },
-    // };
-
+    // const selectedAttributeItems = ["234324:512G", "White"]
     return (
       <div className="App">
         <Provider store={store}>
           <ApolloProvider client={client}>
+            {/* {attributesValue.attributes.map((attribute) => {
+              return attribute.items.map((item) => {
+                return (
+                  <div
+                    style={{
+                      background: item.isSelected ? "red" : "white",
+                    }}
+                  >
+                    {item.id}
+                  </div>
+                );
+              });
+            })} */}
             {/* https://github.com/remix-run/react-router/issues/8146#issuecomment-947860640 */}
             <BrowserRouter>
               <Header />

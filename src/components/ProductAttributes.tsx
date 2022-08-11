@@ -11,6 +11,7 @@ export type OwnProps = {
 export type AttributeItem = {
   displayValue: string;
   id: string;
+  isSelected?: boolean;
 };
 
 export type Attribute = {
@@ -29,7 +30,6 @@ class ProductAttributes extends React.Component<Props, State> {
 
   render() {
     const { attributes, place } = this.props;
-    console.log(place);
     return (
       <div>
         {attributes.map((attribute) => {
@@ -56,7 +56,7 @@ class ProductAttributes extends React.Component<Props, State> {
                             border: "1px solid lightGray",
                           }}
                         >
-                          <ul></ul>
+                          <ul key={item.id}></ul>
                         </div>
                       );
                     }
@@ -71,7 +71,7 @@ class ProductAttributes extends React.Component<Props, State> {
                             border: "1px solid lightGray",
                           }}
                         >
-                          <ul></ul>
+                          <ul key={item.id}></ul>
                         </div>
                       );
                     } else {

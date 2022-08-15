@@ -1,8 +1,30 @@
+import { gql } from "@apollo/client";
+import { graphql } from "@apollo/client/react/hoc/graphql";
 import React from "react";
+import { Link } from "react-router-dom";
+import { compose } from "recompose";
+import { Category } from "../pages/CategoryPage";
+import { AppState } from "../reducer";
 import CartPopup from "./CartPopup";
 import Currencies from "./Currencies";
+import styles from "./Header.module.css"; // Import css modules stylesheet as styles
 
-type Props = {};
+type CategoriesQueryResult = {
+  loading: boolean;
+  categories: Category[];
+};
+
+type OwnProps = {
+  data: CategoriesQueryResult;
+  categoryName: Category["name"];
+};
+
+type StoreProps = {
+  cartItems: AppState["cartItems"];
+  currency: AppState["currency"];
+};
+type Props = OwnProps & StoreProps;
+
 type State = {};
 
 export type Currency = "USD" | "EUR";
@@ -10,7 +32,6 @@ export type Currency = "USD" | "EUR";
 class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {};
   }
 
@@ -18,7 +39,7 @@ class Header extends React.Component<Props, State> {
     return (
       <div
         style={{
-          backgroundColor: "#FFFFFF;",
+          backgroundColor: "#FFFFFF",
           // backgroundColor: "yellow",
           paddingRight: "101px",
           height: "80px",
@@ -26,25 +47,18 @@ class Header extends React.Component<Props, State> {
           justifyContent: "space-between",
         }}
       >
-        <div
-          style={{
-            // backgroundColor: "red",
-            marginLeft: "117px",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <div
-            style={{
-              // backgroundColor: "blue",
-              lineHeight: "19.2px",
-              fontSize: "16px",
-              marginTop: "28px",
-            }}
-          >
-            ALL
+        <div className={styles["category-links"]}>
+          <div className={styles["category-item"]}>
+            <Link to="/">ALL</Link>
           </div>
-          <div
+
+          {!this.props.data.loading &&
+            this.props.data.categories.map((category) => (
+              <div key={category.name} className={styles["category-item"]}>
+                <Link to={`/category/${category.name}`}>{category.name}</Link>
+              </div>
+            ))}
+          {/*           <div
             style={{
               // backgroundColor: "gray",
               lineHeight: "19.2px",
@@ -63,7 +77,7 @@ class Header extends React.Component<Props, State> {
             }}
           >
             CLOTHES
-          </div>
+          </div> */}
         </div>
 
         <div
@@ -128,4 +142,14 @@ class Header extends React.Component<Props, State> {
   }
 }
 
-export default Header;
+const currencyQuery = gql`
+  query {
+    categories {
+      name
+    }
+  }
+`;
+
+export default compose(graphql(currencyQuery as any) as any)(
+  Header as any
+) as any;

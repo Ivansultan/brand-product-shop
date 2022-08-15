@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { graphql } from "@apollo/client/react/hoc/graphql";
 import React from "react";
 import { compose } from "recompose";
-import store from "../store";
+import { store } from "../store";
 import { withParams } from "../utils";
 import { AppState } from "../reducer";
 import { connect } from "react-redux";

@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "@apollo/client/react/hoc";
 import gql from "graphql-tag";
-import store from "../store";
+import { store } from "../store";
 import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";

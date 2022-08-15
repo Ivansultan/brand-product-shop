@@ -157,7 +157,7 @@ class CartPopup extends React.Component<Props, State> {
                 flexDirection: "row",
               }}
             >
-              <Link to={`/cartPage`}>
+              <Link to={`/cart`}>
                 <button>VIEW BAG</button>
               </Link>
               <Link to={`/`}>

@@ -1,6 +1,6 @@
 import React from "react";
 import { AppState } from "../reducer";
-import store from "../store";
+import { store } from "../store";
 import { getPrice } from "../pages/ProductPage";
 import { currencyLabel } from "../utils";
 import { compose } from "recompose";

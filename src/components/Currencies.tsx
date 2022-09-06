@@ -101,35 +101,59 @@ class Currencies extends React.Component<Props, State> {
           <div
             style={{
               position: "absolute",
-              top: 50,
-              right: 110,
-              width: 120,
-              height: 190,
-              border: "1px solid red",
+              top: 60,
+              right: 90,
+              width: 114,
+              height: 220,
+              border: "0.1px solid lightgray",
               display: "flex", // to hide use "none"
+              flexDirection: "column",
+              backgroundColor: "white",
             }}
           >
-            <div>
-              {currencies.map((currency) => (
-                <ul key={currency}>
+            {currencies.map((currency) => (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
+                key={currency}
+              >
+                <div
+                  style={
+                    currency === this.props.currency
+                      ? {
+                          background: "#EEEEEE",
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }
+                      : { cursor: "pointer" }
+                  }
+                  key={currency}
+                  onClick={() => {
+                    currency !== this.props.currency &&
+                      this.changeCurrency(currency);
+                  }}
+                >
                   <div
-                    style={
-                      currency === this.props.currency
-                        ? { background: "#EEEEEE" }
-                        : {}
-                    }
-                    key={currency}
-                    onClick={() => {
-                      currency !== this.props.currency &&
-                        this.changeCurrency(currency);
+                    style={{
+                      display: "flex",
                     }}
                   >
-                    {currencyLabel[currency]}
-                    {currency}
+                    <div style={{ marginRight: "2px" }}>
+                      {currencyLabel[currency]}
+                    </div>
+
+                    <div style={{ marginLeft: "2px" }}>{currency}</div>
                   </div>
-                </ul>
-              ))}
-            </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div

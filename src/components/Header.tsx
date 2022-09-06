@@ -40,7 +40,6 @@ class Header extends React.Component<Props, State> {
       <div
         style={{
           backgroundColor: "#FFFFFF",
-          // backgroundColor: "yellow",
           paddingRight: "101px",
           height: "80px",
           display: "flex",
@@ -58,26 +57,6 @@ class Header extends React.Component<Props, State> {
                 <Link to={`/category/${category.name}`}>{category.name}</Link>
               </div>
             ))}
-          {/*           <div
-            style={{
-              // backgroundColor: "gray",
-              lineHeight: "19.2px",
-              fontSize: "16px",
-              marginLeft: "32px",
-              marginTop: "28px",
-            }}
-          >
-            TECH
-          </div>
-          <div
-            style={{
-              // backgroundColor: "orange",
-              marginLeft: "32px",
-              marginTop: "28px",
-            }}
-          >
-            CLOTHES
-          </div> */}
         </div>
 
         <div
@@ -103,13 +82,16 @@ class Header extends React.Component<Props, State> {
                 width: "9px",
                 height: "6px",
                 borderRadius: "0 0 100px 100px",
-                borderBottom: "1.5px solid #FFFFFF",
-                borderLeft: "1.5px solid #FFFFFF",
-                borderRight: "1.5px solid #FFFFFF",
+                borderBottom: "1px solid #FFFFFF",
+                borderLeft: "1px solid #FFFFFF",
+                borderRight: "1px solid #FFFFFF",
               }}
             >
               <div
                 style={{
+                  position: "relative",
+                  bottom: "2px",
+                  left: "0.2px",
                   marginBottom: "20px",
                   marginLeft: "7.25px",
                   border: "1px solid #FFFFFF",

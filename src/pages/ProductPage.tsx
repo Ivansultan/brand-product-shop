@@ -103,11 +103,12 @@ class ProductPage extends React.Component<Props, State> {
     return (
       <div
         style={{
-          paddingLeft: "100px",
-          paddingRight: "100px",
+          marginLeft: "97px",
+          marginRight: "219px",
           marginTop: "73px",
           flexDirection: "row",
           display: "flex",
+          // backgroundColor: "yellow",
         }}
       >
         <div style={{ flexDirection: "column", display: "flex" }}>
@@ -125,10 +126,10 @@ class ProductPage extends React.Component<Props, State> {
                   src={image}
                   alt=""
                   style={{
-                    width: 97,
-                    height: 87,
-                    // border: "1px solid lightGray",
-                    marginBottom: 30,
+                    maxWidth: 79,
+                    height: 80,
+                    border: "1px solid lightGray",
+                    marginBottom: 32,
                   }}
                 />
               </div>
@@ -139,10 +140,10 @@ class ProductPage extends React.Component<Props, State> {
         <img
           alt=""
           style={{
-            width: "500px",
-            height: "460px",
+            maxWidth: "610px",
+            height: "511px",
             border: "1px solid lightGray",
-            marginLeft: 20,
+            marginLeft: "35px",
           }}
           src={product.gallery[0]}
           // src={photo}
@@ -150,38 +151,74 @@ class ProductPage extends React.Component<Props, State> {
 
         <div
           style={{
-            marginLeft: 70,
-            // backgroundColor: "yellow",
+            marginLeft: 100,
             flexDirection: "column",
             display: "flex",
+            // backgroundColor: "gray",
           }}
         >
           <div>
-            <h3 style={{ margin: 0, lineHeight: "27px" }}>{product.brand}</h3>
-            <big>{product.name}</big>
+            <div
+              style={{
+                // margin: 0,
+                lineHeight: "27px",
+                fontSize: "30px",
+                fontWeight: 600,
+              }}
+            >
+              {product.brand}
+            </div>
+            <div
+              style={{ marginTop: "16px", fontSize: "30px", fontWeight: 400 }}
+            >
+              {product.name}
+            </div>
           </div>
 
           <ProductAttributes attributes={product.attributes} place="PAGE" />
 
           <div>
-            <p>PRICE:</p>
-            <p>
-              {currencyLabel[price.currency]} {price.amount}
-            </p>
-            <button
+            <div
+              style={{
+                marginTop: "36px",
+                fontSize: "18px",
+                fontWeight: 700,
+                lineHeight: "18px",
+              }}
+            >
+              PRICE:
+            </div>
+            <div
+              style={{
+                fontSize: "24px",
+                fontWeight: 700,
+                lineHeight: "18px",
+                marginTop: "10px",
+              }}
+            >
+              {currencyLabel[price.currency]}
+              {price.amount}
+            </div>
+            <div
               onClick={cartButtonCallback}
               style={{
-                height: 52,
-                width: 292,
+                cursor: "pointer",
+                marginTop: "20px",
+                height: "52px",
+                width: "292px",
                 backgroundColor: "#5ECE7B",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               {cartButtonTitle}
-            </button>
+            </div>
           </div>
-          <div style={{ width: 292 }}>
-            <p>{product.description}</p>
-          </div>
+          <div
+            style={{ width: "292px", marginTop: "40px" }}
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          ></div>
         </div>
       </div>
     );
@@ -203,8 +240,8 @@ const productQuery = gql`
         name
         type
         items {
-          displayValue
           id
+          displayValue
         }
       }
       prices {

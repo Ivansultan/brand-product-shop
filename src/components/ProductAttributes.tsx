@@ -31,42 +31,125 @@ class ProductAttributes extends React.Component<Props, State> {
   render() {
     const { attributes, place } = this.props;
     return (
-      <div>
+      <>
         {attributes.map((attribute) => {
-          if (attribute.name === "Color") {
+          if (attribute.name === "Capacity" && place === "POPUP") {
             return (
-              <div key={attribute.name}>
+              <div>
+                <div
+                  style={{
+                    marginTop: "8px",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "16px",
+                  }}
+                >
+                  {attribute.name}
+                </div>
+                <div style={{ flexDirection: "row", display: "flex" }}>
+                  {attribute.items.map((item) => {
+                    if (attribute.id === "Capacity" && place === "POPUP") {
+                      return (
+                        <div style={{}} key={item.id}>
+                          <div
+                            style={{
+                              backgroundColor: "white",
+                              marginTop: "8px",
+                              marginRight: "8px",
+                              width: 24,
+                              height: 24,
+                              fontSize: "10px",
+                              fontWeight: 400,
+                              lineHeight: "22.4px",
+                              border: "1px solid lightGray",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            {item.id}
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return <div></div>;
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          }
+
+          if (attribute.name === "Capacity" && place === "PAGE") {
+            return (
+              <div>
+                <div
+                  style={{
+                    marginTop: "20px",
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    lineHeight: "18px",
+                  }}
+                >
+                  {attribute.name}
+                </div>
+                <div style={{ flexDirection: "row", display: "flex" }}>
+                  {attribute.items.map((item) => {
+                    if (attribute.id === "Capacity" && place === "PAGE") {
+                      return (
+                        <div style={{}} key={item.id}>
+                          <div
+                            style={{
+                              marginTop: "7px",
+                              marginRight: "8px",
+                              width: 63,
+                              height: 45,
+                              fontSize: "16px",
+                              fontWeight: 400,
+                              border: "1px solid lightGray",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            {item.id}
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return <div></div>;
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          }
+
+          if (attribute.name === "Color" && place === "POPUP") {
+            return (
+              <div
+                style={{
+                  marginTop: "8px",
+                }}
+                key={attribute.name}
+              >
                 {attribute.name}
                 <div
                   style={{
                     flexDirection: "row",
                     display: "flex",
-                    justifyContent: "space-between",
                   }}
                 >
                   {attribute.items.map((item) => {
-                    if (attribute.id === "Color" && place === "PAGE") {
-                      return (
-                        <div
-                          key={item.id}
-                          style={{
-                            width: 50,
-                            height: 45,
-                            backgroundColor: item.id.toLowerCase(),
-                            border: "1px solid lightGray",
-                          }}
-                        >
-                          <ul key={item.id}></ul>
-                        </div>
-                      );
-                    }
                     if (attribute.id === "Color" && place === "POPUP") {
                       return (
                         <div
                           key={item.id}
                           style={{
-                            width: 20,
-                            height: 15,
+                            marginRight: "8px",
+                            marginTop: "10px",
+                            width: 16,
+                            height: 16,
                             backgroundColor: item.id.toLowerCase(),
                             border: "1px solid lightGray",
                           }}
@@ -82,18 +165,75 @@ class ProductAttributes extends React.Component<Props, State> {
               </div>
             );
           }
-          if (attribute.name === "Capacity") {
+
+          if (attribute.name === "Color" && place === "PAGE") {
             return (
-              <div>
+              <div
+                style={{
+                  marginTop: "16px",
+                  fontSize: "18px",
+                  fontWeight: 700,
+                  lineHeight: "18px",
+                  backgroundColor: "white",
+                }}
+                key={attribute.name}
+              >
                 {attribute.name}
+                <div
+                  style={{
+                    flexDirection: "row",
+                    display: "flex",
+                  }}
+                >
+                  {attribute.items.map((item) => {
+                    if (attribute.id === "Color" && place === "PAGE") {
+                      return (
+                        <div
+                          key={item.id}
+                          style={{
+                            marginRight: "8px",
+                            marginTop: "8px",
+                            width: 32,
+                            height: 32,
+                            backgroundColor: item.id.toLowerCase(),
+                            border: "1px solid lightGray",
+                          }}
+                        >
+                          <ul key={item.id}></ul>
+                        </div>
+                      );
+                    } else {
+                      return <div></div>;
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          }
+
+          if (attribute.name === "Size" && place === "PAGE") {
+            return (
+              <div style={{ marginTop: "20px" }}>
+                <div
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    lineHeight: "18px",
+                    color: "#1D1F22",
+                  }}
+                >
+                  {attribute.name}
+                </div>
                 <div style={{ flexDirection: "row", display: "flex" }}>
                   {attribute.items.map((item) => {
-                    if (attribute.id === "Capacity") {
+                    if (attribute.id === "Size" && place === "PAGE") {
                       return (
                         <div key={item.id}>
                           <div
                             style={{
-                              width: 50,
+                              marginTop: "8px",
+                              marginRight: "8px",
+                              width: 63,
                               height: 45,
                               border: "1px solid lightGray",
                               justifyContent: "center",
@@ -101,9 +241,42 @@ class ProductAttributes extends React.Component<Props, State> {
                               display: "flex",
                             }}
                           >
-                            {/* <ul> */}
                             {item.id}
-                            {/* </ul> */}
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return <div></div>;
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          }
+
+          if (attribute.name === "Size" && place === "POPUP") {
+            return (
+              <div style={{ marginTop: "8px" }}>
+                {attribute.name}
+                <div style={{ flexDirection: "row", display: "flex" }}>
+                  {attribute.items.map((item) => {
+                    if (attribute.id === "Size" && place === "POPUP") {
+                      return (
+                        <div key={item.id}>
+                          <div
+                            style={{
+                              marginTop: "8px",
+                              marginRight: "8px",
+                              width: 24,
+                              height: 24,
+                              fontSize: "10px",
+                              border: "1px solid lightGray",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            {item.id}
                           </div>
                         </div>
                       );
@@ -118,7 +291,7 @@ class ProductAttributes extends React.Component<Props, State> {
             return <div></div>;
           }
         })}
-      </div>
+      </>
     );
   }
 }

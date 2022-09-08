@@ -1,3 +1,123 @@
-.category-header {
-  text-transform: capitalize;
+.categoryPage {
+  padding-bottom: 191px;
+}
+
+.categories {
+  margin-left: 100px;
+  margin-right: 102px;
+}
+
+.categoryName {
+  padding-left: 1px;
+  margin: 0;
+  padding-top: 80px;
+  font-size: 42px;
+  font-weight: 400;
+}
+
+.categorySection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.cartIconSection {
+  position: relative;
+  float: left;
+  margin-top: -26px;
+  margin-left: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background-color: #5ECE7B;
+  border-radius: 26px;
+}
+
+.cartIconBlock {
+  margin-left: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.vector {
+  position: relative;
+  top: 4px;
+  margin-right: 25px;
+  background-color: #5ECE7B;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+  transform: rotate(-105deg);
+  border-radius: 1.5px;
+}
+
+.trapezoid {
+  width: 14px;
+  height: 14px;
+  background-color: #5ECE7B;
+  border-top: 1.5px solid #FFFFFF;
+  border-bottom: 3.5px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #FFFFFF;
+  margin: auto;
+  transform: perspective(30px) rotateX(-45deg);
+  border-radius: 3px;
+}
+
+.circleSection {
+  position: relative;
+  bottom: 3px;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.circle {
+  width: 2px;
+  height: 2px;
+  background-color: #5ECE7B;
+  border-radius: 3px;
+  border: 2px solid #FFFFFF;
+}
+
+.categoryProduct {
+  text-decoration: none;
+  margin-top: 103px;
+}
+
+.productImageSection {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border: 1px solid lightGray;
+  width: 354px;
+  height: 330px;
+}
+
+.productImage {
+  max-width: 354px;
+  max-height: 330px;
+}
+
+.productBrandName {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 160%;
+  color: #1D1F22;
+  margin-top: 24px;
+}
+
+.productCurrencyAmount {
+  cursor: pointer;
+  color: #1D1F22;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 160%;
 }

@@ -74,13 +74,15 @@ class CategoryPage extends React.Component<Props, State> {
 
     return (
       <>
-        <div className={styles.categoryPage}>
+        <div className={styles["category-page"]}>
           {categories
             .filter((category) => !params.name || category.name === params.name)
             .map((category) => (
-              <div className={styles.categories} key={category.name}>
-                <div className={styles.categoryName}>{category.name}</div>
-                <div className={styles.categorySection}>
+              <div className={styles["category"]} key={category.name}>
+                <div className={styles["category-name"]}>
+                  {category.name[0].toUpperCase() + category.name.slice(1)}
+                </div>
+                <div className={styles["category-section"]}>
                   {category.products.map((product) => {
                     const inItem = this.props.cartItems
                       .map((item) => item.id)
@@ -88,13 +90,13 @@ class CategoryPage extends React.Component<Props, State> {
 
                     const itemIcon = inItem ? (
                       <>
-                        <div className={styles.cartIconSection}>
-                          <div className={styles.cartIconBlock}>
-                            <div className={styles.vector}></div>
-                            <div className={styles.trapezoid}></div>
-                            <div className={styles.circleSection}>
-                              <div className={styles.circle}></div>
-                              <div className={styles.circle}></div>
+                        <div className={styles["cart-icon-section"]}>
+                          <div className={styles["cart-icon-block"]}>
+                            <div className={styles["vector"]}></div>
+                            <div className={styles["trapezoid"]}></div>
+                            <div className={styles["circle-section"]}>
+                              <div className={styles["circle"]}></div>
+                              <div className={styles["circle"]}></div>
                             </div>
                           </div>
                         </div>
@@ -105,14 +107,14 @@ class CategoryPage extends React.Component<Props, State> {
                     const price = getPrice(product.prices, currency);
                     return (
                       <Link
-                        className={styles.categoryProduct}
+                        className={styles["category-product"]}
                         key={product.id}
                         to={`/product/${product.id}`}
                       >
                         <div key={product.id}>
-                          <div className={styles.productImageSection}>
+                          <div className={styles["product-image-section"]}>
                             <img
-                              className={styles.productImage}
+                              className={styles["product-image"]}
                               alt=""
                               src={product.gallery[0]}
                             />
@@ -120,10 +122,10 @@ class CategoryPage extends React.Component<Props, State> {
 
                           {itemIcon}
                           {/* {categoryBorder} */}
-                          <div className={styles.productBrandName}>
+                          <div className={styles["product-brand-name"]}>
                             {product.brand} {product.name}
                           </div>
-                          <div className={styles.productCurrencyAmount}>
+                          <div className={styles["product-currency-amount"]}>
                             {currencyLabel[this.props.currency]} {price.amount}
                           </div>
                         </div>

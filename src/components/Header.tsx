@@ -37,15 +37,7 @@ class Header extends React.Component<Props, State> {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundColor: "#FFFFFF",
-          paddingRight: "101px",
-          height: "80px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className={styles["header"]}>
         <div className={styles["category-links"]}>
           <div className={styles["category-item"]}>
             <Link to="/">ALL</Link>
@@ -59,63 +51,19 @@ class Header extends React.Component<Props, State> {
             ))}
         </div>
 
-        <div
-          style={{
-            marginRight: "125px",
-            marginTop: "30px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              borderBottom: "25px solid #52D67A",
-              borderLeft: "3px solid transparent",
-              borderRight: "3px solid transparent",
-              height: 0,
-              width: "25px",
-            }}
-          >
-            <div
-              style={{
-                marginTop: "10px",
-                width: "9px",
-                height: "6px",
-                borderRadius: "0 0 100px 100px",
-                borderBottom: "1px solid #FFFFFF",
-                borderLeft: "1px solid #FFFFFF",
-                borderRight: "1px solid #FFFFFF",
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  bottom: "2px",
-                  left: "0.2px",
-                  marginBottom: "20px",
-                  marginLeft: "7.25px",
-                  border: "1px solid #FFFFFF",
-                  borderWidth: "0 1px 1px 0",
-                  display: "inline-block",
-                  padding: "1.7px",
-                  transform: "rotate(-135deg)",
-                }}
-              ></div>
+        <div className={styles["icon-section"]}>
+          <div className={styles["icon-block"]}>
+            <div className={styles["semicircle"]}>
+              <div className={styles["vector"]}></div>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            // backgroundColor: "brown",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <div style={{ marginRight: "22px" }}>
+        <div className={styles["currency-cart-section"]}>
+          <div className={styles["currency"]}>
             <Currencies />
           </div>
-          <div style={{ marginTop: "32px" }}>
+          <div className={styles["cart"]}>
             <CartPopup place="POPUP" />
           </div>
         </div>

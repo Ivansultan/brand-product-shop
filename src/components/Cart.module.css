@@ -1,0 +1,204 @@
+.popup-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.popup-product-info {
+    width: "136px",
+}
+
+.popup-brand-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 25.6px;
+}
+
+.popup-brand {
+    color: #1D1F22;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.popup-name {
+    color: #1D1F22;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.popup-currency-price {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    height: 26px;
+}
+
+.popup-quantity-image {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-quantity-section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.popup-increment {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.popup-quantity {
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.popup-decrement {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.popup-decrement-default {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.popup-image-section {
+    border: 0.5px solid lightGray;
+    margin-left: 8px;
+    width: 121px;
+    height: 190px;
+    align-items: center;
+    display: flex;
+}
+
+.popup-image {
+    max-width: 121px;
+    max-height: 190px;
+}
+
+.borders {
+    margin-left: 100px; 
+    margin-right: 100px;
+}
+
+.page-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-top: -8px;
+}
+
+.page-product-info {
+    width: "292px",
+}
+
+.page-brand-name {
+    flex-direction: column;
+    display: flex;
+}
+
+.page-brand {
+    color: #1D1F22;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 27px;
+}
+
+.page-name {
+    margin-top: 16px;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 27px;
+}
+
+.page-currency-price {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.page-quantity-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-quantity-block {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.page-increment {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.page-quantity {
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.page-decrement {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.page-decrement-default {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+.page-image-section {
+    border: 0.5px solid lightGray;
+    margin-left: 24px;
+    width: 200px;
+    height: 288px;
+    justify-content: center;
+    display: flex;
+
+}
+
+.page-image {
+    max-width: 200px;
+    max-height: 288px;
+}
+
+.delimiter {
+    border: 0.1px solid lightGray;
+    margin-top: -1px;
+}

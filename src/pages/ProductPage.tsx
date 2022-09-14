@@ -8,6 +8,7 @@ import { AppState } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import ProductAttributes, { Attribute } from "../components/ProductAttributes";
+import styles from "./ProductPage.module.css";
 
 export const getPrice = (
   prices: Price[],
@@ -101,122 +102,48 @@ class ProductPage extends React.Component<Props, State> {
     const price = getPrice(product.prices, currency);
 
     return (
-      <div
-        style={{
-          marginLeft: "97px",
-          marginRight: "219px",
-          marginTop: "73px",
-          flexDirection: "row",
-          display: "flex",
-          // backgroundColor: "yellow",
-        }}
-      >
-        <div style={{ flexDirection: "column", display: "flex" }}>
+      <div className={styles["product"]}>
+        <div className={styles["gallery-section"]}>
           {product.gallery.map((image) => {
             return (
-              <div
-                key={image}
-                style={{
-                  backgroundColor: "transparent",
-                  border: "1px solid transparent",
-                  cursor: "pointer",
-                }}
-              >
-                <img
-                  src={image}
-                  alt=""
-                  style={{
-                    maxWidth: 79,
-                    height: 80,
-                    border: "1px solid lightGray",
-                    marginBottom: 32,
-                  }}
-                />
+              <div className={styles["gallery-block"]} key={image}>
+                <img className={styles["gallery-images"]} src={image} alt="" />
               </div>
             );
           })}
         </div>
 
-        <img
-          alt=""
-          style={{
-            maxWidth: "610px",
-            height: "511px",
-            border: "1px solid lightGray",
-            marginLeft: "35px",
-          }}
-          src={product.gallery[0]}
-          // src={photo}
-        />
+        <div className={styles["product-image-block"]}>
+          <img
+            className={styles["product-image"]}
+            alt=""
+            src={product.gallery[0]}
+          />
+        </div>
 
-        <div
-          style={{
-            marginLeft: 100,
-            flexDirection: "column",
-            display: "flex",
-            // backgroundColor: "gray",
-          }}
-        >
+        <div className={styles["product-info-section"]}>
           <div>
-            <div
-              style={{
-                // margin: 0,
-                lineHeight: "27px",
-                fontSize: "30px",
-                fontWeight: 600,
-              }}
-            >
-              {product.brand}
-            </div>
-            <div
-              style={{ marginTop: "16px", fontSize: "30px", fontWeight: 400 }}
-            >
-              {product.name}
-            </div>
+            <div className={styles["product-brand"]}>{product.brand}</div>
+            <div className={styles["product-name"]}>{product.name}</div>
           </div>
 
           <ProductAttributes attributes={product.attributes} place="PAGE" />
 
           <div>
-            <div
-              style={{
-                marginTop: "36px",
-                fontSize: "18px",
-                fontWeight: 700,
-                lineHeight: "18px",
-              }}
-            >
-              PRICE:
-            </div>
-            <div
-              style={{
-                fontSize: "24px",
-                fontWeight: 700,
-                lineHeight: "18px",
-                marginTop: "10px",
-              }}
-            >
+            <div className={styles["product-price-title"]}>PRICE:</div>
+            <div className={styles["product-currency-price"]}>
               {currencyLabel[price.currency]}
               {price.amount}
             </div>
             <div
+              className={styles["product-button"]}
               onClick={cartButtonCallback}
-              style={{
-                cursor: "pointer",
-                marginTop: "20px",
-                height: "52px",
-                width: "292px",
-                backgroundColor: "#5ECE7B",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
             >
               {cartButtonTitle}
             </div>
           </div>
           <div
-            style={{ width: "292px", marginTop: "40px" }}
+            className={styles["product-description"]}
             dangerouslySetInnerHTML={{ __html: product.description }}
           ></div>
         </div>

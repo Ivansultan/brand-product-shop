@@ -7,6 +7,7 @@ import { compose } from "recompose";
 import { withParams } from "../utils";
 import { connect } from "react-redux";
 import ProductAttributes from "./ProductAttributes";
+import styles from "./Cart.module.css";
 
 type Props = OwnProps & StoreProps;
 
@@ -68,57 +69,20 @@ class Cart extends React.Component<Props, State> {
           if (place === "POPUP") {
             return (
               <>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    marginTop: "32px",
-                    // paddingTop: "24px",
-                    // backgroundColor: "yellow",
-                  }}
-                >
+                <div className={styles["popup-product"]}>
                   <div
-                    style={{
-                      width: "136px",
-                    }}
+                    className={styles["popup-product-info"]}
                     key={cartItem.id}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        lineHeight: "25.6px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          color: "#1D1F22",
-                          fontSize: "16px",
-                          fontWeight: 300,
-                        }}
-                      >
+                    <div className={styles["popup-brand-name"]}>
+                      <div className={styles["popup-brand"]}>
                         {cartItem.brand}
                       </div>
-                      <div
-                        style={{
-                          color: "#1D1F22",
-                          fontSize: "16px",
-                          fontWeight: 300,
-                        }}
-                      >
+                      <div className={styles["popup-name"]}>
                         {cartItem.name}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        fontSize: "16px",
-                        fontWeight: 500,
-                        height: "26px",
-                      }}
-                    >
+                    <div className={styles["popup-currency-price"]}>
                       {currencyLabel[this.props.currency]}
                       {price.amount}
                     </div>
@@ -130,57 +94,24 @@ class Cart extends React.Component<Props, State> {
                     </div>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        flexDirection: "column",
-                      }}
-                    >
+                  <div className={styles["popup-quantity-image"]}>
+                    <div className={styles["popup-quantity-section"]}>
                       <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                          border: "1px solid black",
-                          width: "24px",
-                          height: "24px",
-                        }}
+                        className={styles["popup-increment"]}
                         onClick={() => this.incrementItem(cartItem)}
                       >
                         +
                       </div>
 
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          width: "24px",
-                          height: "24px",
-                        }}
-                      >
+                      <div className={styles["popup-quantity"]}>
                         {cartItem.quantity}
                       </div>
 
                       <div
-                        style={
+                        className={
                           cartItem.quantity > 1
-                            ? {
-                                display: "flex",
-                                justifyContent: "center",
-                                cursor: "pointer",
-                                border: "1px solid black",
-                                width: "24px",
-                                height: "24px",
-                              }
-                            : {
-                                display: "flex",
-                                justifyContent: "center",
-                                border: "1px solid black",
-                                width: "24px",
-                                height: "24px",
-                              }
+                            ? styles["popup-decrement"]
+                            : styles["popup-decrement-default"]
                         }
                         onClick={() => {
                           if (cartItem.quantity > 1) {
@@ -192,19 +123,10 @@ class Cart extends React.Component<Props, State> {
                       </div>
                     </div>
 
-                    <div
-                      style={{
-                        border: "0.5px solid lightGray",
-                        marginLeft: "8px",
-                        width: "121px",
-                        height: "190px",
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
+                    <div className={styles["popup-image-section"]}>
                       <img
+                        className={styles["popup-image"]}
                         alt=""
-                        style={{ maxWidth: "121px", maxHeight: "190px" }}
                         src={cartItem.gallery[0]}
                       />
                     </div>
@@ -217,61 +139,21 @@ class Cart extends React.Component<Props, State> {
           if (place === "PAGE") {
             return (
               <>
-                <div style={{ marginLeft: "100px", marginRight: "100px" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      paddingTop: "24px",
-                      paddingBottom: "24px",
-                      marginTop: "-8px",
-                    }}
-                  >
+                <div className={styles["borders"]}>
+                  <div className={styles["page-product"]}>
                     <div
-                      style={{
-                        width: "292px",
-                      }}
+                      className={styles["page-product-info"]}
                       key={cartItem.id}
                     >
-                      <div
-                        style={{
-                          flexDirection: "column",
-                          display: "flex",
-                        }}
-                      >
-                        <div
-                          style={{
-                            color: "#1D1F22",
-                            fontSize: "30px",
-                            fontWeight: 600,
-                            lineHeight: "27px",
-                          }}
-                        >
+                      <div className={styles["page-brand-name"]}>
+                        <div className={styles["page-brand"]}>
                           {cartItem.brand}
                         </div>
-                        <div
-                          style={{
-                            marginTop: "16px",
-                            fontSize: "30px",
-                            fontWeight: 400,
-                            lineHeight: "27px",
-                          }}
-                        >
+                        <div className={styles["page-name"]}>
                           {cartItem.name}
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginTop: "20px",
-                          fontSize: "24px",
-                          fontWeight: 700,
-                          lineHeight: "24px",
-                          // height: "26px",
-                        }}
-                      >
+                      <div className={styles["page-currency-price"]}>
                         {currencyLabel[this.props.currency]}
                         {price.amount}
                       </div>
@@ -283,57 +165,24 @@ class Cart extends React.Component<Props, State> {
                       </div>
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          flexDirection: "column",
-                        }}
-                      >
+                    <div className={styles["page-quantity-section"]}>
+                      <div className={styles["page-quantity-block"]}>
                         <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            cursor: "pointer",
-                            border: "1px solid black",
-                            width: "24px",
-                            height: "24px",
-                          }}
+                          className={styles["page-increment"]}
                           onClick={() => this.incrementItem(cartItem)}
                         >
                           +
                         </div>
 
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "24px",
-                            height: "24px",
-                          }}
-                        >
+                        <div className={styles["page-quantity"]}>
                           {cartItem.quantity}
                         </div>
 
                         <div
-                          style={
+                          className={
                             cartItem.quantity > 1
-                              ? {
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  cursor: "pointer",
-                                  border: "1px solid black",
-                                  width: "24px",
-                                  height: "24px",
-                                }
-                              : {
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  border: "1px solid black",
-                                  width: "24px",
-                                  height: "24px",
-                                }
+                              ? styles["page-decrement"]
+                              : styles["page-decrement-default"]
                           }
                           onClick={() => {
                             if (cartItem.quantity > 1) {
@@ -345,30 +194,16 @@ class Cart extends React.Component<Props, State> {
                         </div>
                       </div>
 
-                      <div
-                        style={{
-                          border: "0.5px solid lightGray",
-                          marginLeft: "24px",
-                          width: "200px",
-                          height: "288px",
-                          alignItems: "center",
-                          display: "flex",
-                        }}
-                      >
+                      <div className={styles["page-image-section"]}>
                         <img
+                          className={styles["page-image"]}
                           alt=""
-                          style={{ maxWidth: "200px", maxHeight: "288px" }}
                           src={cartItem.gallery[0]}
                         />
                       </div>
                     </div>
                   </div>
-                  <hr
-                    style={{
-                      border: "0.1px solid lightGray",
-                      marginTop: "-1px",
-                    }}
-                  ></hr>
+                  <hr className={styles["delimiter"]}></hr>
                 </div>
               </>
             );

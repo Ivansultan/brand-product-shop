@@ -1,0 +1,136 @@
+.popup-capacity-name {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.popup-capacity-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.popup-capacity {
+    background-color: white;
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 22.4px;
+    border: 1px solid lightGray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.page-capacity-name {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+.page-capacity-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.page-capacity {
+    margin-top: 7px;
+    margin-right: 8px;
+    width: 63px;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid lightGray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.popup-color-name-section {
+    margin-top: 8px;
+}
+
+.popup-color-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.popup-color {
+    margin-right: 8px;
+    margin-top: 10px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid lightGray;
+}
+
+.page-color-name-section {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+.page-color-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.page-color {
+    margin-right: 8px;
+    margin-top: 8px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid lightGray;
+}
+
+.page-size-name-section {
+    margin-top: 20px;
+}
+
+.page-size-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    color: #1D1F22;
+}
+
+.page-size-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.page-size {
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 63px;
+    height: 45px;
+    border: 1px solid lightGray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.popup-size-name-section {
+    margin-top: 8px;
+}
+
+.popup-size-section {
+    flex-direction: row;
+    display: flex;
+}
+
+.popup-size {
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+    border: 1px solid lightGray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

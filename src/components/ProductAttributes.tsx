@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./ProductAttributes.module.css";
 
 type State = {};
 type Props = OwnProps;
@@ -30,43 +31,22 @@ class ProductAttributes extends React.Component<Props, State> {
 
   render() {
     const { attributes, place } = this.props;
+
     return (
       <>
         {attributes.map((attribute) => {
           if (attribute.name === "Capacity" && place === "POPUP") {
             return (
               <div>
-                <div
-                  style={{
-                    marginTop: "8px",
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: "16px",
-                  }}
-                >
+                <div className={styles["popup-capacity-name"]}>
                   {attribute.name}
                 </div>
-                <div style={{ flexDirection: "row", display: "flex" }}>
+                <div className={styles["popup-capacity-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Capacity" && place === "POPUP") {
                       return (
-                        <div style={{}} key={item.id}>
-                          <div
-                            style={{
-                              backgroundColor: "white",
-                              marginTop: "8px",
-                              marginRight: "8px",
-                              width: 24,
-                              height: 24,
-                              fontSize: "10px",
-                              fontWeight: 400,
-                              lineHeight: "22.4px",
-                              border: "1px solid lightGray",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
+                        <div key={item.id}>
+                          <div className={styles["popup-capacity"]}>
                             {item.id}
                           </div>
                         </div>
@@ -83,35 +63,15 @@ class ProductAttributes extends React.Component<Props, State> {
           if (attribute.name === "Capacity" && place === "PAGE") {
             return (
               <div>
-                <div
-                  style={{
-                    marginTop: "20px",
-                    fontSize: "18px",
-                    fontWeight: 700,
-                    lineHeight: "18px",
-                  }}
-                >
+                <div className={styles["page-capacity-name"]}>
                   {attribute.name}
                 </div>
-                <div style={{ flexDirection: "row", display: "flex" }}>
+                <div className={styles["page-capacity-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Capacity" && place === "PAGE") {
                       return (
-                        <div style={{}} key={item.id}>
-                          <div
-                            style={{
-                              marginTop: "7px",
-                              marginRight: "8px",
-                              width: 63,
-                              height: 45,
-                              fontSize: "16px",
-                              fontWeight: 400,
-                              border: "1px solid lightGray",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
+                        <div key={item.id}>
+                          <div className={styles["page-capacity"]}>
                             {item.id}
                           </div>
                         </div>
@@ -128,31 +88,19 @@ class ProductAttributes extends React.Component<Props, State> {
           if (attribute.name === "Color" && place === "POPUP") {
             return (
               <div
-                style={{
-                  marginTop: "8px",
-                }}
+                className={styles["popup-color-name-section"]}
                 key={attribute.name}
               >
                 {attribute.name}
-                <div
-                  style={{
-                    flexDirection: "row",
-                    display: "flex",
-                  }}
-                >
+                <div className={styles["popup-color-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Color" && place === "POPUP") {
+                      const style = { backgroundColor: item.id.toLowerCase() };
                       return (
                         <div
+                          className={styles["popup-color"]}
                           key={item.id}
-                          style={{
-                            marginRight: "8px",
-                            marginTop: "10px",
-                            width: 16,
-                            height: 16,
-                            backgroundColor: item.id.toLowerCase(),
-                            border: "1px solid lightGray",
-                          }}
+                          style={style}
                         >
                           <ul key={item.id}></ul>
                         </div>
@@ -169,35 +117,19 @@ class ProductAttributes extends React.Component<Props, State> {
           if (attribute.name === "Color" && place === "PAGE") {
             return (
               <div
-                style={{
-                  marginTop: "16px",
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  lineHeight: "18px",
-                  backgroundColor: "white",
-                }}
+                className={styles["page-color-name-section"]}
                 key={attribute.name}
               >
                 {attribute.name}
-                <div
-                  style={{
-                    flexDirection: "row",
-                    display: "flex",
-                  }}
-                >
+                <div className={styles["page-color-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Color" && place === "PAGE") {
+                      const style = { backgroundColor: item.id.toLowerCase() };
                       return (
                         <div
+                          className={styles["page-color"]}
                           key={item.id}
-                          style={{
-                            marginRight: "8px",
-                            marginTop: "8px",
-                            width: 32,
-                            height: 32,
-                            backgroundColor: item.id.toLowerCase(),
-                            border: "1px solid lightGray",
-                          }}
+                          style={style}
                         >
                           <ul key={item.id}></ul>
                         </div>
@@ -213,36 +145,14 @@ class ProductAttributes extends React.Component<Props, State> {
 
           if (attribute.name === "Size" && place === "PAGE") {
             return (
-              <div style={{ marginTop: "20px" }}>
-                <div
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 700,
-                    lineHeight: "18px",
-                    color: "#1D1F22",
-                  }}
-                >
-                  {attribute.name}
-                </div>
-                <div style={{ flexDirection: "row", display: "flex" }}>
+              <div className={styles["page-size-name-section"]}>
+                <div className={styles["page-size-name"]}>{attribute.name}</div>
+                <div className={styles["page-size-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Size" && place === "PAGE") {
                       return (
                         <div key={item.id}>
-                          <div
-                            style={{
-                              marginTop: "8px",
-                              marginRight: "8px",
-                              width: 63,
-                              height: 45,
-                              border: "1px solid lightGray",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
-                            {item.id}
-                          </div>
+                          <div className={styles["page-size"]}>{item.id}</div>
                         </div>
                       );
                     } else {
@@ -256,28 +166,14 @@ class ProductAttributes extends React.Component<Props, State> {
 
           if (attribute.name === "Size" && place === "POPUP") {
             return (
-              <div style={{ marginTop: "8px" }}>
+              <div className={styles["popup-size-name-section"]}>
                 {attribute.name}
-                <div style={{ flexDirection: "row", display: "flex" }}>
+                <div className={styles["popup-size-section"]}>
                   {attribute.items.map((item) => {
                     if (attribute.id === "Size" && place === "POPUP") {
                       return (
                         <div key={item.id}>
-                          <div
-                            style={{
-                              marginTop: "8px",
-                              marginRight: "8px",
-                              width: 24,
-                              height: 24,
-                              fontSize: "10px",
-                              border: "1px solid lightGray",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
-                            {item.id}
-                          </div>
+                          <div className={styles["popup-size"]}>{item.id}</div>
                         </div>
                       );
                     } else {

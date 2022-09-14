@@ -6,6 +6,7 @@ import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
+import styles from "./Currencies.module.css";
 
 type Props = OwnProps & StoreProps;
 type State = { visibility: boolean };
@@ -45,23 +46,8 @@ class Currencies extends React.Component<Props, State> {
     //   return <div>Loading...</div>;
     // }
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            marginTop: "28px",
-            width: "12px",
-            height: "29px",
-            // backgroundColor: "red",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+      <div className={styles["currency-icon-vector"]}>
+        <div className={styles["currency-icon"]}>
           {currencyLabel[this.props.currency]}
         </div>
         <div
@@ -70,69 +56,20 @@ class Currencies extends React.Component<Props, State> {
           }}
         >
           {this.state.visibility ? (
-            <div
-              style={{
-                marginTop: "44px",
-                marginLeft: "10px",
-                backgroundColor: "white",
-                border: "solid black",
-                borderWidth: "0 1px 1px 0",
-                display: "inline-block",
-                padding: "2.5px",
-                transform: "rotate(-135deg)",
-              }}
-            ></div>
+            <div className={styles["vector-up"]}></div>
           ) : (
-            <div
-              style={{
-                marginTop: "44px",
-                marginLeft: "10px",
-                backgroundColor: "white",
-                border: "solid black",
-                borderWidth: "0 1px 1px 0",
-                display: "inline-block",
-                padding: "2.5px",
-                transform: "rotate(45deg)",
-              }}
-            ></div>
+            <div className={styles["vector-down"]}></div>
           )}
         </div>
         {this.state.visibility ? (
-          <div
-            style={{
-              position: "absolute",
-              top: 60,
-              right: 90,
-              width: 114,
-              height: 220,
-              border: "0.1px solid lightgray",
-              display: "flex", // to hide use "none"
-              flexDirection: "column",
-              backgroundColor: "white",
-            }}
-          >
+          <div className={styles["currency-popup"]}>
             {currencies.map((currency) => (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                }}
-                key={currency}
-              >
+              <div className={styles["currency-section"]} key={currency}>
                 <div
-                  style={
+                  className={
                     currency === this.props.currency
-                      ? {
-                          background: "#EEEEEE",
-                          width: "100%",
-                          height: "100%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }
-                      : { cursor: "pointer" }
+                      ? styles["currency-current"]
+                      : styles["currency-expected"]
                   }
                   key={currency}
                   onClick={() => {
@@ -140,27 +77,19 @@ class Currencies extends React.Component<Props, State> {
                       this.changeCurrency(currency);
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <div style={{ marginRight: "2px" }}>
+                  <div className={styles["currency-label"]}>
+                    <div className={styles["label"]}>
                       {currencyLabel[currency]}
                     </div>
 
-                    <div style={{ marginLeft: "2px" }}>{currency}</div>
+                    <div className={styles["currency"]}>{currency}</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div
-            style={{
-              display: "none",
-            }}
-          ></div>
+          <div style={{ display: "none" }}></div>
         )}
       </div>
     );

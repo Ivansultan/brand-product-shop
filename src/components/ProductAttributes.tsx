@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./ProductAttributes.module.css";
+import { Size, sizeLabel } from "../utils";
+import { AppState } from "../reducer";
 
 type State = {};
 type Props = OwnProps;
@@ -12,6 +14,7 @@ export type OwnProps = {
 export type AttributeItem = {
   displayValue: string;
   id: string;
+  // id: Size;
   isSelected?: boolean;
 };
 
@@ -152,7 +155,9 @@ class ProductAttributes extends React.Component<Props, State> {
                     if (attribute.id === "Size" && place === "PAGE") {
                       return (
                         <div key={item.id}>
-                          <div className={styles["page-size"]}>{item.id}</div>
+                          <div className={styles["page-size"]}>
+                            {sizeLabel[item.id] || item.id}
+                          </div>
                         </div>
                       );
                     } else {

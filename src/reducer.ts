@@ -7,6 +7,8 @@ type CartProduct = Product & {
 
 type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
+// type Size = "Small" | "Medium" | "Large" | "Extra Large";
+
 export type AppState = {
   cartItems: CartProduct[];
   currency: Currency;

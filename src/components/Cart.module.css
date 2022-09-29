@@ -203,12 +203,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid gray;
+    border: 1px solid black;
     width: 45px;
     height: 45px;
-    font-size: 25px;
-    font-weight: 300;
-    color: gray;
+    font-size: 35px;
+    font-weight: 200;
+    color: black;
 }
 
 .page-quantity {
@@ -223,24 +223,24 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid gray;
+    border: 1px solid black;
     width: 45px;
     height: 45px;
-    font-size: 25px;
-    font-weight: 300;
-    color: gray
+    font-size: 35px;
+    font-weight: 200;
+    color: black;
 }
 
 .page-decrement-default {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid gray;
+    border: 1px solid black;
     width: 45px;
     height: 45px;
-    font-size: 25px;
-    font-weight: 300;
-    color: gray
+    font-size: 35px;
+    font-weight: 200;
+    color: black;
 }
 
 .page-image-section {

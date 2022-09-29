@@ -60,8 +60,8 @@ class Cart extends React.Component<Props, State> {
   };
 
   render() {
-    const { currency, place } = this.props;
-
+    const { currency, place, params } = this.props;
+    console.log(params);
     return (
       <>
         {this.props.cartItems.map((cartItem) => {

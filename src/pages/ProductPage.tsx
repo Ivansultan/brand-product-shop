@@ -42,10 +42,6 @@ export type Product = {
   attributes: Attribute[];
 };
 
-// const processImage = (image: Image) => {
-
-// }
-
 type ProductQueryResult = {
   loading: boolean;
   product: Product;

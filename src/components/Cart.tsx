@@ -201,6 +201,14 @@ class Cart extends React.Component<Props, State> {
                           src={cartItem.gallery[0]}
                         />
                       </div>
+                      <div className={styles["switcher"]}>
+                        <div className={styles["switcher-left"]}>
+                          <div className={styles["vector-left"]}></div>
+                        </div>
+                        <div className={styles["switcher-right"]}>
+                          <div className={styles["vector-right"]}></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <hr className={styles["delimiter"]}></hr>

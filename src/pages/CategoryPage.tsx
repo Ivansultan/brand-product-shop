@@ -23,6 +23,7 @@ type Product = {
   amount: number;
   gallery: Gallery[];
   prices: Price[];
+  inStock: boolean;
 };
 
 export type Category = {
@@ -104,24 +105,51 @@ class CategoryPage extends React.Component<Props, State> {
                     ) : (
                       ""
                     );
-                    const price = getPrice(product.prices, currency);
-                    return (
-                      <Link
-                        className={styles["category-product"]}
-                        key={product.id}
-                        to={`/product/${product.id}`}
-                      >
-                        <div key={product.id}>
+
+                    if (product.inStock === true) {
+                      const price = getPrice(product.prices, currency);
+                      return (
+                        <Link
+                          className={styles["category-product"]}
+                          key={product.id}
+                          to={`/product/${product.id}`}
+                        >
+                          <div key={product.id}>
+                            <div className={styles["product-image-section"]}>
+                              <img
+                                className={styles["product-image"]}
+                                alt=""
+                                src={product.gallery[0]}
+                              />
+                            </div>
+
+                            {itemIcon}
+                            <div className={styles["product-brand-name"]}>
+                              {product.brand} {product.name}
+                            </div>
+                            <div className={styles["product-currency-amount"]}>
+                              {currencyLabel[this.props.currency]}{" "}
+                              {price.amount}
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    } else {
+                      const price = getPrice(product.prices, currency);
+                      return (
+                        <div className={styles["category-product-out-stock"]}>
                           <div className={styles["product-image-section"]}>
                             <img
                               className={styles["product-image"]}
                               alt=""
                               src={product.gallery[0]}
                             />
+                            <div className={styles["title-out-stock"]}>
+                              OUT OF STOCK
+                            </div>
                           </div>
 
                           {itemIcon}
-                          {/* {categoryBorder} */}
                           <div className={styles["product-brand-name"]}>
                             {product.brand} {product.name}
                           </div>
@@ -129,8 +157,8 @@ class CategoryPage extends React.Component<Props, State> {
                             {currencyLabel[this.props.currency]} {price.amount}
                           </div>
                         </div>
-                      </Link>
-                    );
+                      );
+                    }
                   })}
                 </div>
               </div>

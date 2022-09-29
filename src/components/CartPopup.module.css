@@ -76,6 +76,7 @@
 
 .cart-popup {
     position: absolute;
+    z-index: 1;
     top: 80px;
     right: 72px;
     width: 325px;
@@ -144,7 +145,6 @@
 
 .title-view-bag {
     color: #1D1F22;
-    text-decoration: none;
     font-weight: 600;
     font-size: 14px;
 }
@@ -160,7 +160,10 @@
 
 .title-check-out {
     color: #FFFFFF;
-    text-decoration: none;
     font-weight: 600;
     font-size: 14px;
+}
+
+.link {
+    text-decoration: none;
 }

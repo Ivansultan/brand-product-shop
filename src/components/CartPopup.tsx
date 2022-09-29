@@ -116,8 +116,9 @@ class CartPopup extends React.Component<Props, State> {
 
               <div
                 style={{
-                  height: "445px",
+                  maxHeight: "446px",
                   overflow: "auto",
+                  // backgroundColor: "yellow",
                 }}
               >
                 <Cart place="POPUP" />
@@ -131,12 +132,12 @@ class CartPopup extends React.Component<Props, State> {
               </div>
 
               <div className={styles["popup-buttons-section"]}>
-                <Link to={`/cart`}>
+                <Link className={styles["link"]} to={`/cart`}>
                   <div className={styles["button-view-bag"]}>
                     <div className={styles["title-view-bag"]}>VIEW BAG</div>
                   </div>
                 </Link>
-                <Link to={`/`}>
+                <Link className={styles["link"]} to={`/`}>
                   <div className={styles["button-check-out"]}>
                     <div className={styles["title-check-out"]}>CHECK OUT</div>
                   </div>

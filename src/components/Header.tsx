@@ -40,13 +40,20 @@ class Header extends React.Component<Props, State> {
       <div className={styles["header"]}>
         <div className={styles["category-links"]}>
           <div className={styles["category-item"]}>
-            <Link to="/">ALL</Link>
+            <Link className={styles["link-default"]} to="/">
+              ALL
+            </Link>
           </div>
 
           {!this.props.data.loading &&
             this.props.data.categories.map((category) => (
               <div key={category.name} className={styles["category-item"]}>
-                <Link to={`/category/${category.name}`}>{category.name}</Link>
+                <Link
+                  className={styles["link"]}
+                  to={`/category/${category.name}`}
+                >
+                  {category.name}
+                </Link>
               </div>
             ))}
         </div>

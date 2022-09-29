@@ -93,6 +93,52 @@
     max-height: 190px;
 }
 
+.switcher {
+    position: relative;
+    right: 74px;
+    top: 247px;
+    width: 56px;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.switcher-left {
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vector-left {
+    border: solid white;
+    margin-left: 5px;
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(-225deg);
+}
+
+.switcher-right {
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vector-right {
+    border: solid white;
+    margin-right: 5px;
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(-45deg);
+}
+
 .borders {
     margin-left: 100px; 
     margin-right: 100px;
@@ -142,21 +188,27 @@
 .page-quantity-section {
     display: flex;
     flex-direction: row;
+    
 }
 
 .page-quantity-block {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-direction: column;
 }
 
 .page-increment {
     display: flex;
+    align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+    border: 1px solid gray;
+    width: 45px;
+    height: 45px;
+    font-size: 25px;
+    font-weight: 300;
+    color: gray;
 }
 
 .page-quantity {
@@ -168,19 +220,27 @@
 
 .page-decrement {
     display: flex;
+    align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+    border: 1px solid gray;
+    width: 45px;
+    height: 45px;
+    font-size: 25px;
+    font-weight: 300;
+    color: gray
 }
 
 .page-decrement-default {
     display: flex;
+    align-items: center;
     justify-content: center;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+    border: 1px solid gray;
+    width: 45px;
+    height: 45px;
+    font-size: 25px;
+    font-weight: 300;
+    color: gray
 }
 
 .page-image-section {
@@ -189,13 +249,15 @@
     width: 200px;
     height: 288px;
     justify-content: center;
+    align-items: center;
     display: flex;
-
+    overflow: hidden;
 }
 
 .page-image {
-    max-width: 200px;
-    max-height: 288px;
+    max-width: 100%;
+    height: auto; 
+    max-height: 100%;
 }
 
 .delimiter {

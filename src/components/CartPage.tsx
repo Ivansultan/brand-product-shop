@@ -5,6 +5,8 @@ import { AppState } from "../reducer";
 import { withParams } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPage.module.css";
+import { getPrice } from "../pages/ProductPage";
+import { currencyLabel } from "../utils";
 
 type Props = OwnProps & StoreProps;
 
@@ -44,16 +46,34 @@ class CartPage extends React.Component<Props, State> {
   }
 
   render() {
-    // const { currency } = this.props;
+    const { currency } = this.props;
+
+    const total = this.props.cartItems.reduce((sum, item) => {
+      const price = getPrice(item.prices, currency); // price on 1 item
+      return sum + price.amount * item.quantity;
+    }, 0);
+
+    const quantity = this.props.cartItems.reduce((sum, item) => {
+      return sum + item.quantity;
+    }, 0);
+
+    const tax = total * 0.21;
+
     return (
       <div className={styles["cart-page"]}>
         <div className={styles["cart-title"]}>CART</div>
         <hr className={styles["delimiter"]}></hr>
         <Cart place="PAGE" />
         <div className={styles["ordering"]}>
-          <div className={styles["cart-tax"]}>Tax 21%:</div>
-          <div className={styles["cart-quantity"]}>Quantity:</div>
-          <div className={styles["cart-total"]}>Total:</div>
+          <div className={styles["cart-tax"]}>
+            Tax 21%: {currencyLabel[this.props.currency]} {tax.toFixed(2)}
+          </div>
+
+          <div className={styles["cart-quantity"]}>Quantity: {quantity}</div>
+
+          <div className={styles["cart-total"]}>
+            Total: {currencyLabel[this.props.currency]} {total.toFixed(2)}
+          </div>
           <div className={styles["order-button"]}>ORDER</div>
         </div>
       </div>

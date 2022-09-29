@@ -69,3 +69,11 @@
 .cart {
     margin-top: 32px;
 }
+
+.link-default {
+    text-decoration: none;
+}
+
+.link {
+    text-decoration: none;
+}

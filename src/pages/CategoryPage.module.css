@@ -5,6 +5,7 @@
 .category {
   margin-left: 100px;
   margin-right: 102px;
+  
 }
 
 .category-name {
@@ -89,24 +90,44 @@
 .category-product {
   text-decoration: none;
   margin-top: 103px;
+  cursor: pointer;
+}
+
+.category-product-out-stock {
+  text-decoration: none;
+  margin-top: 103px;
+  background: #FFFFFF;
+  opacity: 0.5;
 }
 
 .product-image-section {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   border: 1px solid lightGray;
   width: 354px;
   height: 330px;
+  overflow: hidden;
+  
+}
+
+.title-out-stock {
+  position: absolute;
+  padding-top: 150px;
+  width: 173px;
+  height: 39px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 38.4px;
+  display: flex;
+  flex-direction: row;
 }
 
 .product-image {
-  max-width: 354px;
-  max-height: 330px;
+  width: auto;
+  height: auto;
 }
 
 .product-brand-name {
-  cursor: pointer;
   font-size: 18px;
   font-weight: 300;
   line-height: 160%;
@@ -115,7 +136,6 @@
 }
 
 .product-currency-amount {
-  cursor: pointer;
   color: #1D1F22;
   font-size: 18px;
   font-weight: 500;

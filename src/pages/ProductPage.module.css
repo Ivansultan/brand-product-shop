@@ -4,6 +4,7 @@
     margin-top: 73px;
     flex-direction: row;
     display: flex;
+    padding-bottom: 178px;
 }
 
 .gallery-section {
@@ -20,25 +21,28 @@
     width: 79px;
     height: 80px;
     margin-bottom: 32px;
+    overflow: hidden;
 }
 
 .gallery-images {
-    max-width: 79px;
-    max-height: 80px;
+    width: auto;
+    height: auto;
 }
 
 .product-image-block {
     display: flex;
+    align-items: center;
     justify-content: center;
     width: 610px;
     height: 511px;
     border: 1px solid lightGray;
     margin-left: 35px;
+    overflow: hidden;
 }
 
 .product-image {
-    max-width: 610px;
-    max-height: 511px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .product-info-section {

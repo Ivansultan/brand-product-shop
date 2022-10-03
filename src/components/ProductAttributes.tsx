@@ -178,7 +178,9 @@ class ProductAttributes extends React.Component<Props, State> {
                     if (attribute.id === "Size" && place === "POPUP") {
                       return (
                         <div key={item.id}>
-                          <div className={styles["popup-size"]}>{item.id}</div>
+                          <div className={styles["popup-size"]}>
+                            {sizeLabel[item.id] || item.id}
+                          </div>
                         </div>
                       );
                     } else {

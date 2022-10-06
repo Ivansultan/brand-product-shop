@@ -7,16 +7,16 @@ type CartProduct = Product & {
 
 type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
-// type Size = "Small" | "Medium" | "Large" | "Extra Large";
-
 export type AppState = {
   cartItems: CartProduct[];
   currency: Currency;
+  categoryName: string;
 };
 
 const initialState: AppState = {
   cartItems: [],
   currency: "USD",
+  categoryName: "ALL",
 };
 
 type ActionType =
@@ -24,7 +24,8 @@ type ActionType =
   | "CART_REMOVE_ITEM"
   | "SET_CURRENCY"
   | "CART_INCREMENT_ITEM"
-  | "CART_DECREMENT_ITEM";
+  | "CART_DECREMENT_ITEM"
+  | "SET_CATEGORY_NAME";
 // | "SET_ATTRIBUTE";
 
 type CartItemsPayload = {
@@ -35,9 +36,13 @@ type CurrencyPayload = {
   currency: Currency;
 };
 
+type CategoryNamePayload = {
+  categoryName: string;
+};
+
 type Action = {
   type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
-  payload: CartItemsPayload | CurrencyPayload; // Необязательный параметр (тип ActionType, доп. инфа)
+  payload: CartItemsPayload | CurrencyPayload | CategoryNamePayload; // Необязательный параметр (тип ActionType, доп. инфа)
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
@@ -89,6 +94,12 @@ const rootReducer = (state = initialState, action: Action): AppState => {
     //       });
     //     }),
     //   };
+    case "SET_CATEGORY_NAME":
+      return {
+        ...state,
+        categoryName: (action.payload as CategoryNamePayload).categoryName,
+      };
+
     case "SET_CURRENCY":
       const newState = {
         ...state,

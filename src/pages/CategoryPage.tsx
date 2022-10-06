@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { getPrice } from "./ProductPage";
 import { currencyLabel, withParams } from "../utils";
 import styles from "./CategoryPage.module.css";
+import { store } from "../store";
 
 type Price = {
   currency: AppState["currency"];
@@ -63,6 +64,18 @@ class CategoryPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<Props>,
+    prevState: Readonly<State>,
+    snapshot: Readonly<Props>
+  ) {
+    store.dispatch({
+      type: "SET_CATEGORY_NAME",
+      payload: { categoryName: this.props.params.name },
+    });
+    // console.log(this.props.params.name);
   }
 
   render() {

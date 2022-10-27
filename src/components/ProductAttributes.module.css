@@ -112,10 +112,12 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    cursor: pointer;
 }
 
 .popup-size-name-section {
     margin-top: 8px;
+    
 }
 
 .popup-size-section {

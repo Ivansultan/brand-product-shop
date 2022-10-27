@@ -88,6 +88,7 @@ class Cart extends React.Component<Props, State> {
                     </div>
                     <div>
                       <ProductAttributes
+                        productId={cartItem.name}
                         attributes={cartItem.attributes}
                         place={place}
                       />
@@ -159,6 +160,7 @@ class Cart extends React.Component<Props, State> {
                       </div>
                       <div>
                         <ProductAttributes
+                          productId={cartItem.id}
                           attributes={cartItem.attributes}
                           place={place}
                         />

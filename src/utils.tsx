@@ -8,8 +8,6 @@ export function withParams(Component: any) {
   return (props: any) => <Component {...props} params={useParams()} />;
 }
 
-export type Size = "Small" | "Medium" | "Large" | "Extra Large";
-
 export const currencyLabel = {
   USD: "$",
   GBP: "£",

@@ -123,7 +123,11 @@ class ProductPage extends React.Component<Props, State> {
             <div className={styles["product-name"]}>{product.name}</div>
           </div>
 
-          <ProductAttributes attributes={product.attributes} place="PAGE" />
+          <ProductAttributes
+            attributes={product.attributes}
+            place="PAGE"
+            productId={product.id}
+          />
 
           <div>
             <div className={styles["product-price-title"]}>PRICE:</div>

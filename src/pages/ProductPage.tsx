@@ -97,6 +97,17 @@ class ProductPage extends React.Component<Props, State> {
 
     const price = getPrice(product.prices, currency);
 
+    const filteredCartItems = this.props.cartItems.filter((cartItem) => {
+      return product.id === cartItem.id;
+    });
+
+    const cartItem =
+      filteredCartItems.length === 0 ? null : filteredCartItems[0];
+
+    // const numbers = [1, 2, 3];
+    // const two = numbers.filter((number) => number === 2);
+    // console.log(two[0]);
+
     return (
       <div className={styles["product"]}>
         <div className={styles["gallery-section"]}>
@@ -124,9 +135,9 @@ class ProductPage extends React.Component<Props, State> {
           </div>
 
           <ProductAttributes
-            attributes={product.attributes}
-            place="PAGE"
             productId={product.id}
+            attributes={cartItem ? cartItem.attributes : product.attributes}
+            place="PAGE"
           />
 
           <div>

@@ -40,24 +40,23 @@ class ProductAttributes extends React.Component<Props, State> {
     let attributeContainerStyle;
     let attributeValueTitle;
     switch (attribute.id) {
-      // case "Size":
-      //   attributeWrapper = styles["popup-size-section"];
-      //   attributeContainerClassName = styles["popup-size"];
-      //   attributeContainerStyle = {};
-      //   attributeValueTitle = sizeLabel[item.id] || item.id;
-      //   break;
       case "Color":
-        attributeWrapper = styles["popup-color-section"];
-        attributeContainerClassName = styles["popup-color"];
+        attributeWrapper =
+          place === "PAGE"
+            ? styles["page-color-section"]
+            : styles["popup-color-section"];
+        attributeContainerClassName =
+          place === "PAGE" ? styles["page-color"] : styles["popup-color"];
         attributeContainerStyle = { backgroundColor: item.id.toLowerCase() };
         attributeValueTitle = "";
         break;
       default:
         attributeWrapper =
           place === "PAGE"
-            ? styles["popup-capacity-section"]
+            ? styles["page-capacity-section"]
             : styles["popup-capacity-section"];
-        attributeContainerClassName = styles["popup-capacity"];
+        attributeContainerClassName =
+          place === "PAGE" ? styles["page-capacity"] : styles["popup-capacity"];
         attributeContainerStyle = {};
         attributeValueTitle = sizeLabel[item.id] || item.id;
     }
@@ -124,9 +123,25 @@ class ProductAttributes extends React.Component<Props, State> {
           return (
             <div>
               {attribute.name}
-              {attribute.items.map((item) =>
+              {/* {attribute.items.map((item) =>
                 this.renderAttributeValue(attribute, item)
-              )}
+              )} */}
+              {attribute.items.map((item) => {
+                return (
+                  <div
+                    style={item.isSelected ? { backgroundColor: "red" } : {}}
+                    onClick={() => {
+                      this.chooseAttribute({
+                        productId: productId,
+                        attributeId: attribute.id,
+                        attributeValueId: item.id,
+                      });
+                    }}
+                  >
+                    {this.renderAttributeValue(attribute, item)}
+                  </div>
+                );
+              })}
             </div>
           );
         })}

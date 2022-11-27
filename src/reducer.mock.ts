@@ -87,6 +87,9 @@ export const ACTIONS = {
           },
         ],
       },
+      selectedAttributeValues: {
+        Size: "41",
+      },
     },
   },
 };

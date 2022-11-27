@@ -1,4 +1,4 @@
-import { Product } from "./pages/ProductPage";
+import { Product, SelectedAttributeValues } from "./pages/ProductPage";
 
 export type CartProduct = Product & {
   quantity: number;
@@ -30,8 +30,9 @@ type ActionType =
   | "SET_CATEGORY_NAME"
   | "UPDATE_ATTRIBUTES";
 
-type CartItemsPayload = {
+type CartAddItemPayload = {
   product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
 };
 
 type CurrencyPayload = {
@@ -54,7 +55,7 @@ export type UpdateAttributesPayload = {
 type Action = {
   type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
   payload:
-    | CartItemsPayload
+    | CartAddItemPayload
     | CurrencyPayload
     | CategoryNamePayload
     | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
@@ -106,19 +107,15 @@ const rootReducer = (state = initialState, action: Action): AppState => {
       // console.log("attributeId", attributeId);
       // console.log("attributeValueId", attributeValueId);
 
-      const selectedAttributeValues = {};
-      // @ts-ignore
-      selectedAttributeValues[attributeId] = attributeValueId;
       return {
         ...state,
         cartItems: state.cartItems.map((cartItem) => {
           return cartItem.id === productId
             ? {
                 ...cartItem,
-                attributes: updateAttributes(
-                  cartItem.attributes,
-                  selectedAttributeValues
-                ),
+                attributes: updateAttributes(cartItem.attributes, {
+                  [attributeId]: attributeValueId,
+                }),
               }
             : cartItem;
         }),
@@ -131,25 +128,25 @@ const rootReducer = (state = initialState, action: Action): AppState => {
     // 4. Добавіть carteItem.attributes.items.isSelected = True
 
     case "CART_ADD_ITEM":
+      const { product, selectedAttributeValues } =
+        action.payload as CartAddItemPayload;
       return {
         ...state,
-        cartItems: [
-          ...state.cartItems,
-          { ...(action.payload as CartItemsPayload).product, quantity: 1 },
-        ],
+        cartItems: [...state.cartItems, { ...product, quantity: 1 }],
       };
     case "CART_REMOVE_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (item) => item.id !== (action.payload as CartItemsPayload).product.id
+          (item) =>
+            item.id !== (action.payload as CartAddItemPayload).product.id
         ),
       };
     case "CART_INCREMENT_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartItemsPayload).product.id
+          item.id === (action.payload as CartAddItemPayload).product.id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -161,7 +158,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartItemsPayload).product.id
+          item.id === (action.payload as CartAddItemPayload).product.id
             ? { ...item, quantity: item.quantity - 1 }
             : item
         ),

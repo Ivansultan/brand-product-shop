@@ -21,9 +21,11 @@ export const getPrice = (
 //   return gallery.filter((item) => item)[0];
 // };
 
+export type SelectedAttributeValues = { [key: string]: string };
+
 type State = {
   visibility: boolean;
-  selectedAttributeValues: { [key: string]: string };
+  selectedAttributeValues: SelectedAttributeValues;
 };
 
 type Price = {
@@ -72,7 +74,10 @@ class ProductPage extends React.Component<Props, State> {
     // Добавляет продукт в корзину
     store.dispatch({
       type: "CART_ADD_ITEM",
-      payload: { product: this.props.data.product },
+      payload: {
+        product: this.props.data.product,
+        selectedAttributeValues: this.state.selectedAttributeValues,
+      },
     });
   };
 
@@ -80,7 +85,9 @@ class ProductPage extends React.Component<Props, State> {
     // Удаляет продукт из корзины
     store.dispatch({
       type: "CART_REMOVE_ITEM",
-      payload: { product: this.props.data.product },
+      payload: {
+        product: this.props.data.product,
+      },
     });
   };
 

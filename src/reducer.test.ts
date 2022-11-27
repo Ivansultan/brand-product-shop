@@ -36,12 +36,25 @@ describe("rootReducer()", () => {
   });
 
   test.only("action_type: CART_ADD_ITEM", () => {
+    const { product, selectedAttributeValues } = ACTIONS.CART_ADD_ITEM.payload;
+    const { attributes, ...rest } = product;
     const newState = {
       ...STATE,
       cartItems: [
         ...STATE.cartItems,
         {
-          ...ACTIONS.CART_ADD_ITEM.payload.product,
+          ...rest,
+          attributes: attributes.map((attribute) => {
+            return {
+              ...attribute,
+              items: attribute.items.map((item) => {
+                return {
+                  ...item,
+                  isSelected: false,
+                };
+              }),
+            };
+          }),
           quantity: 1,
         },
       ],

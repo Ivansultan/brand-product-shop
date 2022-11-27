@@ -4,7 +4,7 @@ import React from "react";
 import { compose } from "recompose";
 import { store } from "../store";
 import { withParams } from "../utils";
-import { AppState } from "../reducer";
+import { AppState, updateAttributes } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import ProductAttributes, { Attribute } from "../components/ProductAttributes";
@@ -23,6 +23,7 @@ export const getPrice = (
 
 type State = {
   visibility: boolean;
+  selectedAttributeValues: { [key: string]: string };
 };
 
 type Price = {
@@ -63,10 +64,12 @@ class ProductPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       visibility: false,
+      selectedAttributeValues: {}, // Внутреннее состояние атрибутов продукта
     };
   }
 
   addProductToCart = () => {
+    // Добавляет продукт в корзину
     store.dispatch({
       type: "CART_ADD_ITEM",
       payload: { product: this.props.data.product },
@@ -74,10 +77,32 @@ class ProductPage extends React.Component<Props, State> {
   };
 
   deleteProductFromCart = () => {
+    // Удаляет продукт из корзины
     store.dispatch({
       type: "CART_REMOVE_ITEM",
       payload: { product: this.props.data.product },
     });
+  };
+
+  getProductAttributes = (attributes: Product["attributes"]) => {
+    const { selectedAttributeValues } = this.state;
+    // console.log("getProductAttributes", selectedAttributeValues);
+    return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
+  };
+
+  setProductPageAttributeValue = (attributeId: any, attributeValueId: any) => {
+    const { selectedAttributeValues } = this.state;
+    selectedAttributeValues[attributeId] = attributeValueId;
+    this.setState({
+      selectedAttributeValues,
+    });
+
+    // console.log(
+    //   "setProductPageAttributeValue",
+    //   attributeId,
+    //   attributeValueId,
+    //   selectedAttributeValues
+    // );
   };
 
   render() {
@@ -89,9 +114,9 @@ class ProductPage extends React.Component<Props, State> {
 
     const inCart = this.props.cartItems
       .map((item) => item.id)
-      .includes(product.id);
-    const cartButtonTitle = inCart ? "REMOVE" : "ADD TO CART";
-    const cartButtonCallback = inCart
+      .includes(product.id); //  Проходимся по cartItems и если в нём есть product.id, возвращаем true.
+    const cartButtonTitle = inCart ? "REMOVE" : "ADD TO CART"; // В зависимости true или false в inCart, cartButtonTitle показывает "REMOVE" или "ADD TO CART"
+    const cartButtonCallback = inCart //  эта функция отрабатывает при клике на кнопку
       ? this.deleteProductFromCart
       : this.addProductToCart;
 
@@ -101,13 +126,22 @@ class ProductPage extends React.Component<Props, State> {
       return product.id === cartItem.id;
     });
 
+    // console.log("filteredCartItems", filteredCartItems);
+
     const cartItem =
       filteredCartItems.length === 0 ? null : filteredCartItems[0];
+
+    // console.log("cartItem", cartItem);
 
     // const numbers = [1, 2, 3];
     // const two = numbers.filter((number) => number === 2);
     // console.log(two[0]);
 
+    // console.log("ProductPage", product.attributes);
+    // console.log("inCart", inCart);
+    const attributes = this.getProductAttributes(
+      cartItem ? cartItem.attributes : product.attributes
+    );
     return (
       <div className={styles["product"]}>
         <div className={styles["gallery-section"]}>
@@ -136,8 +170,9 @@ class ProductPage extends React.Component<Props, State> {
 
           <ProductAttributes
             productId={product.id}
-            attributes={cartItem ? cartItem.attributes : product.attributes}
-            place="PAGE"
+            attributes={attributes}
+            place="PRODUCT"
+            setProductPageAttributeValue={this.setProductPageAttributeValue}
           />
 
           <div>

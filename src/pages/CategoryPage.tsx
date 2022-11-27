@@ -102,18 +102,19 @@ class CategoryPage extends React.Component<Props, State> {
                       .includes(product.id);
 
                     const itemIcon = inItem ? (
-                      <>
-                        <div className={styles["cart-icon-section"]}>
-                          <div className={styles["cart-icon-block"]}>
-                            <div className={styles["vector"]}></div>
-                            <div className={styles["trapezoid"]}></div>
-                            <div className={styles["circle-section"]}>
-                              <div className={styles["circle"]}></div>
-                              <div className={styles["circle"]}></div>
-                            </div>
+                      <div
+                        className={styles["cart-icon-section"]}
+                        key={product.id}
+                      >
+                        <div className={styles["cart-icon-block"]}>
+                          <div className={styles["vector"]}></div>
+                          <div className={styles["trapezoid"]}></div>
+                          <div className={styles["circle-section"]}>
+                            <div className={styles["circle"]}></div>
+                            <div className={styles["circle"]}></div>
                           </div>
                         </div>
-                      </>
+                      </div>
                     ) : (
                       ""
                     );
@@ -123,10 +124,10 @@ class CategoryPage extends React.Component<Props, State> {
                       return (
                         <Link
                           className={styles["category-product"]}
-                          key={product.id}
+                          key={`/product/${product.id}`}
                           to={`/product/${product.id}`}
                         >
-                          <div key={product.id}>
+                          <div>
                             <div className={styles["product-image-section"]}>
                               <img
                                 className={styles["product-image"]}
@@ -149,7 +150,10 @@ class CategoryPage extends React.Component<Props, State> {
                     } else {
                       const price = getPrice(product.prices, currency);
                       return (
-                        <div className={styles["category-product-out-stock"]}>
+                        <div
+                          key={`price${product.id}`}
+                          className={styles["category-product-out-stock"]}
+                        >
                           <div className={styles["product-image-section"]}>
                             <img
                               className={styles["product-image"]}
@@ -208,23 +212,6 @@ const categoriesQuery = gql`
   }
 `;
 
-const currencyQuery = gql`
-  query {
-    currencies
-  }
-`;
-
-const amountQuery = gql`
-  query Product($id: String!) {
-    product(id: $id) {
-      prices {
-        currency
-        amount
-      }
-    }
-  }
-`;
-
 const mapStateToProps = (state: AppState): StoreProps => {
   return {
     currency: state.currency,
@@ -235,6 +222,5 @@ const mapStateToProps = (state: AppState): StoreProps => {
 export default compose(
   withParams,
   connect(mapStateToProps),
-  graphql(amountQuery as any) as any,
   graphql<any, any>(categoriesQuery)
 )(CategoryPage as any);

@@ -35,12 +35,12 @@
     height: 26px;
 }
 
-.popup-quantity-image {
+.popup-quantity-section {
     display: flex;
     flex-direction: row;
 }
 
-.popup-quantity-section {
+.popup-quantity-block {
     display: flex;
     justify-content: space-between;
     flex-direction: column;

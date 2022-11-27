@@ -1,6 +1,6 @@
 import { Product } from "./pages/ProductPage";
 
-type CartProduct = Product & {
+export type CartProduct = Product & {
   quantity: number;
   // isSelected?: boolean; // TODO: Delete?
 };
@@ -60,41 +60,65 @@ type Action = {
     | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
 };
 
+export const updateAttributes = (
+  attributes: Product["attributes"],
+  selectedAttributeValues: { [key: string]: string }
+) => {
+  const updatedAttributes = attributes.map((attribute) => {
+    // при переборке attribute у нас есть возможность показать их список или модифицировать нужные нам
+    return !!selectedAttributeValues[attribute.id] // !! - преобразование в boolean type / проверка выбран аттрибут или нет
+      ? {
+          ...attribute,
+          items: attribute.items.map((attrValue) => {
+            return {
+              ...attrValue,
+              isSelected:
+                selectedAttributeValues[attribute.id] === attrValue.id,
+            };
+            // return selectedAttributeValues[attribute.id] === attrValue.id
+            //   ? {
+            //       ...attrValue,
+            //       isSelected: true,
+            //     }
+            //   : {
+            //       ...attrValue,
+            //       isSelected: false,
+            //     };
+          }),
+        }
+      : attribute;
+  });
+  return updatedAttributes;
+};
+
 const rootReducer = (state = initialState, action: Action): AppState => {
+  console.log("----- STATE ----");
+  console.log(JSON.stringify(state, null, 2));
+  console.log("----- ACTION ----");
+  console.log(JSON.stringify(action, null, 2));
   switch (action.type) {
     case "UPDATE_ATTRIBUTES":
       const { productId, attributeId, attributeValueId } = (
         action.payload as UpdateAttributesPayload
       ).params;
 
-      console.log("productId", productId);
-      console.log("attributeId", attributeId);
-      console.log("attributeValueId", attributeValueId);
+      // console.log("productId", productId);
+      // console.log("attributeId", attributeId);
+      // console.log("attributeValueId", attributeValueId);
 
+      const selectedAttributeValues = {};
+      // @ts-ignore
+      selectedAttributeValues[attributeId] = attributeValueId;
       return {
         ...state,
         cartItems: state.cartItems.map((cartItem) => {
           return cartItem.id === productId
             ? {
                 ...cartItem,
-                attributes: cartItem.attributes.map((attribute) => {
-                  return attribute.id === attributeId
-                    ? {
-                        ...attribute,
-                        items: attribute.items.map((attrValue) => {
-                          return attrValue.id === attributeValueId
-                            ? {
-                                ...attrValue,
-                                isSelected: true,
-                              }
-                            : {
-                                ...attrValue,
-                                isSelected: false,
-                              };
-                        }),
-                      }
-                    : attribute;
-                }),
+                attributes: updateAttributes(
+                  cartItem.attributes,
+                  selectedAttributeValues
+                ),
               }
             : cartItem;
         }),
@@ -105,83 +129,6 @@ const rootReducer = (state = initialState, action: Action): AppState => {
     // 2. По attributeName  найті carteItem.attributes.id
     // 3. По attributeValue  найті carteItem.attributes.items.id
     // 4. Добавіть carteItem.attributes.items.isSelected = True
-
-    // const { productId, attributeName, attributeValue } = action.params;
-    //   const cartItems = state.cartItems.map((cartItem) => {
-    //     return cartItem.productId === productId
-    //       ? {
-    //           ...cartItem,
-    //           attributes: cartItem.attributes.map((attribute) => {
-    //             return attribute.attributeName === attributeName
-    //               ? {}
-    //               : attribute;
-    //           }),
-    //         }
-    //       : cartItem;
-    //   });
-    //   return {
-    //     ...state,
-    //     cartItems: [...state.cartItems],
-    //   };
-
-    // cartItems.product.attributes // спісок
-    //   [
-    //     {
-    //         "__typename": "AttributeSet",
-    //         "id": "Capacity",
-    //         "name": "Capacity",
-    //         "type": "text",
-    //         "items": [
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "256GB",
-    //                 "displayValue": "256GB",
-    //                 "isSelected": true || false //////////////////////////
-    //             },
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "512GB",
-    //                 "displayValue": "512GB"
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         "__typename": "AttributeSet",
-    //         "id": "With USB 3 ports",
-    //         "name": "With USB 3 ports",
-    //         "type": "text",
-    //         "items": [
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "Yes",
-    //                 "displayValue": "Yes"
-    //             },
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "No",
-    //                 "displayValue": "No"
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         "__typename": "AttributeSet",
-    //         "id": "Touch ID in keyboard",
-    //         "name": "Touch ID in keyboard",
-    //         "type": "text",
-    //         "items": [
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "Yes",
-    //                 "displayValue": "Yes"
-    //             },
-    //             {
-    //                 "__typename": "Attribute",
-    //                 "id": "No",
-    //                 "displayValue": "No"
-    //             }
-    //         ]
-    //     }
-    // ]
 
     case "CART_ADD_ITEM":
       return {

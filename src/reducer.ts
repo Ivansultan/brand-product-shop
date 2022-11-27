@@ -130,9 +130,29 @@ const rootReducer = (state = initialState, action: Action): AppState => {
     case "CART_ADD_ITEM":
       const { product, selectedAttributeValues } =
         action.payload as CartAddItemPayload;
+      const { attributes, ...rest } = product;
       return {
         ...state,
-        cartItems: [...state.cartItems, { ...product, quantity: 1 }],
+        cartItems: [
+          ...state.cartItems,
+          {
+            ...rest,
+            attributes: attributes.map((attribute) => {
+              return {
+                ...attribute,
+                items: attribute.items.map((item) => {
+                  const isSelected =
+                    item.id === (selectedAttributeValues as any)[attribute.id];
+                  return {
+                    ...item,
+                    isSelected,
+                  };
+                }),
+              };
+            }),
+            quantity: 1,
+          },
+        ],
       };
     case "CART_REMOVE_ITEM":
       return {

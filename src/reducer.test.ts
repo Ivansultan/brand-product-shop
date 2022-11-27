@@ -48,9 +48,11 @@ describe("rootReducer()", () => {
             return {
               ...attribute,
               items: attribute.items.map((item) => {
+                const isSelected =
+                  item.id === (selectedAttributeValues as any)[attribute.id];
                 return {
                   ...item,
-                  isSelected: false,
+                  isSelected,
                 };
               }),
             };

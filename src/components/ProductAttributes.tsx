@@ -33,54 +33,38 @@ export type Attribute = {
 class ProductAttributes extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {};
   }
 
   renderAttributeValue = (attribute: Attribute, item: AttributeItem) => {
     const { place } = this.props;
-    let attributeWrapper;
-    let attributeContainerClassName;
-    let attributeContainerStyle;
-    let attributeValueTitle;
+    let containerClassName;
+    let containerStyle;
+    let title;
     switch (attribute.id) {
       case "Color":
-        attributeWrapper =
-          place === "PAGE"
-            ? styles["page-color-section"]
-            : styles["popup-color-section"];
-        attributeContainerClassName =
-          place === "PAGE" ? styles["page-color"] : styles["popup-color"];
-        attributeContainerStyle = { backgroundColor: item.id.toLowerCase() };
-        attributeValueTitle = "";
+        containerClassName =
+          place === "POPUP" ? styles["popup-color"] : styles["page-color"];
+        containerStyle = { backgroundColor: item.id.toLowerCase() };
+        title = "";
         break;
       default:
-        attributeWrapper =
-          place === "PAGE"
-            ? styles["page-capacity-section"]
-            : styles["popup-capacity-section"];
-        attributeContainerClassName =
-          place === "PAGE" ? styles["page-capacity"] : styles["popup-capacity"];
-        attributeContainerStyle = {};
-        attributeValueTitle = sizeLabel[item.id] || item.id;
+        containerClassName =
+          place === "POPUP"
+            ? styles["popup-capacity"]
+            : styles["page-capacity"];
+        containerStyle = {};
+        title = sizeLabel[item.id] || item.id;
     }
 
     return (
-      <div
-        style={{
-          // backgroundColor: "blue",
-          display: "flex",
-          flexDirection: "row",
-        }}
-        className={attributeWrapper}
-        key={item.id}
-      >
+      <div className={styles["attribute-section"]} key={item.id}>
         <div
-          className={attributeContainerClassName}
-          style={attributeContainerStyle}
+          className={containerClassName}
+          style={containerStyle}
           key={`${item.id}-container`}
         >
-          {attributeValueTitle}
+          {title}
         </div>
       </div>
 
@@ -138,27 +122,32 @@ class ProductAttributes extends React.Component<Props, State> {
         {attributes.map((attribute) => {
           return (
             <div key={attribute.id}>
-              {attribute.name}
-              {attribute.items.map((item) => {
-                return (
-                  <div
-                    key={item.id}
-                    style={item.isSelected ? { backgroundColor: "red" } : {}}
-                    onClick={() => {
-                      place === "PRODUCT"
-                        ? setProductPageAttributeValue!(attribute.id, item.id) //  отрабатывает setState
-                        : this.chooseAttribute({
-                            // отрабатывает reducer
-                            productId: productId,
-                            attributeId: attribute.id,
-                            attributeValueId: item.id,
-                          });
-                    }}
-                  >
-                    {this.renderAttributeValue(attribute, item)}
-                  </div>
-                );
-              })}
+              <div className={styles["page-color-name-section"]}>
+                {attribute.name}
+              </div>
+              {/* <div style={{ display: "flex", flexDirection: "row" }}> */}
+              <div className={styles["attribute-section"]}>
+                {attribute.items.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      style={item.isSelected ? { backgroundColor: "red" } : {}}
+                      onClick={() => {
+                        place === "PRODUCT"
+                          ? setProductPageAttributeValue!(attribute.id, item.id) //  отрабатывает setState
+                          : this.chooseAttribute({
+                              // отрабатывает reducer
+                              productId: productId,
+                              attributeId: attribute.id,
+                              attributeValueId: item.id,
+                            });
+                      }}
+                    >
+                      {this.renderAttributeValue(attribute, item)}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           );
         })}

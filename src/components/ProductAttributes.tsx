@@ -36,6 +36,11 @@ class ProductAttributes extends React.Component<Props, State> {
     this.state = {};
   }
 
+  // renderAttributeName = (attribute: Attribute, item: AttributeItem) => {
+  //   const { place } = this.props;
+
+  // }
+
   renderAttributeValue = (attribute: Attribute, item: AttributeItem) => {
     const { place } = this.props;
     let containerClassName;
@@ -67,40 +72,6 @@ class ProductAttributes extends React.Component<Props, State> {
           {title}
         </div>
       </div>
-
-      // <div className={variantsMap.attributeWrapper[attribute.id]} key={item.id}>
-      // if (attribute.id === "Size" || attribute.id === "Capacity") {
-      //   return (
-      //     <div
-      //       className={variantsMap.attributeWrapper[attribute.id]}
-      //       key={item.id}
-      //     >
-      //       <div
-      //         className={variantsMap.attributeContainer[attribute.id]}
-      //         key={item.id}
-      //       >
-      //         {attributeValueTitle}
-      //       </div>
-      //     </div>
-      //   );
-      // }
-      // if (attribute.id === "Color") {
-      //   const style = { backgroundColor: item.id.toLowerCase() };
-      //   return (
-      //     <div
-      //       className={variantsMap.attributeWrapper[attribute.id]}
-      //       key={item.id}
-      //     >
-      //       <div
-      //         className={variantsMap.attributeContainer[attribute.id]}
-      //         key={item.id}
-      //         style={style}
-      //       ></div>
-      //     </div>
-      //   );
-      // } else {
-      //   return <div></div>;
-      // }
     );
   };
 
@@ -122,10 +93,19 @@ class ProductAttributes extends React.Component<Props, State> {
         {attributes.map((attribute) => {
           return (
             <div key={attribute.id}>
-              <div className={styles["page-color-name-section"]}>
+              <div
+                // className={styles["page-color-name-section"]}
+                className={
+                  styles[
+                    place === "POPUP"
+                      ? "popup-color-name-section"
+                      : "page-color-name-section"
+                  ]
+                }
+              >
                 {attribute.name}
               </div>
-              {/* <div style={{ display: "flex", flexDirection: "row" }}> */}
+
               <div className={styles["attribute-section"]}>
                 {attribute.items.map((item) => {
                   return (

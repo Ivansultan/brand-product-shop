@@ -1,4 +1,6 @@
+import ProductAttributes from "./components/ProductAttributes";
 import { Product, SelectedAttributeValues } from "./pages/ProductPage";
+import { ACTION_ADD } from "./reducer.mock";
 
 export type CartProduct = Product & {
   quantity: number;
@@ -15,7 +17,7 @@ export type AppState = {
   categoryName: string;
 };
 
-const initialState: AppState = {
+export const initialState: AppState = {
   cartItems: [],
   currency: "USD",
   categoryName: "ALL",
@@ -31,6 +33,21 @@ type ActionType =
   | "UPDATE_ATTRIBUTES";
 
 type CartAddItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+type CartRemoveItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+type CartIncrementItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+type CartDecrementItemPayload = {
   product: Product;
   selectedAttributeValues?: SelectedAttributeValues;
 };
@@ -56,6 +73,9 @@ type Action = {
   type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
   payload:
     | CartAddItemPayload
+    | CartRemoveItemPayload
+    | CartIncrementItemPayload
+    | CartDecrementItemPayload
     | CurrencyPayload
     | CategoryNamePayload
     | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
@@ -92,11 +112,31 @@ export const updateAttributes = (
   return updatedAttributes;
 };
 
+export const getProductsAttribute = (
+  attributes: CartProduct["attributes"],
+  selectedAttributeValues: any
+) => {
+  return attributes.map((attribute) => {
+    return {
+      ...attribute,
+      items: attribute.items.map((item) => {
+        const isSelected =
+          item.id === (selectedAttributeValues as any)[attribute.id];
+        return {
+          ...item,
+          isSelected,
+        };
+      }),
+    };
+  });
+};
+
 const rootReducer = (state = initialState, action: Action): AppState => {
   console.log("----- STATE ----");
   console.log(JSON.stringify(state, null, 2));
   console.log("----- ACTION ----");
   console.log(JSON.stringify(action, null, 2));
+
   switch (action.type) {
     case "UPDATE_ATTRIBUTES":
       const { productId, attributeId, attributeValueId } = (
@@ -137,19 +177,10 @@ const rootReducer = (state = initialState, action: Action): AppState => {
           ...state.cartItems,
           {
             ...rest,
-            attributes: attributes.map((attribute) => {
-              return {
-                ...attribute,
-                items: attribute.items.map((item) => {
-                  const isSelected =
-                    item.id === (selectedAttributeValues as any)[attribute.id];
-                  return {
-                    ...item,
-                    isSelected,
-                  };
-                }),
-              };
-            }),
+            attributes: getProductsAttribute(
+              attributes,
+              selectedAttributeValues
+            ),
             quantity: 1,
           },
         ],
@@ -159,14 +190,14 @@ const rootReducer = (state = initialState, action: Action): AppState => {
         ...state,
         cartItems: state.cartItems.filter(
           (item) =>
-            item.id !== (action.payload as CartAddItemPayload).product.id
+            item.id !== (action.payload as CartRemoveItemPayload).product.id
         ),
       };
     case "CART_INCREMENT_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartAddItemPayload).product.id
+          item.id === (action.payload as CartIncrementItemPayload).product.id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -178,22 +209,12 @@ const rootReducer = (state = initialState, action: Action): AppState => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartAddItemPayload).product.id
+          item.id === (action.payload as CartDecrementItemPayload).product.id
             ? { ...item, quantity: item.quantity - 1 }
             : item
         ),
       };
-    // case "SET_ATTRIBUTE":
-    //   return {
-    //     ...state,
-    //     cartItems: state.cartItems.map((cartItem) => {
-    //       return cartItem.attributes.map((attribute) => {
-    //         return attribute.items.map((item) => {
-    //           return item;
-    //         });
-    //       });
-    //     }),
-    //   };
+
     case "SET_CATEGORY_NAME":
       return {
         ...state,

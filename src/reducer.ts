@@ -42,12 +42,12 @@ type CartRemoveItemPayload = {
   selectedAttributeValues?: SelectedAttributeValues;
 };
 
-type CartIncrementItemPayload = {
+export type CartIncrementItemPayload = {
   product: Product;
   selectedAttributeValues?: SelectedAttributeValues;
 };
 
-type CartDecrementItemPayload = {
+export type CartDecrementItemPayload = {
   product: Product;
   selectedAttributeValues?: SelectedAttributeValues;
 };

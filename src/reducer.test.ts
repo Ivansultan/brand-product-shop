@@ -1,5 +1,8 @@
 import { describe, test, expect } from "@jest/globals";
-import rootReducer from "./reducer";
+import rootReducer, {
+  CartIncrementItemPayload,
+  CartDecrementItemPayload,
+} from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
 import { getProductsAttribute } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
@@ -37,7 +40,27 @@ describe("rootReducer()", () => {
     expect(sum(a, b)).toEqual(5);
   });
 
-  test("action_type", () => {
+  test.only("action_type: CART_INCREMENT_ITEM and CART_DECREMENT_ITEM", () => {
+    const result = rootReducer(
+      {
+        ...INITIAL_STATE,
+        cartItems: [{ ...PRODUCT, quantity: 1 }],
+      },
+      {
+        type: "CART_INCREMENT_ITEM",
+        payload: { product: PRODUCT } as CartIncrementItemPayload,
+      }
+    );
+    expect(result.cartItems[0].quantity).toEqual(2);
+
+    const newResult = rootReducer(result, {
+      type: "CART_DECREMENT_ITEM",
+      payload: { product: PRODUCT } as CartDecrementItemPayload,
+    });
+    expect(newResult.cartItems[0].quantity).toEqual(1);
+  });
+
+  test("action_type: CART_ADD_ITEM and CART_REMOVE_ITEM", () => {
     // Add to cart
     const { product, selectedAttributeValues } =
       ACTION_ADD.CART_ADD_ITEM.payload;
@@ -137,7 +160,7 @@ describe("rootReducer()", () => {
     // ]);
   });
 
-  test.only("getProductsAttribute", () => {
+  test("getProductsAttribute", () => {
     const result = getProductsAttribute(PRODUCT.attributes, { Size: "40" });
     console.log(JSON.stringify(result, null, 2));
     expect(result).toEqual([

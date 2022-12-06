@@ -3,6 +3,7 @@ import rootReducer, {
   CartIncrementItemPayload,
   CartDecrementItemPayload,
   CurrencyPayload,
+  CategoryNamePayload,
 } from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
 import { getProductsAttribute, Currency } from "./reducer";
@@ -39,6 +40,21 @@ describe("rootReducer()", () => {
     };
 
     expect(sum(a, b)).toEqual(5);
+  });
+
+  test("action_type: SET_CATEGORY_NAME", () => {
+    const newName = "CLOTHES";
+    const result = rootReducer(
+      {
+        ...INITIAL_STATE,
+        categoryName: "ALL",
+      },
+      {
+        type: "SET_CATEGORY_NAME",
+        payload: { categoryName: newName } as CategoryNamePayload,
+      }
+    );
+    expect(result.categoryName).toEqual(newName);
   });
 
   test("action_type: SET_CURRENCY", () => {

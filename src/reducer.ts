@@ -54,7 +54,7 @@ export type CurrencyPayload = {
   currency: Currency;
 };
 
-type CategoryNamePayload = {
+export type CategoryNamePayload = {
   categoryName: string;
 };
 
@@ -159,11 +159,11 @@ const rootReducer = (state = initialState, action: Action): AppState => {
         }),
       };
 
-    // Шагі
-    // 1. По productId найті carteItem.id
-    // 2. По attributeName  найті carteItem.attributes.id
-    // 3. По attributeValue  найті carteItem.attributes.items.id
-    // 4. Добавіть carteItem.attributes.items.isSelected = True
+    // Шаги
+    // 1. По productId найти carteItem.id
+    // 2. По attributeName  найти carteItem.attributes.id
+    // 3. По attributeValue  найти carteItem.attributes.items.id
+    // 4. Добавить carteItem.attributes.items.isSelected = True
 
     case "CART_ADD_ITEM":
       const { product, selectedAttributeValues } =

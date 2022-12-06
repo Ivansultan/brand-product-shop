@@ -1,13 +1,11 @@
-import ProductAttributes from "./components/ProductAttributes";
 import { Product, SelectedAttributeValues } from "./pages/ProductPage";
-import { ACTION_ADD } from "./reducer.mock";
 
 export type CartProduct = Product & {
   quantity: number;
   // isSelected?: boolean; // TODO: Delete?
 };
 
-type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
+export type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
 export type ProductSize = "Small" | "Medium" | "Large" | "Extra Large";
 
@@ -52,7 +50,7 @@ export type CartDecrementItemPayload = {
   selectedAttributeValues?: SelectedAttributeValues;
 };
 
-type CurrencyPayload = {
+export type CurrencyPayload = {
   currency: Currency;
 };
 

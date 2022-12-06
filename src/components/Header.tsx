@@ -27,8 +27,6 @@ type Props = OwnProps & StoreProps;
 
 type State = {};
 
-export type Currency = "USD" | "EUR";
-
 class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

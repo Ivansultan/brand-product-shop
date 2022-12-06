@@ -2,9 +2,10 @@ import { describe, test, expect } from "@jest/globals";
 import rootReducer, {
   CartIncrementItemPayload,
   CartDecrementItemPayload,
+  CurrencyPayload,
 } from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
-import { getProductsAttribute } from "./reducer";
+import { getProductsAttribute, Currency } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
 
 type Item = {
@@ -40,24 +41,42 @@ describe("rootReducer()", () => {
     expect(sum(a, b)).toEqual(5);
   });
 
-  test.only("action_type: CART_INCREMENT_ITEM and CART_DECREMENT_ITEM", () => {
+  test("action_type: SET_CURRENCY", () => {
+    const newCurrency: Currency = "GBP";
     const result = rootReducer(
       {
         ...INITIAL_STATE,
-        cartItems: [{ ...PRODUCT, quantity: 1 }],
+        currency: "USD",
+      },
+      {
+        type: "SET_CURRENCY",
+        payload: { currency: newCurrency } as CurrencyPayload,
+      }
+    );
+    expect(result.currency).toEqual(newCurrency);
+  });
+
+  test("action_type: CART_INCREMENT_ITEM and CART_DECREMENT_ITEM", () => {
+    const result = rootReducer(
+      {
+        ...INITIAL_STATE,
+        cartItems: [
+          { ...PRODUCT, id: "2", quantity: 10 },
+          { ...PRODUCT, quantity: 1 },
+        ],
       },
       {
         type: "CART_INCREMENT_ITEM",
         payload: { product: PRODUCT } as CartIncrementItemPayload,
       }
     );
-    expect(result.cartItems[0].quantity).toEqual(2);
+    expect(result.cartItems[1].quantity).toEqual(2);
 
     const newResult = rootReducer(result, {
       type: "CART_DECREMENT_ITEM",
       payload: { product: PRODUCT } as CartDecrementItemPayload,
     });
-    expect(newResult.cartItems[0].quantity).toEqual(1);
+    expect(newResult.cartItems[1].quantity).toEqual(1);
   });
 
   test("action_type: CART_ADD_ITEM and CART_REMOVE_ITEM", () => {

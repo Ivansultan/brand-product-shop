@@ -6,7 +6,7 @@ import rootReducer, {
   CategoryNamePayload,
 } from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
-import { getProductsAttribute, Currency } from "./reducer";
+import { updateProductAttributes, Currency } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
 
 type Item = {
@@ -86,6 +86,7 @@ describe("rootReducer()", () => {
         payload: { product: PRODUCT } as CartIncrementItemPayload,
       }
     );
+    expect(result.cartItems[0].quantity).toEqual(10);
     expect(result.cartItems[1].quantity).toEqual(2);
 
     const newResult = rootReducer(result, {
@@ -110,7 +111,10 @@ describe("rootReducer()", () => {
         ...INITIAL_STATE.cartItems,
         {
           ...restProduct,
-          attributes: getProductsAttribute(attributes, selectedAttributeValues),
+          attributes: updateProductAttributes(
+            attributes,
+            selectedAttributeValues
+          ),
           quantity: 1,
         },
       ],
@@ -127,7 +131,7 @@ describe("rootReducer()", () => {
     });
   });
 
-  test("testttt", () => {
+  test.skip("testttt", () => {
     const multiply = (ls: number[]) => {
       return ls;
     };
@@ -196,7 +200,7 @@ describe("rootReducer()", () => {
   });
 
   test("getProductsAttribute", () => {
-    const result = getProductsAttribute(PRODUCT.attributes, { Size: "40" });
+    const result = updateProductAttributes(PRODUCT.attributes, { Size: "40" });
     console.log(JSON.stringify(result, null, 2));
     expect(result).toEqual([
       {

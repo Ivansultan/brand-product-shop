@@ -110,7 +110,7 @@ export const updateAttributes = (
   return updatedAttributes;
 };
 
-export const getProductsAttribute = (
+export const updateProductAttributes = (
   attributes: CartProduct["attributes"],
   selectedAttributeValues: any
 ) => {
@@ -175,7 +175,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
           ...state.cartItems,
           {
             ...rest,
-            attributes: getProductsAttribute(
+            attributes: updateProductAttributes(
               attributes,
               selectedAttributeValues
             ),

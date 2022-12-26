@@ -127,7 +127,19 @@ class CategoryPage extends React.Component<Props, State> {
                           key={`/product/${product.id}`}
                           to={`/product/${product.id}`}
                         >
-                          <div>
+                          <div
+                            // className={inItem ? styles["borderStyle"] : undefined}
+                            style={
+                              inItem
+                                ? {
+                                    padding: "15px",
+                                    border: "1px solid white",
+                                    borderRadius: "2px",
+                                    boxShadow: "1px 1px 10px lightGray",
+                                  }
+                                : { padding: "15px" }
+                            }
+                          >
                             <div className={styles["product-image-section"]}>
                               <img
                                 className={styles["product-image"]}

@@ -111,7 +111,11 @@ class ProductAttributes extends React.Component<Props, State> {
                   return (
                     <div
                       key={item.id}
-                      style={item.isSelected ? { backgroundColor: "red" } : {}}
+                      style={
+                        item.isSelected
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
                       onClick={() => {
                         place === "PRODUCT"
                           ? setProductPageAttributeValue!(attribute.id, item.id) //  отрабатывает setState

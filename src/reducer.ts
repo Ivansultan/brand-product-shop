@@ -79,22 +79,53 @@ type Action = {
     | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
 };
 
-export const updateProductAttributes = (
-  attributes: CartProduct["attributes"],
+// export const updateProductAttributes = (
+//   attributes: CartProduct["attributes"],
+//   selectedAttributeValues: { [key: string]: string }
+// ) => {
+//   return attributes.map((attribute) => {
+//     return {
+//       ...attribute,
+//       items: attribute.items.map((item) => {
+//         const isSelected = item.id === selectedAttributeValues[attribute.id];
+//         return {
+//           ...item,
+//           isSelected,
+//         };
+//       }),
+//     };
+//   });
+// };
+
+export const updateAttributes = (
+  attributes: Product["attributes"],
   selectedAttributeValues: { [key: string]: string }
 ) => {
-  return attributes.map((attribute) => {
-    return {
-      ...attribute,
-      items: attribute.items.map((item) => {
-        const isSelected = item.id === selectedAttributeValues[attribute.id];
-        return {
-          ...item,
-          isSelected,
-        };
-      }),
-    };
+  const updatedAttributes = attributes.map((attribute) => {
+    // при переборке attribute у нас есть возможность показать их список или модифицировать нужные нам
+    return !!selectedAttributeValues[attribute.id] // !! - преобразование в boolean type / проверка выбран аттрибут или нет
+      ? {
+          ...attribute,
+          items: attribute.items.map((attrValue) => {
+            return {
+              ...attrValue,
+              isSelected:
+                selectedAttributeValues[attribute.id] === attrValue.id,
+            };
+            // return selectedAttributeValues[attribute.id] === attrValue.id
+            //   ? {
+            //       ...attrValue,
+            //       isSelected: true,
+            //     }
+            //   : {
+            //       ...attrValue,
+            //       isSelected: false,
+            //     };
+          }),
+        }
+      : attribute;
   });
+  return updatedAttributes;
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
@@ -119,7 +150,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
           return cartItem.id === productId
             ? {
                 ...cartItem,
-                attributes: updateProductAttributes(cartItem.attributes, {
+                attributes: updateAttributes(cartItem.attributes, {
                   [attributeId]: attributeValueId,
                 }),
               }
@@ -143,10 +174,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
           ...state.cartItems,
           {
             ...rest,
-            attributes: updateProductAttributes(
-              attributes,
-              selectedAttributeValues!
-            ),
+            attributes: updateAttributes(attributes, selectedAttributeValues!),
             quantity: 1,
           },
         ],

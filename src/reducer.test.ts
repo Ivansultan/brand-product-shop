@@ -6,7 +6,7 @@ import rootReducer, {
   CategoryNamePayload,
 } from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
-import { updateProductAttributes, Currency } from "./reducer";
+import { updateAttributes, Currency } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
 
 type Item = {
@@ -111,10 +111,7 @@ describe("rootReducer()", () => {
         ...INITIAL_STATE.cartItems,
         {
           ...restProduct,
-          attributes: updateProductAttributes(
-            attributes,
-            selectedAttributeValues
-          ),
+          attributes: updateAttributes(attributes, selectedAttributeValues),
           quantity: 1,
         },
       ],
@@ -200,7 +197,7 @@ describe("rootReducer()", () => {
   });
 
   test("getProductsAttribute", () => {
-    const result = updateProductAttributes(PRODUCT.attributes, {
+    const result = updateAttributes(PRODUCT.attributes, {
       Size: "40",
       Color: "white",
     });

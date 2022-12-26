@@ -4,7 +4,7 @@ import React from "react";
 import { compose } from "recompose";
 import { store } from "../store";
 import { withParams } from "../utils";
-import { AppState, updateProductAttributes } from "../reducer";
+import { AppState, updateAttributes } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import ProductAttributes, { Attribute } from "../components/ProductAttributes";
@@ -94,7 +94,7 @@ class ProductPage extends React.Component<Props, State> {
   getProductAttributes = (attributes: Product["attributes"]) => {
     const { selectedAttributeValues } = this.state;
     // console.log("getProductAttributes", selectedAttributeValues);
-    return updateProductAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
+    return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
   };
 
   setProductPageAttributeValue = (attributeId: any, attributeValueId: any) => {

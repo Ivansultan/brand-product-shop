@@ -52,6 +52,38 @@ export const PRODUCT = {
         },
       ],
     },
+    {
+      __typename: "AttributeSet",
+      id: "Color",
+      name: "Color",
+      type: "text",
+      items: [
+        {
+          __typename: "Attribute",
+          id: "white",
+          displayValue: "white",
+          isSelected: false,
+        },
+        {
+          __typename: "Attribute",
+          id: "41",
+          displayValue: "41",
+          isSelected: false,
+        },
+        {
+          __typename: "Attribute",
+          id: "42",
+          displayValue: "42",
+          isSelected: false,
+        },
+        {
+          __typename: "Attribute",
+          id: "43",
+          displayValue: "43",
+          isSelected: false,
+        },
+      ],
+    },
   ],
   prices: [
     {

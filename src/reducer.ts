@@ -79,47 +79,15 @@ type Action = {
     | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
 };
 
-export const updateAttributes = (
-  attributes: Product["attributes"],
-  selectedAttributeValues: { [key: string]: string }
-) => {
-  const updatedAttributes = attributes.map((attribute) => {
-    // при переборке attribute у нас есть возможность показать их список или модифицировать нужные нам
-    return !!selectedAttributeValues[attribute.id] // !! - преобразование в boolean type / проверка выбран аттрибут или нет
-      ? {
-          ...attribute,
-          items: attribute.items.map((attrValue) => {
-            return {
-              ...attrValue,
-              isSelected:
-                selectedAttributeValues[attribute.id] === attrValue.id,
-            };
-            // return selectedAttributeValues[attribute.id] === attrValue.id
-            //   ? {
-            //       ...attrValue,
-            //       isSelected: true,
-            //     }
-            //   : {
-            //       ...attrValue,
-            //       isSelected: false,
-            //     };
-          }),
-        }
-      : attribute;
-  });
-  return updatedAttributes;
-};
-
 export const updateProductAttributes = (
   attributes: CartProduct["attributes"],
-  selectedAttributeValues: any
+  selectedAttributeValues: { [key: string]: string }
 ) => {
   return attributes.map((attribute) => {
     return {
       ...attribute,
       items: attribute.items.map((item) => {
-        const isSelected =
-          item.id === (selectedAttributeValues as any)[attribute.id];
+        const isSelected = item.id === selectedAttributeValues[attribute.id];
         return {
           ...item,
           isSelected,
@@ -130,10 +98,10 @@ export const updateProductAttributes = (
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
-  console.log("----- STATE ----");
-  console.log(JSON.stringify(state, null, 2));
-  console.log("----- ACTION ----");
-  console.log(JSON.stringify(action, null, 2));
+  // console.log("----- STATE ----");
+  // console.log(JSON.stringify(state, null, 2));
+  // console.log("----- ACTION ----");
+  // console.log(JSON.stringify(action, null, 2));
 
   switch (action.type) {
     case "UPDATE_ATTRIBUTES":
@@ -151,7 +119,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
           return cartItem.id === productId
             ? {
                 ...cartItem,
-                attributes: updateAttributes(cartItem.attributes, {
+                attributes: updateProductAttributes(cartItem.attributes, {
                   [attributeId]: attributeValueId,
                 }),
               }
@@ -177,7 +145,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
             ...rest,
             attributes: updateProductAttributes(
               attributes,
-              selectedAttributeValues
+              selectedAttributeValues!
             ),
             quantity: 1,
           },

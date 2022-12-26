@@ -200,7 +200,10 @@ describe("rootReducer()", () => {
   });
 
   test("getProductsAttribute", () => {
-    const result = updateProductAttributes(PRODUCT.attributes, { Size: "40" });
+    const result = updateProductAttributes(PRODUCT.attributes, {
+      Size: "40",
+      Color: "white",
+    });
     console.log(JSON.stringify(result, null, 2));
     expect(result).toEqual([
       {
@@ -213,6 +216,38 @@ describe("rootReducer()", () => {
             __typename: "Attribute",
             id: "40",
             displayValue: "40",
+            isSelected: true,
+          },
+          {
+            __typename: "Attribute",
+            id: "41",
+            displayValue: "41",
+            isSelected: false,
+          },
+          {
+            __typename: "Attribute",
+            id: "42",
+            displayValue: "42",
+            isSelected: false,
+          },
+          {
+            __typename: "Attribute",
+            id: "43",
+            displayValue: "43",
+            isSelected: false,
+          },
+        ],
+      },
+      {
+        __typename: "AttributeSet",
+        id: "Color",
+        name: "Color",
+        type: "text",
+        items: [
+          {
+            __typename: "Attribute",
+            id: "white",
+            displayValue: "white",
             isSelected: true,
           },
           {

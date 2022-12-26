@@ -86,7 +86,7 @@ class ProductAttributes extends React.Component<Props, State> {
     const { attributes, productId, setProductPageAttributeValue, place } =
       this.props;
 
-    console.log("ProductAttributes", place, attributes);
+    // console.log("ProductAttributes", place, attributes);
 
     return (
       <>

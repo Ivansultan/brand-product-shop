@@ -3,12 +3,15 @@ import React from "react";
 type Props = {};
 type State = { count: number };
 
+
+export const DEFAULT_COUNT = 1
+
 class QuantityOfProducts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      count: 1,
+      count: DEFAULT_COUNT,
     };
   }
 
@@ -28,7 +31,7 @@ class QuantityOfProducts extends React.Component<Props, State> {
     return (
       <div>
         <button onClick={this.handleIncrement}>+</button>
-        {this.state.count}
+        <span data-testid="result">{this.state.count}</span>
         <button onClick={this.handleDecrement}>-</button>
       </div>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState } from "../reducer";
+import { AppState, CartProduct } from "../reducer";
 import { store } from "../store";
 import { getPrice } from "../pages/ProductPage";
 import { currencyLabel } from "../utils";
@@ -8,6 +8,7 @@ import { withParams } from "../utils";
 import { connect } from "react-redux";
 import ProductAttributes from "./ProductAttributes";
 import styles from "./Cart.module.css";
+import { Product } from "../graphql/types";
 
 type OwnProps = {
   place: "PAGE" | "POPUP";
@@ -26,19 +27,6 @@ type CartQueryResult = {
   product: Product;
 };
 
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  prices: Price[];
-};
-
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-  quantity: number;
-};
-
 type GraphQLProps = {
   data: CartQueryResult;
 }
@@ -54,13 +42,13 @@ class Cart extends React.Component<Props, State> {
     this.state = {};
   }
 
-  incrementItem = (product: any) => {
+  incrementItem = (product: CartProduct) => {
     store.dispatch({
       type: "CART_INCREMENT_ITEM",
       payload: { product },
     });
   };
-  decrementItem = (product: any) => {
+  decrementItem = (product: CartProduct) => {
     store.dispatch({
       type: "CART_DECREMENT_ITEM",
       payload: { product },
@@ -68,8 +56,7 @@ class Cart extends React.Component<Props, State> {
   };
 
   render() {
-    const { currency, place, params } = this.props;
-    // console.log(params);
+    const { currency, place } = this.props;
     return (
       <>
         {this.props.cartItems.map((cartItem) => {

@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
-import { Category } from "../pages/CategoryPage";
+import { Category } from "../graphql/types";
 import { AppState } from "../reducer";
 import CartPopup from "./CartPopup";
 import Currencies from "./Currencies";

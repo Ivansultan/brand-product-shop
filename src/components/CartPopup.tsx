@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { currencyLabel } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPopup.module.css";
+import { Product } from "../graphql/types";
 
 type OwnProps = {
   place: "PAGE" | "POPUP";
@@ -24,33 +25,6 @@ type StoreProps = {
 
 type CartQueryResult = {
   product: Product;
-};
-
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  prices: Price[];
-  attributes: Attribute[];
-};
-
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-  quantity: number;
-};
-
-type Attribute = {
-  id: string;
-  name: string;
-  items: Item[];
-  type: string;
-};
-
-type Item = {
-  displayValue: string;
-  id: string;
-  colorProduct: string;
 };
 
 type GraphQLProps = {

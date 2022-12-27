@@ -6,29 +6,30 @@ import rootReducer, {
   CategoryNamePayload,
 } from "./reducer";
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
-import { updateAttributes, Currency } from "./reducer";
+import { updateAttributes } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
+import { Currency, Product } from "./graphql/types";
 
-type Item = {
+type CartItem = {
   id: string;
   color?: string;
+  quantity: number;
 };
 
 const addToCart = (
-  cartItems: Item[],
-  cartItem: Item,
+  cartItems: CartItem[],
+  cartItem: Product,
   cartItemColor: string
-): Item[] => {
-  return [...cartItems, { ...cartItem, color: cartItemColor }];
+): CartItem[] => {
+  return [...cartItems, { ...cartItem, color: cartItemColor, quantity: 1 }];
 };
 
 describe("rootReducer()", () => {
   test("add", () => {
-    const cartItems: Item[] = [];
+    const cartItems: CartItem[] = [];
     const color = "red";
-    const newItem = { id: "product1" };
+    const newItem = PRODUCT;
     const newCartItems = addToCart(cartItems, newItem, color);
-    console.log(newCartItems);
     expect(newCartItems).toEqual([{ ...newItem, color }]);
   });
 

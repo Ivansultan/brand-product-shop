@@ -3,6 +3,7 @@ import styles from "./ProductAttributes.module.css";
 import { sizeLabel } from "../utils";
 import { store } from "../store";
 import { UpdateAttributesPayload } from "../reducer";
+import { Attribute, AttributeItem } from "../graphql/types";
 
 type State = {};
 type Props = OwnProps;
@@ -17,18 +18,7 @@ export type OwnProps = {
   ) => void;
 };
 
-export type AttributeItem = {
-  displayValue: string;
-  id: string;
-  isSelected: boolean;
-};
 
-export type Attribute = {
-  id: string;
-  name: string;
-  type: string;
-  items: AttributeItem[];
-};
 
 class ProductAttributes extends React.Component<Props, State> {
   constructor(props: Props) {

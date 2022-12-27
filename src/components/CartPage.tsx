@@ -7,6 +7,7 @@ import Cart from "./Cart";
 import styles from "./CartPage.module.css";
 import { getPrice } from "../pages/ProductPage";
 import { currencyLabel } from "../utils";
+import { Product } from "../graphql/types";
 
 
 type OwnProps = {};
@@ -26,19 +27,6 @@ type GraphQLProps = {
 
 type CartQueryResult = {
   product: Product;
-};
-
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  prices: Price[];
-};
-
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-  quantity: number;
 };
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;

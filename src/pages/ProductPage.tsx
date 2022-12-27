@@ -7,8 +7,9 @@ import { withParams } from "../utils";
 import { AppState, updateAttributes } from "../reducer";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
-import ProductAttributes, { Attribute } from "../components/ProductAttributes";
+import ProductAttributes from "../components/ProductAttributes";
 import styles from "./ProductPage.module.css";
+import { Product } from "../graphql/types";
 
 export const getPrice = (
   prices: Price[],
@@ -47,17 +48,6 @@ type Price = {
   amount: number; // price for 1 item
 };
 
-type Image = string;
-
-export type Product = {
-  id: string;
-  brand: string;
-  name: string;
-  description: string;
-  prices: Price[];
-  gallery: Image[];
-  attributes: Attribute[];
-};
 
 type ProductQueryResult = {
   loading: boolean;
@@ -106,7 +96,7 @@ class ProductPage extends React.Component<Props, State> {
     return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
   };
 
-  setProductPageAttributeValue = (attributeId: any, attributeValueId: any) => {
+  setProductPageAttributeValue = (attributeId: string, attributeValueId: string) => {
     const { selectedAttributeValues } = this.state;
     selectedAttributeValues[attributeId] = attributeValueId;
     this.setState({

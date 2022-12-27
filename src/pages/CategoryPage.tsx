@@ -9,28 +9,9 @@ import { getPrice } from "./ProductPage";
 import { currencyLabel, withParams } from "../utils";
 import styles from "./CategoryPage.module.css";
 import { store } from "../store";
+import { Category } from "../graphql/types";
 
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-};
-
-type Gallery = string;
-
-type Product = {
-  id: string;
-  name: string;
-  brand: string;
-  amount: number;
-  gallery: Gallery[];
-  prices: Price[];
-  inStock: boolean;
-};
-
-export type Category = {
-  name: string;
-  products: Product[];
-};
+type OwnProps = {};
 
 type CategoryQueryResult = {
   loading: boolean;
@@ -52,13 +33,6 @@ type StoreProps = {
   cartItems: AppState["cartItems"];
 };
 
-type OwnProps = {
-};
-
-type CurrencyQueryResult = {
-  loading: boolean;
-  currencies: AppState["currency"][];
-};
 
 type State = {};
 

@@ -1,13 +1,11 @@
-import { Product, SelectedAttributeValues } from "./pages/ProductPage";
+import { Currency, Product } from "./graphql/types";
+import { SelectedAttributeValues } from "./pages/ProductPage";
 
 export type CartProduct = Product & {
   quantity: number;
   // isSelected?: boolean; // TODO: Delete?
 };
 
-export type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
-
-export type ProductSize = "Small" | "Medium" | "Large" | "Extra Large";
 
 export type AppState = {
   cartItems: CartProduct[];

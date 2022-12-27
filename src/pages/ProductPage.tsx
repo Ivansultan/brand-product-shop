@@ -23,6 +23,20 @@ export const getPrice = (
 
 export type SelectedAttributeValues = { [key: string]: string };
 
+type OwnProps = {
+  // place: "PAGE" | "POPUP";
+};
+
+
+type StoreProps = {
+  cartItems: AppState["cartItems"];
+  currency: AppState["currency"];
+};
+
+type NavigationProps = {
+  params: { id: Product["id"] };
+}
+
 type State = {
   visibility: boolean;
   selectedAttributeValues: SelectedAttributeValues;
@@ -50,16 +64,11 @@ type ProductQueryResult = {
   product: Product;
 };
 
-type StoreProps = {
-  cartItems: AppState["cartItems"];
-  currency: AppState["currency"];
-};
-type OwnProps = {
-  params: { id: Product["id"] };
+type GraphQLProps = {
   data: ProductQueryResult;
-  // place: "PAGE" | "POPUP";
-};
-type Props = OwnProps & StoreProps;
+}
+
+type Props = OwnProps & StoreProps & NavigationProps & GraphQLProps;
 
 class ProductPage extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -255,9 +264,9 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
-  graphql(currencyQuery as any) as any,
-  graphql<any, any>(productQuery, productQueryOptions),
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(ProductPage as any);
+  graphql(currencyQuery),
+  graphql(productQuery, productQueryOptions),
+  connect(mapStateToProps)
+)(ProductPage);

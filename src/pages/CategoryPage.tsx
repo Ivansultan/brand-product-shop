@@ -37,11 +37,15 @@ type CategoryQueryResult = {
   categories: Category[];
 };
 
-type Props = OwnProps & StoreProps & OriginalProps;
-
-type OriginalProps = {
+type GraphQLProps = {
   data: CategoryQueryResult;
 };
+
+type NavigationProps = {
+  params: { name: Category["name"] };
+}
+
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type StoreProps = {
   currency: AppState["currency"];
@@ -49,8 +53,6 @@ type StoreProps = {
 };
 
 type OwnProps = {
-  params: { name: Category["name"] };
-  data: CurrencyQueryResult;
 };
 
 type CurrencyQueryResult = {
@@ -231,8 +233,8 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
   connect(mapStateToProps),
-  graphql<any, any>(categoriesQuery)
-)(CategoryPage as any);
+  graphql(categoriesQuery)
+)(CategoryPage);

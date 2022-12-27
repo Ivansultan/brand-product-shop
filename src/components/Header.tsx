@@ -10,20 +10,24 @@ import CartPopup from "./CartPopup";
 import Currencies from "./Currencies";
 import styles from "./Header.module.css"; // Import css modules stylesheet as styles
 
+
+type OwnProps = {
+};
+
+type StoreProps = {
+  categoryName: Category["name"];
+};
+
 type CategoriesQueryResult = {
   loading: boolean;
   categories: Category[];
 };
 
-type OwnProps = {
+type GraphQLProps = {
   data: CategoriesQueryResult;
-  categoryName: Category["name"];
-};
+}
 
-type StoreProps = {
-  categoryName: string;
-};
-type Props = OwnProps & StoreProps;
+type Props = OwnProps & StoreProps & GraphQLProps;
 
 type State = {};
 
@@ -115,7 +119,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   connect(mapStateToProps),
-  graphql(currencyQuery as any) as any
-)(Header as any);
+  graphql(currencyQuery)
+)(Header);

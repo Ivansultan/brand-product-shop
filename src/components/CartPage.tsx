@@ -8,16 +8,21 @@ import styles from "./CartPage.module.css";
 import { getPrice } from "../pages/ProductPage";
 import { currencyLabel } from "../utils";
 
-type Props = OwnProps & StoreProps;
+
+type OwnProps = {};
+
+type NavigationProps = {
+  params: { id: Product["id"] };
+}
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
   currency: AppState["currency"];
 };
-type OwnProps = {
-  params: { id: Product["id"] };
+
+type GraphQLProps = {
   data: CartQueryResult;
-};
+}
 
 type CartQueryResult = {
   product: Product;
@@ -35,6 +40,8 @@ type Price = {
   amount: number;
   quantity: number;
 };
+
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type State = {};
 
@@ -88,7 +95,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(CartPage as any) as any;
+  connect(mapStateToProps)
+)(CartPage);

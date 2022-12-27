@@ -8,12 +8,11 @@ import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import styles from "./Currencies.module.css";
 
-type Props = OwnProps & StoreProps;
-type State = { visibility: boolean };
+type OwnProps = {};
 
-type OwnProps = {
+type GraphQLProps = {
   data: CurrencyQueryResult;
-};
+}
 
 type CurrencyQueryResult = {
   loading: boolean;
@@ -23,6 +22,10 @@ type CurrencyQueryResult = {
 type StoreProps = {
   currency: AppState["currency"];
 };
+
+type Props = OwnProps & StoreProps & GraphQLProps;
+
+type State = { visibility: boolean };
 
 class Currencies extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -108,7 +111,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   connect(mapStateToProps),
-  graphql(currencyQuery as any) as any
-)(Currencies as any);
+  graphql(currencyQuery)
+)(Currencies);

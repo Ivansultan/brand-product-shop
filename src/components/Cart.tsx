@@ -9,16 +9,17 @@ import { connect } from "react-redux";
 import ProductAttributes from "./ProductAttributes";
 import styles from "./Cart.module.css";
 
-type Props = OwnProps & StoreProps;
+type OwnProps = {
+  place: "PAGE" | "POPUP";
+};
+
+type NavigationProps = {
+  params: { id: Product["id"] };
+}
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
   currency: AppState["currency"];
-};
-type OwnProps = {
-  params: { id: Product["id"] };
-  data: CartQueryResult;
-  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
@@ -37,6 +38,13 @@ type Price = {
   amount: number;
   quantity: number;
 };
+
+type GraphQLProps = {
+  data: CartQueryResult;
+}
+
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
+
 type State = {};
 
 class Cart extends React.Component<Props, State> {
@@ -228,7 +236,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(Cart as any) as any;
+  connect(mapStateToProps)
+)(Cart);

@@ -9,16 +9,17 @@ import { currencyLabel } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPopup.module.css";
 
-type Props = OwnProps & StoreProps;
+type OwnProps = {
+  place: "PAGE" | "POPUP";
+};
+
+type NavigationProps = {
+  params: { id: Product["id"] };
+}
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
   currency: AppState["currency"];
-};
-type OwnProps = {
-  params: { id: Product["id"] };
-  data: CartQueryResult;
-  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
@@ -51,6 +52,12 @@ type Item = {
   id: string;
   colorProduct: string;
 };
+
+type GraphQLProps = {
+  data: CartQueryResult;
+}
+
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type State = {
   visibility: boolean;
@@ -160,7 +167,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(CartPopup as any) as any;
+  connect(mapStateToProps)
+)(CartPopup);

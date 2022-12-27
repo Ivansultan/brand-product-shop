@@ -5,16 +5,15 @@ import { AppState } from "../reducer";
 import { withParams } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPage.module.css";
-import { getPrice } from "../pages/ProductPage";
 import { currencyLabel } from "../utils";
 import { Product } from "../graphql/types";
-
+import { getTotalPrice } from "./CartPage.utils";
 
 type OwnProps = {};
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -23,7 +22,7 @@ type StoreProps = {
 
 type GraphQLProps = {
   data: CartQueryResult;
-}
+};
 
 type CartQueryResult = {
   product: Product;
@@ -43,10 +42,7 @@ class CartPage extends React.Component<Props, State> {
   render() {
     const { currency } = this.props;
 
-    const total = this.props.cartItems.reduce((sum, item) => {
-      const price = getPrice(item.prices, currency); // price on 1 item
-      return sum + price.amount * item.quantity;
-    }, 0);
+    const total = getTotalPrice(this.props.cartItems, currency);
 
     const quantity = this.props.cartItems.reduce((sum, item) => {
       return sum + item.quantity;

@@ -1,7 +1,7 @@
 import React from "react";
 import { AppState, CartProduct } from "../reducer";
 import { store } from "../store";
-import { getPrice } from "../pages/ProductPage";
+import { getPrice } from "./CartPage.utils";
 import { currencyLabel } from "../utils";
 import { compose } from "recompose";
 import { withParams } from "../utils";

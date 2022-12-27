@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { AppState } from "../reducer";
-import { getPrice } from "../pages/ProductPage";
+import { getPrice } from "./CartPage.utils";
 import { withParams } from "../utils";
 import { Link } from "react-router-dom";
 import { currencyLabel } from "../utils";

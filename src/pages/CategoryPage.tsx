@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import { getPrice } from "./ProductPage";
+import { getPrice } from "../components/CartPage.utils";
 import { currencyLabel, withParams } from "../utils";
 import styles from "./CategoryPage.module.css";
 import { store } from "../store";

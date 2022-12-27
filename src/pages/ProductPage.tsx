@@ -9,25 +9,14 @@ import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import ProductAttributes from "../components/ProductAttributes";
 import styles from "./ProductPage.module.css";
+import { getPrice } from "../components/CartPage.utils";
 import { Product } from "../graphql/types";
-
-export const getPrice = (
-  prices: Price[],
-  currency: AppState["currency"]
-): Price => {
-  return prices.filter((item) => item.currency === currency)[0];
-};
-
-// const getImage = (gallery: Image[]): Image => {
-//   return gallery.filter((item) => item)[0];
-// };
 
 export type SelectedAttributeValues = { [key: string]: string };
 
 type OwnProps = {
   // place: "PAGE" | "POPUP";
 };
-
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -36,18 +25,12 @@ type StoreProps = {
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type State = {
   visibility: boolean;
   selectedAttributeValues: SelectedAttributeValues;
 };
-
-type Price = {
-  currency: AppState["currency"];
-  amount: number; // price for 1 item
-};
-
 
 type ProductQueryResult = {
   loading: boolean;
@@ -56,7 +39,7 @@ type ProductQueryResult = {
 
 type GraphQLProps = {
   data: ProductQueryResult;
-}
+};
 
 type Props = OwnProps & StoreProps & NavigationProps & GraphQLProps;
 
@@ -96,7 +79,10 @@ class ProductPage extends React.Component<Props, State> {
     return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
   };
 
-  setProductPageAttributeValue = (attributeId: string, attributeValueId: string) => {
+  setProductPageAttributeValue = (
+    attributeId: string,
+    attributeValueId: string
+  ) => {
     const { selectedAttributeValues } = this.state;
     selectedAttributeValues[attributeId] = attributeValueId;
     this.setState({

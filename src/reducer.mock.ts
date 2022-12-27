@@ -1,4 +1,4 @@
-import { AppState, initialState } from "./reducer";
+import { AppState, initialState, CartProduct } from "./reducer";
 
 export const INITIAL_STATE: AppState = {
   ...initialState,
@@ -144,6 +144,11 @@ export const PRODUCT = {
       amount: 10941.76,
     },
   ],
+};
+
+export const CART_ITEM: CartProduct = {
+  ...PRODUCT,
+  quantity: 1,
 };
 
 export const ACTION_ADD = {

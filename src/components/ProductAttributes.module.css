@@ -1,19 +1,40 @@
 .popup-capacity-name {
-    margin-top: 8px;
+    /* margin-top: 8px; */
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    /* margin-bottom: 8px; */
+    background-color: orange;
+    /* не отрабатывает */
+}
+
+.page-capacity-name {
+    /* margin-top: 20px; */
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    /* margin-bottom: 8px; */
+    background-color: red;
+    /* не отрабатывает */
+}
+
+.popup-size-name {
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
 }
 
-.popup-capacity-section {
-    flex-direction: row;
-    display: flex;
+.page-size-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    color: #1D1F22;
+    /* не отрабатывает */
 }
 
 .popup-capacity {
-    background-color: white;
-    margin-top: 8px;
-    margin-right: 8px;
+    /* margin-top: 8px;
+    margin-right: 8px; */
     width: 24px;
     height: 24px;
     font-size: 7px;
@@ -25,21 +46,9 @@
     display: flex;
 }
 
-.page-capacity-name {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 18px;
-}
-
-.page-capacity-section {
-    flex-direction: row;
-    display: flex;
-}
-
 .page-capacity {
-    margin-top: 7px;
-    margin-right: 8px;
+    /* margin-top: 7px;
+    margin-right: 8px; */
     width: 63px;
     height: 45px;
     font-size: 16px;
@@ -54,9 +63,11 @@
     margin-top: 8px;
 }
 
-.popup-color-section {
-    flex-direction: row;
-    display: flex;
+.page-color-name-section {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
 }
 
 .popup-color {
@@ -67,18 +78,6 @@
     border: 1px solid lightGray;
 }
 
-.page-color-name-section {
-    margin-top: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 18px;
-}
-
-.page-color-section {
-    flex-direction: row;
-    display: flex;
-}
-
 .page-color {
     margin-right: 8px;
     margin-top: 8px;
@@ -87,41 +86,14 @@
     border: 1px solid lightGray;
 }
 
-.page-size-name-section {
-    margin-top: 20px;
-}
-
-.page-size-name {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 18px;
-    color: #1D1F22;
-}
-
-.page-size-section {
-    flex-direction: row;
-    display: flex;
-}
-
-.page-size {
-    margin-top: 8px;
-    margin-right: 8px;
-    width: 63px;
-    height: 45px;
-    border: 1px solid lightGray;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
 .popup-size-name-section {
     margin-top: 8px;
+    /* не отрабатывает */
 }
 
-.popup-size-section {
-    flex-direction: row;
-    display: flex;
-    
+.page-size-name-section {
+    margin-top: 20px;
+    /* не отрабатывает */
 }
 
 .popup-size {
@@ -134,4 +106,27 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    /* не отрабатывает */
 }
+
+.page-size {
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 63px;
+    height: 45px;
+    border: 1px solid lightGray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    /* не отрабатывает */
+}
+
+.attribute-section {
+    flex-direction: row;
+    display: flex;
+    /* background-color: red; */
+}
+
+
+

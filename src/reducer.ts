@@ -1,11 +1,11 @@
-import { Product } from "./pages/ProductPage";
+import { Currency, Product } from "./graphql/types";
+import { SelectedAttributeValues } from "./pages/ProductPage";
 
-type CartProduct = Product & {
+export type CartProduct = Product & {
   quantity: number;
-  isSelected?: boolean; // Необязательный параметр
+  // isSelected?: boolean; // TODO: Delete?
 };
 
-type Currency = "USD" | "GBP" | "AUD" | "JPY" | "RUB";
 
 export type AppState = {
   cartItems: CartProduct[];
@@ -13,7 +13,7 @@ export type AppState = {
   categoryName: string;
 };
 
-const initialState: AppState = {
+export const initialState: AppState = {
   cartItems: [],
   currency: "USD",
   categoryName: "ALL",
@@ -25,48 +25,171 @@ type ActionType =
   | "SET_CURRENCY"
   | "CART_INCREMENT_ITEM"
   | "CART_DECREMENT_ITEM"
-  | "SET_CATEGORY_NAME";
-// | "SET_ATTRIBUTE";
+  | "SET_CATEGORY_NAME"
+  | "UPDATE_ATTRIBUTES";
 
-type CartItemsPayload = {
+type CartAddItemPayload = {
   product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
 };
 
-type CurrencyPayload = {
+type CartRemoveItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+export type CartIncrementItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+export type CartDecrementItemPayload = {
+  product: Product;
+  selectedAttributeValues?: SelectedAttributeValues;
+};
+
+export type CurrencyPayload = {
   currency: Currency;
 };
 
-type CategoryNamePayload = {
+export type CategoryNamePayload = {
   categoryName: string;
+};
+
+export type UpdateAttributesPayload = {
+  // productId: Product.productId;
+  params: {
+    productId: string;
+    attributeId: string;
+    attributeValueId: string;
+  };
 };
 
 type Action = {
   type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
-  payload: CartItemsPayload | CurrencyPayload | CategoryNamePayload; // Необязательный параметр (тип ActionType, доп. инфа)
+  payload:
+    | CartAddItemPayload
+    | CartRemoveItemPayload
+    | CartIncrementItemPayload
+    | CartDecrementItemPayload
+    | CurrencyPayload
+    | CategoryNamePayload
+    | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
+};
+
+// export const updateProductAttributes = (
+//   attributes: CartProduct["attributes"],
+//   selectedAttributeValues: { [key: string]: string }
+// ) => {
+//   return attributes.map((attribute) => {
+//     return {
+//       ...attribute,
+//       items: attribute.items.map((item) => {
+//         const isSelected = item.id === selectedAttributeValues[attribute.id];
+//         return {
+//           ...item,
+//           isSelected,
+//         };
+//       }),
+//     };
+//   });
+// };
+
+export const updateAttributes = (
+  attributes: Product["attributes"],
+  selectedAttributeValues: { [key: string]: string }
+) => {
+  const updatedAttributes = attributes.map((attribute) => {
+    // при переборке attribute у нас есть возможность показать их список или модифицировать нужные нам
+    return !!selectedAttributeValues[attribute.id] // !! - преобразование в boolean type / проверка выбран аттрибут или нет
+      ? {
+          ...attribute,
+          items: attribute.items.map((attrValue) => {
+            return {
+              ...attrValue,
+              isSelected:
+                selectedAttributeValues[attribute.id] === attrValue.id,
+            };
+            // return selectedAttributeValues[attribute.id] === attrValue.id
+            //   ? {
+            //       ...attrValue,
+            //       isSelected: true,
+            //     }
+            //   : {
+            //       ...attrValue,
+            //       isSelected: false,
+            //     };
+          }),
+        }
+      : attribute;
+  });
+  return updatedAttributes;
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
+  // console.log("----- STATE ----");
+  // console.log(JSON.stringify(state, null, 2));
+  // console.log("----- ACTION ----");
+  // console.log(JSON.stringify(action, null, 2));
+
   switch (action.type) {
+    case "UPDATE_ATTRIBUTES":
+      const { productId, attributeId, attributeValueId } = (
+        action.payload as UpdateAttributesPayload
+      ).params;
+
+      // console.log("productId", productId);
+      // console.log("attributeId", attributeId);
+      // console.log("attributeValueId", attributeValueId);
+
+      return {
+        ...state,
+        cartItems: state.cartItems.map((cartItem) => {
+          return cartItem.id === productId
+            ? {
+                ...cartItem,
+                attributes: updateAttributes(cartItem.attributes, {
+                  [attributeId]: attributeValueId,
+                }),
+              }
+            : cartItem;
+        }),
+      };
+
+    // Шаги
+    // 1. По productId найти carteItem.id
+    // 2. По attributeName  найти carteItem.attributes.id
+    // 3. По attributeValue  найти carteItem.attributes.items.id
+    // 4. Добавить carteItem.attributes.items.isSelected = True
+
     case "CART_ADD_ITEM":
+      const { product, selectedAttributeValues } =
+        action.payload as CartAddItemPayload;
+      const { attributes, ...rest } = product;
       return {
         ...state,
         cartItems: [
           ...state.cartItems,
-          { ...(action.payload as CartItemsPayload).product, quantity: 1 },
+          {
+            ...rest,
+            attributes: updateAttributes(attributes, selectedAttributeValues!),
+            quantity: 1,
+          },
         ],
       };
     case "CART_REMOVE_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (item) => item.id !== (action.payload as CartItemsPayload).product.id
+          (item) =>
+            item.id !== (action.payload as CartRemoveItemPayload).product.id
         ),
       };
     case "CART_INCREMENT_ITEM":
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartItemsPayload).product.id
+          item.id === (action.payload as CartIncrementItemPayload).product.id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -78,22 +201,12 @@ const rootReducer = (state = initialState, action: Action): AppState => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === (action.payload as CartItemsPayload).product.id
+          item.id === (action.payload as CartDecrementItemPayload).product.id
             ? { ...item, quantity: item.quantity - 1 }
             : item
         ),
       };
-    // case "SET_ATTRIBUTE":
-    //   return {
-    //     ...state,
-    //     cartItems: state.cartItems.map((cartItem) => {
-    //       return cartItem.attributes.map((attribute) => {
-    //         return attribute.items.map((item) => {
-    //           return item;
-    //         });
-    //       });
-    //     }),
-    //   };
+
     case "SET_CATEGORY_NAME":
       return {
         ...state,
@@ -105,6 +218,7 @@ const rootReducer = (state = initialState, action: Action): AppState => {
         ...state,
         currency: (action.payload as CurrencyPayload).currency,
       };
+
       return newState;
     default:
       return state;

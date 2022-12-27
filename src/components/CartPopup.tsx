@@ -2,55 +2,36 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { AppState } from "../reducer";
-import { getPrice } from "../pages/ProductPage";
+import { getPrice } from "./CartPage.utils";
 import { withParams } from "../utils";
 import { Link } from "react-router-dom";
 import { currencyLabel } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPopup.module.css";
+import { Product } from "../graphql/types";
 
-type Props = OwnProps & StoreProps;
+type OwnProps = {
+  place: "PAGE" | "POPUP";
+};
+
+type NavigationProps = {
+  params: { id: Product["id"] };
+}
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
   currency: AppState["currency"];
-};
-type OwnProps = {
-  params: { id: Product["id"] };
-  data: CartQueryResult;
-  place: "PAGE" | "POPUP";
 };
 
 type CartQueryResult = {
   product: Product;
 };
 
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  prices: Price[];
-  attributes: Attribute[];
-};
+type GraphQLProps = {
+  data: CartQueryResult;
+}
 
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-  quantity: number;
-};
-
-type Attribute = {
-  id: string;
-  name: string;
-  items: Item[];
-  type: string;
-};
-
-type Item = {
-  displayValue: string;
-  id: string;
-  colorProduct: string;
-};
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type State = {
   visibility: boolean;
@@ -160,7 +141,7 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
-  connect<StoreProps, {}, OwnProps>(mapStateToProps as any)
-)(CartPopup as any) as any;
+  connect(mapStateToProps)
+)(CartPopup);

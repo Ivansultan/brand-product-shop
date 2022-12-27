@@ -5,58 +5,34 @@ import { Link } from "react-router-dom";
 import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import { getPrice } from "./ProductPage";
+import { getPrice } from "../components/CartPage.utils";
 import { currencyLabel, withParams } from "../utils";
 import styles from "./CategoryPage.module.css";
 import { store } from "../store";
+import { Category } from "../graphql/types";
 
-type Price = {
-  currency: AppState["currency"];
-  amount: number;
-};
-
-type Gallery = string;
-
-type Product = {
-  id: string;
-  name: string;
-  brand: string;
-  amount: number;
-  gallery: Gallery[];
-  prices: Price[];
-  inStock: boolean;
-};
-
-export type Category = {
-  name: string;
-  products: Product[];
-};
+type OwnProps = {};
 
 type CategoryQueryResult = {
   loading: boolean;
   categories: Category[];
 };
 
-type Props = OwnProps & StoreProps & OriginalProps;
-
-type OriginalProps = {
+type GraphQLProps = {
   data: CategoryQueryResult;
 };
+
+type NavigationProps = {
+  params: { name: Category["name"] };
+}
+
+type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type StoreProps = {
   currency: AppState["currency"];
   cartItems: AppState["cartItems"];
 };
 
-type OwnProps = {
-  params: { name: Category["name"] };
-  data: CurrencyQueryResult;
-};
-
-type CurrencyQueryResult = {
-  loading: boolean;
-  currencies: AppState["currency"][];
-};
 
 type State = {};
 
@@ -102,18 +78,19 @@ class CategoryPage extends React.Component<Props, State> {
                       .includes(product.id);
 
                     const itemIcon = inItem ? (
-                      <>
-                        <div className={styles["cart-icon-section"]}>
-                          <div className={styles["cart-icon-block"]}>
-                            <div className={styles["vector"]}></div>
-                            <div className={styles["trapezoid"]}></div>
-                            <div className={styles["circle-section"]}>
-                              <div className={styles["circle"]}></div>
-                              <div className={styles["circle"]}></div>
-                            </div>
+                      <div
+                        className={styles["cart-icon-section"]}
+                        key={product.id}
+                      >
+                        <div className={styles["cart-icon-block"]}>
+                          <div className={styles["vector"]}></div>
+                          <div className={styles["trapezoid"]}></div>
+                          <div className={styles["circle-section"]}>
+                            <div className={styles["circle"]}></div>
+                            <div className={styles["circle"]}></div>
                           </div>
                         </div>
-                      </>
+                      </div>
                     ) : (
                       ""
                     );
@@ -123,10 +100,22 @@ class CategoryPage extends React.Component<Props, State> {
                       return (
                         <Link
                           className={styles["category-product"]}
-                          key={product.id}
+                          key={`/product/${product.id}`}
                           to={`/product/${product.id}`}
                         >
-                          <div key={product.id}>
+                          <div
+                            // className={inItem ? styles["borderStyle"] : undefined}
+                            style={
+                              inItem
+                                ? {
+                                    padding: "15px",
+                                    border: "1px solid white",
+                                    borderRadius: "2px",
+                                    boxShadow: "1px 1px 10px lightGray",
+                                  }
+                                : { padding: "15px" }
+                            }
+                          >
                             <div className={styles["product-image-section"]}>
                               <img
                                 className={styles["product-image"]}
@@ -149,7 +138,10 @@ class CategoryPage extends React.Component<Props, State> {
                     } else {
                       const price = getPrice(product.prices, currency);
                       return (
-                        <div className={styles["category-product-out-stock"]}>
+                        <div
+                          key={`price${product.id}`}
+                          className={styles["category-product-out-stock"]}
+                        >
                           <div className={styles["product-image-section"]}>
                             <img
                               className={styles["product-image"]}
@@ -208,23 +200,6 @@ const categoriesQuery = gql`
   }
 `;
 
-const currencyQuery = gql`
-  query {
-    currencies
-  }
-`;
-
-const amountQuery = gql`
-  query Product($id: String!) {
-    product(id: $id) {
-      prices {
-        currency
-        amount
-      }
-    }
-  }
-`;
-
 const mapStateToProps = (state: AppState): StoreProps => {
   return {
     currency: state.currency,
@@ -232,9 +207,8 @@ const mapStateToProps = (state: AppState): StoreProps => {
   };
 };
 
-export default compose(
+export default compose<Props, OwnProps>(
   withParams,
   connect(mapStateToProps),
-  graphql(amountQuery as any) as any,
-  graphql<any, any>(categoriesQuery)
-)(CategoryPage as any);
+  graphql(categoriesQuery)
+)(CategoryPage);

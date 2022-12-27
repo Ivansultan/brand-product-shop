@@ -1,43 +1,132 @@
 import React from "react";
 import styles from "./ProductAttributes.module.css";
-import { Size, sizeLabel } from "../utils";
-import { AppState } from "../reducer";
+import { sizeLabel } from "../utils";
+import { store } from "../store";
+import { UpdateAttributesPayload } from "../reducer";
+import { Attribute, AttributeItem } from "../graphql/types";
 
 type State = {};
 type Props = OwnProps;
 
 export type OwnProps = {
   attributes: Attribute[];
-  place: "PAGE" | "POPUP";
+  place: "PAGE" | "POPUP" | "PRODUCT";
+  productId: string;
+  setProductPageAttributeValue?: (
+    attributeId: string,
+    attributeValueId: string
+  ) => void;
 };
 
-export type AttributeItem = {
-  displayValue: string;
-  id: string;
-  // id: Size;
-  isSelected?: boolean;
-};
 
-export type Attribute = {
-  id: string;
-  name: string;
-  type: string;
-  items: AttributeItem[];
-};
 
 class ProductAttributes extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {};
   }
 
+  // renderAttributeName = (attribute: Attribute, item: AttributeItem) => {
+  //   const { place } = this.props;
+
+  // }
+
+  renderAttributeValue = (attribute: Attribute, item: AttributeItem) => {
+    const { place } = this.props;
+    let containerClassName;
+    let containerStyle;
+    let title;
+    switch (attribute.id) {
+      case "Color":
+        containerClassName =
+          place === "POPUP" ? styles["popup-color"] : styles["page-color"];
+        containerStyle = { backgroundColor: item.id.toLowerCase() };
+        title = "";
+        break;
+      default:
+        containerClassName =
+          place === "POPUP"
+            ? styles["popup-capacity"]
+            : styles["page-capacity"];
+        containerStyle = {};
+        title = sizeLabel[item.id] || item.id;
+    }
+
+    return (
+      <div className={styles["attribute-section"]} key={item.id}>
+        <div
+          className={containerClassName}
+          style={containerStyle}
+          key={`${item.id}-container`}
+        >
+          {title}
+        </div>
+      </div>
+    );
+  };
+
+  chooseAttribute = (params: UpdateAttributesPayload["params"]) => {
+    store.dispatch({
+      type: "UPDATE_ATTRIBUTES",
+      payload: { params },
+    });
+  };
+
   render() {
-    const { attributes, place } = this.props;
+    const { attributes, productId, setProductPageAttributeValue, place } =
+      this.props;
+
+    // console.log("ProductAttributes", place, attributes);
 
     return (
       <>
         {attributes.map((attribute) => {
+          return (
+            <div key={attribute.id}>
+              <div
+                // className={styles["page-color-name-section"]}
+                className={
+                  styles[
+                    place === "POPUP"
+                      ? "popup-color-name-section"
+                      : "page-color-name-section"
+                  ]
+                }
+              >
+                {attribute.name}
+              </div>
+
+              <div className={styles["attribute-section"]}>
+                {attribute.items.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      style={
+                        item.isSelected
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => {
+                        place === "PRODUCT"
+                          ? setProductPageAttributeValue!(attribute.id, item.id) //  отрабатывает setState
+                          : this.chooseAttribute({
+                              // отрабатывает reducer
+                              productId: productId,
+                              attributeId: attribute.id,
+                              attributeValueId: item.id,
+                            });
+                      }}
+                    >
+                      {this.renderAttributeValue(attribute, item)}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* {attributes.map((attribute) => {
           if (attribute.name === "Capacity" && place === "POPUP") {
             return (
               <div>
@@ -151,12 +240,26 @@ class ProductAttributes extends React.Component<Props, State> {
               <div className={styles["page-size-name-section"]}>
                 <div className={styles["page-size-name"]}>{attribute.name}</div>
                 <div className={styles["page-size-section"]}>
-                  {attribute.items.map((item) => {
+                  {attribute.items.map((attributeValue) => {
                     if (attribute.id === "Size" && place === "PAGE") {
                       return (
-                        <div key={item.id}>
-                          <div className={styles["page-size"]}>
-                            {sizeLabel[item.id] || item.id}
+                        <div key={attributeValue.id}>
+                          <div
+                            className={styles["page-size"]}
+                            style={
+                              attributeValue.isSelected
+                                ? { backgroundColor: "red" }
+                                : {}
+                            }
+                            onClick={() => {
+                              this.chooseAttribute({
+                                productId: productId,
+                                attributeId: attribute.id,
+                                attributeValueId: attributeValue.id,
+                              });
+                            }}
+                          >
+                            {sizeLabel[attributeValue.id] || attributeValue.id}
                           </div>
                         </div>
                       );
@@ -193,7 +296,7 @@ class ProductAttributes extends React.Component<Props, State> {
           } else {
             return <div></div>;
           }
-        })}
+        })} */}
       </>
     );
   }

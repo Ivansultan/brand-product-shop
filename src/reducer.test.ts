@@ -30,7 +30,7 @@ describe("rootReducer()", () => {
     const color = "red";
     const newItem = PRODUCT;
     const newCartItems = addToCart(cartItems, newItem, color);
-    expect(newCartItems).toEqual([{ ...newItem, color }]);
+    expect(newCartItems).toEqual([{ ...newItem, color, quantity: 1 }]);
   });
 
   test("sum", () => {
@@ -197,7 +197,7 @@ describe("rootReducer()", () => {
     // ]);
   });
 
-  test.only("getProductsAttribute", () => {
+  test("getProductsAttribute", () => {
     const result = updateAttributes(PRODUCT.attributes, {
       Size: "40",
       Color: "white",

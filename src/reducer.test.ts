@@ -196,10 +196,11 @@ describe("rootReducer()", () => {
     // ]);
   });
 
-  test("getProductsAttribute", () => {
+  test.only("getProductsAttribute", () => {
     const result = updateAttributes(PRODUCT.attributes, {
       Size: "40",
       Color: "white",
+      // Capacity: "100", // has isSelected=true and should't be updated to false
     });
     console.log(JSON.stringify(result, null, 2));
     expect(result).toEqual([
@@ -231,6 +232,38 @@ describe("rootReducer()", () => {
             __typename: "Attribute",
             id: "43",
             displayValue: "43",
+            isSelected: false,
+          },
+        ],
+      },
+      {
+        __typename: "AttributeSet",
+        id: "Capacity",
+        name: "Capacity",
+        type: "text",
+        items: [
+          {
+            __typename: "Attribute",
+            id: "100",
+            displayValue: "100",
+            isSelected: true,
+          },
+          {
+            __typename: "Attribute",
+            id: "200",
+            displayValue: "200",
+            isSelected: false,
+          },
+          {
+            __typename: "Attribute",
+            id: "300",
+            displayValue: "300",
+            isSelected: false,
+          },
+          {
+            __typename: "Attribute",
+            id: "400",
+            displayValue: "400",
             isSelected: false,
           },
         ],

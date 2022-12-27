@@ -54,6 +54,38 @@ export const PRODUCT = {
     },
     {
       __typename: "AttributeSet",
+      id: "Capacity",
+      name: "Capacity",
+      type: "text",
+      items: [
+        {
+          __typename: "Attribute",
+          id: "100",
+          displayValue: "100",
+          isSelected: true,
+        },
+        {
+          __typename: "Attribute",
+          id: "200",
+          displayValue: "200",
+          isSelected: false,
+        },
+        {
+          __typename: "Attribute",
+          id: "300",
+          displayValue: "300",
+          isSelected: false,
+        },
+        {
+          __typename: "Attribute",
+          id: "400",
+          displayValue: "400",
+          isSelected: false,
+        },
+      ],
+    },
+    {
+      __typename: "AttributeSet",
       id: "Color",
       name: "Color",
       type: "text",

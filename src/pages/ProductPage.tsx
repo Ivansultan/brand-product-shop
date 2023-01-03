@@ -53,7 +53,6 @@ class ProductPage extends React.Component<Props, State> {
   }
 
   addProductToCart = () => {
-    // Добавляет продукт в корзину
     store.dispatch({
       type: "CART_ADD_ITEM",
       payload: {
@@ -64,7 +63,6 @@ class ProductPage extends React.Component<Props, State> {
   };
 
   deleteProductFromCart = () => {
-    // Удаляет продукт из корзины
     store.dispatch({
       type: "CART_REMOVE_ITEM",
       payload: {
@@ -75,7 +73,6 @@ class ProductPage extends React.Component<Props, State> {
 
   getProductAttributes = (attributes: Product["attributes"]) => {
     const { selectedAttributeValues } = this.state;
-    // console.log("getProductAttributes", selectedAttributeValues);
     return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
   };
 
@@ -88,13 +85,6 @@ class ProductPage extends React.Component<Props, State> {
     this.setState({
       selectedAttributeValues,
     });
-
-    // console.log(
-    //   "setProductPageAttributeValue",
-    //   attributeId,
-    //   attributeValueId,
-    //   selectedAttributeValues
-    // );
   };
 
   render() {
@@ -118,19 +108,9 @@ class ProductPage extends React.Component<Props, State> {
       return product.id === cartItem.id;
     });
 
-    // console.log("filteredCartItems", filteredCartItems);
-
     const cartItem =
       filteredCartItems.length === 0 ? null : filteredCartItems[0];
 
-    // console.log("cartItem", cartItem);
-
-    // const numbers = [1, 2, 3];
-    // const two = numbers.filter((number) => number === 2);
-    // console.log(two[0]);
-
-    // console.log("ProductPage", product.attributes);
-    // console.log("inCart", inCart);
     const attributes = this.getProductAttributes(
       cartItem ? cartItem.attributes : product.attributes
     );

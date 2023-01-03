@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { AppState } from "../reducer";
-import { getPrice } from "./CartPage.utils";
+import { getQuantityCartIcon, getTotalPrice } from "./CartPage.utils";
 import { withParams } from "../utils";
 import { Link } from "react-router-dom";
 import { currencyLabel } from "../utils";
@@ -16,7 +16,7 @@ type OwnProps = {
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -29,7 +29,7 @@ type CartQueryResult = {
 
 type GraphQLProps = {
   data: CartQueryResult;
-}
+};
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
@@ -48,14 +48,10 @@ class CartPopup extends React.Component<Props, State> {
 
   render() {
     const { currency } = this.props;
-    let itemsInCart = this.props.cartItems.reduce((sum, item) => {
-      const quantity = 1;
-      return sum + quantity;
-    }, 0);
-    const total = this.props.cartItems.reduce((sum, item) => {
-      const price = getPrice(item.prices, currency); // price on 1 item
-      return sum + price.amount * item.quantity;
-    }, 0);
+
+    const total = getTotalPrice(this.props.cartItems, currency);
+
+    const quantityCartIcon = getQuantityCartIcon(this.props.cartItems);
 
     return (
       <div>
@@ -79,8 +75,8 @@ class CartPopup extends React.Component<Props, State> {
           </div>
         </div>
 
-        {itemsInCart >= 1 ? (
-          <div className={styles["items-in-cart"]}>{itemsInCart}</div>
+        {quantityCartIcon >= 1 ? (
+          <div className={styles["items-in-cart"]}>{quantityCartIcon}</div>
         ) : (
           ""
         )}
@@ -91,7 +87,7 @@ class CartPopup extends React.Component<Props, State> {
               <div className={styles["popup-title-quantity"]}>
                 <div className={styles["popup-title"]}>My Bag,</div>
                 <div className={styles["popup-quantity"]}>
-                  {itemsInCart} items
+                  {quantityCartIcon} items
                 </div>
               </div>
 

@@ -7,7 +7,7 @@ import Cart from "./Cart";
 import styles from "./CartPage.module.css";
 import { currencyLabel } from "../utils";
 import { Product } from "../graphql/types";
-import { getTotalPrice } from "./CartPage.utils";
+import { getQuantity, getTotalPrice } from "./CartPage.utils";
 
 type OwnProps = {};
 
@@ -44,9 +44,7 @@ class CartPage extends React.Component<Props, State> {
 
     const total = getTotalPrice(this.props.cartItems, currency);
 
-    const quantity = this.props.cartItems.reduce((sum, item) => {
-      return sum + item.quantity;
-    }, 0);
+    const quantity = getQuantity(this.props.cartItems);
 
     const tax = total * 0.21;
 

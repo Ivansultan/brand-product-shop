@@ -16,7 +16,7 @@ type OwnProps = {
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -29,7 +29,7 @@ type CartQueryResult = {
 
 type GraphQLProps = {
   data: CartQueryResult;
-}
+};
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 

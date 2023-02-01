@@ -1,131 +1,74 @@
-.popup-capacity-name {
-    /* margin-top: 8px; */
+.popup-attribute-name {
+    margin-top: 8px;
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
-    /* margin-bottom: 8px; */
-    background-color: orange;
-    /* не отрабатывает */
+    margin-bottom: 8px;
 }
 
-.page-capacity-name {
-    /* margin-top: 20px; */
+.page-attribute-name {
+    margin-top: 20px;
     font-size: 18px;
     font-weight: 700;
     line-height: 18px;
-    /* margin-bottom: 8px; */
-    background-color: red;
-    /* не отрабатывает */
+    margin-bottom: 8px;
 }
 
-.popup-size-name {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-}
-
-.page-size-name {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 18px;
-    color: #1D1F22;
-    /* не отрабатывает */
-}
-
-.popup-capacity {
-    /* margin-top: 8px;
-    margin-right: 8px; */
+.popup-attribute {
+    /* margin-right: 8px;  */
     width: 24px;
     height: 24px;
-    font-size: 7px;
+    font-size: 8px;
+    /* font-size: 14px; */
     font-weight: 400;
     line-height: 22.4px;
-    border: 1px solid lightGray;
+    border: 2px solid lightGray;
     justify-content: center;
     align-items: center;
     display: flex;
 }
 
-.page-capacity {
-    /* margin-top: 7px;
-    margin-right: 8px; */
+.page-attribute {
+    /* margin-right: 8px;  */
     width: 63px;
     height: 45px;
     font-size: 16px;
     font-weight: 400;
-    border: 1px solid lightGray;
+    border: 4px solid lightGray;
     justify-content: center;
     align-items: center;
     display: flex;
-}
-
-.popup-color-name-section {
-    margin-top: 8px;
-}
-
-.page-color-name-section {
-    margin-top: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 18px;
 }
 
 .popup-color {
-    margin-right: 8px;
-    margin-top: 10px;
-    width: 16px;
-    height: 16px;
-    border: 1px solid lightGray;
+    /* margin-right: 8px; */
+    /* margin-top: 10px; */
+    width: 20px;
+    height: 20px;
+    border: 2px solid lightGray;
 }
 
 .page-color {
-    margin-right: 8px;
-    margin-top: 8px;
-    width: 32px;
-    height: 32px;
-    border: 1px solid lightGray;
-}
-
-.popup-size-name-section {
-    margin-top: 8px;
-    /* не отрабатывает */
-}
-
-.page-size-name-section {
-    margin-top: 20px;
-    /* не отрабатывает */
-}
-
-.popup-size {
-    margin-top: 8px;
-    margin-right: 8px;
-    width: 24px;
-    height: 24px;
-    font-size: 10px;
-    border: 1px solid lightGray;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    /* не отрабатывает */
-}
-
-.page-size {
-    margin-top: 8px;
-    margin-right: 8px;
-    width: 63px;
-    height: 45px;
-    border: 1px solid lightGray;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    cursor: pointer;
-    /* не отрабатывает */
+    /* margin-right: 8px; */
+    /* margin-top: 8px; */
+    width: 36px;
+    height: 36px;
+    border: 4px solid lightGray;
 }
 
 .attribute-section {
     flex-direction: row;
     display: flex;
-    /* background-color: red; */
+}
+
+@media screen and (max-width: 1357px) {
+    .page-attribute-name {
+        font-size: 17px;
+    }
+    .page-attribute {
+        width: 60px;
+        height: 42px;
+    }
 }
 
 

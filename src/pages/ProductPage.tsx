@@ -30,6 +30,7 @@ type NavigationProps = {
 type State = {
   visibility: boolean;
   selectedAttributeValues: SelectedAttributeValues;
+  selectedImage?: string;
 };
 
 type ProductQueryResult = {
@@ -52,6 +53,11 @@ class ProductPage extends React.Component<Props, State> {
     };
   }
 
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (this.props.data.product !== prevProps.data.product) {
+      this.setState({ selectedImage: this.props.data.product.gallery[0] });
+    }
+  }
   addProductToCart = () => {
     // Добавляет продукт в корзину
     store.dispatch({
@@ -97,6 +103,39 @@ class ProductPage extends React.Component<Props, State> {
     // );
   };
 
+  renderImageGallery = () => {
+    const { product } = this.props.data;
+    return (
+      <div className={styles["gallery-section"]}>
+        {product.gallery.map((image) => {
+          return (
+            <div
+              onClick={() => {
+                this.setState({ selectedImage: image });
+              }}
+              className={styles["gallery-block"]}
+              key={image}
+            >
+              <img className={styles["gallery-images"]} src={image} alt="" />
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  renderImage = () => {
+    return (
+      <div className={styles["product-image-block"]}>
+        <img
+          className={styles["product-image"]}
+          alt=""
+          src={this.state.selectedImage}
+        />
+      </div>
+    );
+  };
+
   render() {
     const { loading, product } = this.props.data;
     const { currency } = this.props;
@@ -136,23 +175,8 @@ class ProductPage extends React.Component<Props, State> {
     );
     return (
       <div className={styles["product"]}>
-        <div className={styles["gallery-section"]}>
-          {product.gallery.map((image) => {
-            return (
-              <div className={styles["gallery-block"]} key={image}>
-                <img className={styles["gallery-images"]} src={image} alt="" />
-              </div>
-            );
-          })}
-        </div>
-
-        <div className={styles["product-image-block"]}>
-          <img
-            className={styles["product-image"]}
-            alt=""
-            src={product.gallery[0]}
-          />
-        </div>
+        {this.renderImageGallery()}
+        {this.renderImage()}
 
         <div className={styles["product-info-section"]}>
           <div>

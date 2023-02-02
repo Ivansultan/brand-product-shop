@@ -53,11 +53,6 @@ class ProductPage extends React.Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
-    if (this.props.data.product !== prevProps.data.product) {
-      this.setState({ selectedImage: this.props.data.product.gallery[0] });
-    }
-  }
   addProductToCart = () => {
     // Добавляет продукт в корзину
     store.dispatch({
@@ -130,7 +125,7 @@ class ProductPage extends React.Component<Props, State> {
         <img
           className={styles["product-image"]}
           alt=""
-          src={this.state.selectedImage}
+          src={this.state.selectedImage || this.props.data.product.gallery[0]}
         />
       </div>
     );

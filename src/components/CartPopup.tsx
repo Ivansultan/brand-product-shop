@@ -145,18 +145,21 @@ class CartPopup extends React.Component<Props, State> {
                   </div>
 
                   <div className={styles["popup-buttons-section"]}>
-                    <Link className={styles["link"]} to={`/cart`}>
+                    <Link
+                      className={styles["link"]}
+                      to={`/cart`}
+                      onClick={this.handleClick}
+                    >
                       <div className={styles["button-view-bag"]}>
                         <div className={styles["title-view-bag"]}>VIEW BAG</div>
                       </div>
                     </Link>
-                    <Link className={styles["link"]} to={`/`}>
-                      <div className={styles["button-check-out"]}>
-                        <div className={styles["title-check-out"]}>
-                          CHECK OUT
-                        </div>
-                      </div>
-                    </Link>
+                    <div
+                      className={styles["button-check-out"]}
+                      onClick={() => alert("Coming soon")}
+                    >
+                      <div className={styles["title-check-out"]}>CHECK OUT</div>
+                    </div>
                   </div>
                 </div>
               </div>

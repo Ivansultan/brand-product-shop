@@ -158,6 +158,9 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.popup-buttons-section:hover {
+    cursor: pointer;
+}
 
 .button-view-bag {
     background-color: #FFFFFF;

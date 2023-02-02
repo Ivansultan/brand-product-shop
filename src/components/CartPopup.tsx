@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { AppState } from "../reducer";
@@ -16,7 +16,7 @@ type OwnProps = {
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -29,42 +29,49 @@ type CartQueryResult = {
 
 type GraphQLProps = {
   data: CartQueryResult;
-}
+};
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
 type State = {
-  visibility: boolean;
+  isVisible: boolean;
 };
 
 class CartPopup extends React.Component<Props, State> {
+  private node: any;
+
   constructor(props: Props) {
     super(props);
-
     this.state = {
-      visibility: false,
+      isVisible: false,
     };
   }
 
-  render() {
-    const { currency } = this.props;
-    let itemsInCart = this.props.cartItems.reduce((sum, item) => {
-      const quantity = 1;
-      return sum + quantity;
-    }, 0);
-    const total = this.props.cartItems.reduce((sum, item) => {
-      const price = getPrice(item.prices, currency); // price on 1 item
-      return sum + price.amount * item.quantity;
-    }, 0);
+  handleOutsideClick = (e: any) => {
+    if (!this.node.contains(e.target)) {
+      this.handleClick();
+    }
+  };
 
+  handleClick = () => {
+    if (!this.state.isVisible) {
+      document.addEventListener("click", this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener("click", this.handleOutsideClick, false);
+    }
+    this.setState((prevState) => ({
+      isVisible: !prevState.isVisible,
+    }));
+  };
+
+  renderCartIconWithCount = (itemsInCart: number) => {
     return (
-      <div>
-        <div
-          onClick={() => {
-            this.setState({ visibility: !this.state.visibility });
-          }}
-        >
-          <div className={styles["cart-icon-section"]}>
+      <>
+        <div>
+          <div
+            onClick={this.handleClick}
+            className={styles["cart-icon-section"]}
+          >
             <div className={styles["cart-icon-block"]}>
               <div className={styles["vector"]}></div>
 
@@ -78,58 +85,85 @@ class CartPopup extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-
         {itemsInCart >= 1 ? (
-          <div className={styles["items-in-cart"]}>{itemsInCart}</div>
+          <div onClick={this.handleClick} className={styles["items-in-cart"]}>
+            {itemsInCart}
+          </div>
         ) : (
           ""
         )}
+      </>
+    );
+  };
 
-        {this.state.visibility ? (
-          <div className={styles["cart-popup"]}>
-            <div className={styles["popup-section"]}>
-              <div className={styles["popup-title-quantity"]}>
-                <div className={styles["popup-title"]}>My Bag,</div>
-                <div className={styles["popup-quantity"]}>
-                  {itemsInCart} items
+  render() {
+    const { currency } = this.props;
+    const total = this.props.cartItems.reduce((sum, item) => {
+      const price = getPrice(item.prices, currency); // price on 1 item
+      return sum + price.amount * item.quantity;
+    }, 0);
+    const itemsInCart = this.props.cartItems.reduce((sum, item) => {
+      const quantity = 1;
+      return sum + quantity;
+    }, 0);
+    return (
+      <>
+        {this.state.isVisible && <div className={styles["overlay"]} />}
+        <div
+          ref={(node) => {
+            this.node = node;
+          }}
+        >
+          {this.renderCartIconWithCount(itemsInCart)}
+
+          {this.state.isVisible && (
+            <>
+              <div className={styles["cart-popup"]}>
+                <div className={styles["popup-section"]}>
+                  <div className={styles["popup-title-quantity"]}>
+                    <div className={styles["popup-title"]}>My Bag,</div>
+                    <div className={styles["popup-quantity"]}>
+                      {itemsInCart} items
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      maxHeight: "446px",
+                      overflow: "auto",
+                      // backgroundColor: "yellow",
+                    }}
+                  >
+                    <Cart place="POPUP" />
+                  </div>
+
+                  <div className={styles["popup-total-section"]}>
+                    <div className={styles["popup-total-title"]}>Total</div>
+                    <div className={styles["popup-currency-total"]}>
+                      {currencyLabel[this.props.currency]} {total.toFixed(2)}
+                    </div>
+                  </div>
+
+                  <div className={styles["popup-buttons-section"]}>
+                    <Link className={styles["link"]} to={`/cart`}>
+                      <div className={styles["button-view-bag"]}>
+                        <div className={styles["title-view-bag"]}>VIEW BAG</div>
+                      </div>
+                    </Link>
+                    <Link className={styles["link"]} to={`/`}>
+                      <div className={styles["button-check-out"]}>
+                        <div className={styles["title-check-out"]}>
+                          CHECK OUT
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
-
-              <div
-                style={{
-                  maxHeight: "446px",
-                  overflow: "auto",
-                  // backgroundColor: "yellow",
-                }}
-              >
-                <Cart place="POPUP" />
-              </div>
-
-              <div className={styles["popup-total-section"]}>
-                <div className={styles["popup-total-title"]}>Total</div>
-                <div className={styles["popup-currency-total"]}>
-                  {currencyLabel[this.props.currency]} {total.toFixed(2)}
-                </div>
-              </div>
-
-              <div className={styles["popup-buttons-section"]}>
-                <Link className={styles["link"]} to={`/cart`}>
-                  <div className={styles["button-view-bag"]}>
-                    <div className={styles["title-view-bag"]}>VIEW BAG</div>
-                  </div>
-                </Link>
-                <Link className={styles["link"]} to={`/`}>
-                  <div className={styles["button-check-out"]}>
-                    <div className={styles["title-check-out"]}>CHECK OUT</div>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div style={{ display: "none" }}></div>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      </>
     );
   }
 }

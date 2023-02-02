@@ -16,7 +16,7 @@ type OwnProps = {
 
 type NavigationProps = {
   params: { id: Product["id"] };
-}
+};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -29,17 +29,21 @@ type CartQueryResult = {
 
 type GraphQLProps = {
   data: CartQueryResult;
-}
+};
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
-type State = {};
+type State = {
+  selectedImageByProductId: { [id: CartProduct["id"]]: number };
+};
 
 class Cart extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      selectedImageByProductId: {},
+    };
   }
 
   incrementItem = (product: CartProduct) => {
@@ -52,6 +56,34 @@ class Cart extends React.Component<Props, State> {
     store.dispatch({
       type: "CART_DECREMENT_ITEM",
       payload: { product },
+    });
+  };
+
+  canSwitchProductImage = (product: CartProduct, isNext: boolean) => {
+    const currentImageIndex =
+      this.state.selectedImageByProductId[product.id] || 0;
+
+    return isNext
+      ? currentImageIndex !== product.gallery.length - 1
+      : currentImageIndex > 0;
+  };
+
+  switchProductImage = (product: CartProduct, isNext: boolean) => {
+    const currentImageIndex =
+      this.state.selectedImageByProductId[product.id] || 0;
+
+    if (!this.canSwitchProductImage(product, isNext)) {
+      return;
+    }
+
+    const selectedImageByProductId = {
+      ...this.state.selectedImageByProductId,
+    };
+    selectedImageByProductId[product.id] =
+      currentImageIndex + (isNext ? 1 : -1);
+    console.log(selectedImageByProductId);
+    this.setState({
+      selectedImageByProductId,
     });
   };
 
@@ -191,14 +223,38 @@ class Cart extends React.Component<Props, State> {
                       <img
                         className={styles["page-image"]}
                         alt=""
-                        src={cartItem.gallery[0]}
+                        src={
+                          cartItem.gallery[
+                            this.state.selectedImageByProductId[cartItem.id] ||
+                              0
+                          ]
+                        }
                       />
                     </div>
                     <div className={styles["switcher"]}>
-                      <div className={styles["switcher-left"]}>
+                      <div
+                        onClick={() => this.switchProductImage(cartItem, false)}
+                        style={{
+                          visibility: this.canSwitchProductImage(
+                            cartItem,
+                            false
+                          )
+                            ? "visible"
+                            : "hidden",
+                        }}
+                        className={styles["switcher-left"]}
+                      >
                         <div className={styles["vector-left"]}></div>
                       </div>
-                      <div className={styles["switcher-right"]}>
+                      <div
+                        onClick={() => this.switchProductImage(cartItem, true)}
+                        style={{
+                          visibility: this.canSwitchProductImage(cartItem, true)
+                            ? "visible"
+                            : "hidden",
+                        }}
+                        className={styles["switcher-right"]}
+                      >
                         <div className={styles["vector-right"]}></div>
                       </div>
                     </div>

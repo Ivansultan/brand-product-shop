@@ -23,3 +23,18 @@ export const getTotalPrice = (
 
   return total;
 };
+
+export const getQuantity = (cartItems: AppState["cartItems"]) => {
+  const quantity = cartItems.reduce((sum, item) => {
+    return sum + item.quantity;
+  }, 0);
+  return quantity;
+};
+
+export const getQuantityCartIcon = (cartItems: AppState["cartItems"]) => {
+  const quantityCartIcon = cartItems.reduce((sum, item) => {
+    const quantity = 1;
+    return sum + quantity;
+  }, 0);
+  return quantityCartIcon;
+};

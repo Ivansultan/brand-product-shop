@@ -1,14 +1,13 @@
-import React, { RefObject } from "react";
-import { connect } from "react-redux";
-import { compose } from "recompose";
+import React from "react";
 import { AppState } from "../reducer";
 import { getPrice } from "./CartPage.utils";
-import { withParams } from "../utils";
 import { Link } from "react-router-dom";
-import { currencyLabel } from "../utils";
+import { currencyLabel, withParams } from "../utils";
 import Cart from "./Cart";
 import styles from "./CartPopup.module.css";
 import { Product } from "../graphql/types";
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
 type OwnProps = {
   place: "PAGE" | "POPUP";

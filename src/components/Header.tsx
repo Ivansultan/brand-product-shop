@@ -10,9 +10,7 @@ import CartPopup from "./CartPopup";
 import Currencies from "./Currencies";
 import styles from "./Header.module.css"; // Import css modules stylesheet as styles
 
-
-type OwnProps = {
-};
+type OwnProps = {};
 
 type StoreProps = {
   categoryName: Category["name"];
@@ -25,7 +23,7 @@ type CategoriesQueryResult = {
 
 type GraphQLProps = {
   data: CategoriesQueryResult;
-}
+};
 
 type Props = OwnProps & StoreProps & GraphQLProps;
 

@@ -24,7 +24,7 @@ type GraphQLProps = {
 
 type NavigationProps = {
   params: { name: Category["name"] };
-}
+};
 
 type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
 
@@ -32,7 +32,6 @@ type StoreProps = {
   currency: AppState["currency"];
   cartItems: AppState["cartItems"];
 };
-
 
 type State = {};
 

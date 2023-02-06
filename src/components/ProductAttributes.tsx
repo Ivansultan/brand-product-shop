@@ -18,8 +18,6 @@ export type OwnProps = {
   ) => void;
 };
 
-
-
 class ProductAttributes extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -46,8 +44,8 @@ class ProductAttributes extends React.Component<Props, State> {
       default:
         containerClassName =
           place === "POPUP"
-            ? styles["popup-capacity"]
-            : styles["page-capacity"];
+            ? styles["popup-attribute"]
+            : styles["page-attribute"];
         containerStyle = {};
         title = sizeLabel[item.id] || item.id;
     }
@@ -84,12 +82,11 @@ class ProductAttributes extends React.Component<Props, State> {
           return (
             <div key={attribute.id}>
               <div
-                // className={styles["page-color-name-section"]}
                 className={
                   styles[
                     place === "POPUP"
-                      ? "popup-color-name-section"
-                      : "page-color-name-section"
+                      ? "popup-attribute-name"
+                      : "page-attribute-name"
                   ]
                 }
               >
@@ -98,28 +95,71 @@ class ProductAttributes extends React.Component<Props, State> {
 
               <div className={styles["attribute-section"]}>
                 {attribute.items.map((item) => {
-                  return (
-                    <div
-                      key={item.id}
-                      style={
-                        item.isSelected
-                          ? { backgroundColor: "black", color: "white" }
-                          : {}
-                      }
-                      onClick={() => {
-                        place === "PRODUCT"
-                          ? setProductPageAttributeValue!(attribute.id, item.id) //  отрабатывает setState
-                          : this.chooseAttribute({
-                              // отрабатывает reducer
-                              productId: productId,
-                              attributeId: attribute.id,
-                              attributeValueId: item.id,
-                            });
-                      }}
-                    >
-                      {this.renderAttributeValue(attribute, item)}
-                    </div>
-                  );
+                  if (attribute.name === "Color") {
+                    return (
+                      <div style={{}}>
+                        <div
+                          key={item.id}
+                          style={
+                            item.isSelected
+                              ? {
+                                  border: "2px solid lightGreen",
+                                  margin: "-2px",
+                                  position: "relative",
+                                }
+                              : {}
+                          }
+                          onClick={() => {
+                            place === "PRODUCT"
+                              ? setProductPageAttributeValue!(
+                                  attribute.id,
+                                  item.id
+                                ) //  отр sweetабатывает setState
+                              : this.chooseAttribute({
+                                  // отрабатывает reducer
+                                  productId: productId,
+                                  attributeId: attribute.id,
+                                  attributeValueId: item.id,
+                                });
+                          }}
+                        >
+                          {this.renderAttributeValue(attribute, item)}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div
+                        style={{
+                          maxWidth: "100%",
+                        }}
+                      >
+                        <div
+                          key={item.id}
+                          style={
+                            item.isSelected
+                              ? { backgroundColor: "black", color: "white" }
+                              : {}
+                          }
+                          onClick={() => {
+                            place === "PRODUCT"
+                              ? setProductPageAttributeValue!(
+                                  attribute.id,
+                                  item.id
+                                ) //  отрабатывает setState
+                              : this.chooseAttribute({
+                                  // отрабатывает reducer
+                                  productId: productId,
+                                  attributeId: attribute.id,
+                                  attributeValueId: item.id,
+                                });
+                          }}
+                        >
+                          {this.renderAttributeValue(attribute, item)}
+                        </div>
+                      </div>
+                    );
+                  }
                 })}
               </div>
             </div>

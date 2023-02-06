@@ -5,11 +5,13 @@
     flex-direction: row;
     display: flex;
     padding-bottom: 178px;
+    /* background-color: aqua; */
 }
 
 .gallery-section {
     flex-direction: column;
     display: flex;
+    /* background-color: rgb(14, 193, 133); */
 }
 
 .gallery-block {
@@ -27,6 +29,7 @@
 .gallery-images {
     width: auto;
     height: auto;
+   
 }
 
 .product-image-block {
@@ -46,9 +49,11 @@
 }
 
 .product-info-section {
+    max-width: 100%;
     margin-left: 100px;
     flex-direction: column;
     display: flex;
+    /* background-color: red; */
 }
 
 .product-brand {
@@ -92,3 +97,105 @@
     width: 292px;
     margin-top: 40px;
 }
+
+@media screen and (max-width: 1357px) {
+    .product {
+        margin-right: 200px;
+    }
+    .product-info-section {
+        margin-left: 90px;
+    }
+    .product-brand {
+        font-size: 26px;
+    }
+    .product-name {
+        font-size: 26px;
+    }
+    .product-price-title {
+        font-size: 17px;
+    }
+    
+    .product-currency-price {
+        font-size: 22px;
+    }
+    
+    .product-button {
+        height: 50px;
+        width: 285px;
+    }
+    
+}
+
+@media screen and (max-width: 1285px) {
+    .product {
+        margin-right: 198px;
+    }
+    .product-info-section {
+        margin-left: 88px;
+    }
+    .product-brand {
+        font-size: 25px;
+    }
+    .product-name {
+        font-size: 25px;
+    }
+    .product-price-title {
+        font-size: 16px;
+    }
+    
+    .product-currency-price {
+        font-size: 21px;
+    }
+    
+    .product-button {
+        height: 49px;
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 1195px) {
+    .product {
+        margin-right: 198px;
+    }
+    .product-info-section {
+        margin-left: 88px;
+    }
+    .product-brand {
+        font-size: 24px;
+    }
+    .product-name {
+        font-size: 24px;
+    }
+    .product-price-title {
+        font-size: 15px;
+    }
+    
+    .product-currency-price {
+        font-size: 20px;
+    }
+    
+    .product-button {
+        height: 48px;
+        width: 275px;
+    }
+    
+}
+
+/* @media screen and (max-width: 1270px) {
+    .product {
+        margin-right: 193px;
+    }
+    .product-info-section {
+        margin-left: 85px;
+    }
+}
+
+@media screen and (max-width: 1255px) {
+    .product {
+        margin-right: 188px;
+    }
+    .product-info-section {
+        margin-left: 82px;
+    }
+}
+ */

@@ -5,13 +5,11 @@
     flex-direction: row;
     display: flex;
     padding-bottom: 178px;
-    /* background-color: aqua; */
 }
 
 .gallery-section {
     flex-direction: column;
     display: flex;
-    /* background-color: rgb(14, 193, 133); */
 }
 
 .gallery-block {
@@ -38,6 +36,8 @@
     justify-content: center;
     width: 610px;
     height: 511px;
+    min-width: 250px;
+    min-height: 151px;
     border: 1px solid lightGray;
     margin-left: 35px;
     overflow: hidden;
@@ -46,6 +46,7 @@
 .product-image {
     max-width: 100%;
     max-height: 100%;
+   
 }
 
 .product-info-section {
@@ -53,7 +54,6 @@
     margin-left: 100px;
     flex-direction: column;
     display: flex;
-    /* background-color: red; */
 }
 
 .product-brand {
@@ -100,10 +100,10 @@
 
 @media screen and (max-width: 1357px) {
     .product {
-        margin-right: 200px;
+        margin-right: 190px;
     }
     .product-info-section {
-        margin-left: 90px;
+        margin-left: 80px;
     }
     .product-brand {
         font-size: 26px;
@@ -112,7 +112,7 @@
         font-size: 26px;
     }
     .product-price-title {
-        font-size: 17px;
+        font-size: 16px;
     }
     
     .product-currency-price {
@@ -128,46 +128,19 @@
 
 @media screen and (max-width: 1285px) {
     .product {
-        margin-right: 198px;
+        margin-right: 160px;
     }
     .product-info-section {
-        margin-left: 88px;
+        margin-left: 60px;
     }
     .product-brand {
-        font-size: 25px;
+        font-size: 22px;
     }
     .product-name {
-        font-size: 25px;
+        font-size: 22px;
     }
     .product-price-title {
-        font-size: 16px;
-    }
-    
-    .product-currency-price {
-        font-size: 21px;
-    }
-    
-    .product-button {
-        height: 49px;
-        width: 280px;
-    }
-}
-
-@media screen and (max-width: 1195px) {
-    .product {
-        margin-right: 198px;
-    }
-    .product-info-section {
-        margin-left: 88px;
-    }
-    .product-brand {
-        font-size: 24px;
-    }
-    .product-name {
-        font-size: 24px;
-    }
-    .product-price-title {
-        font-size: 15px;
+        font-size: 14px;
     }
     
     .product-currency-price {
@@ -175,27 +148,98 @@
     }
     
     .product-button {
-        height: 48px;
-        width: 275px;
+        height: 49px;
+        width: 278px;
+    }
+}
+
+@media screen and (max-width: 1195px) {
+    .product {
+        margin-right: 130px;
+    }
+    .product-info-section {
+        margin-left: 40px;
+    }
+    .product-brand {
+        font-size: 21px;
+    }
+    .product-name {
+        font-size: 21px;
+    }
+    .product-price-title {
+        font-size: 12px;
     }
     
+    .product-currency-price {
+        font-size: 18px;
+    }
+    
+    .product-button {
+        height: 48px;
+        width: 271px;
+    }
 }
 
-/* @media screen and (max-width: 1270px) {
+@media screen and (max-width: 1100px) {
     .product {
-        margin-right: 193px;
+        margin-right: 100px;
     }
     .product-info-section {
-        margin-left: 85px;
+        margin-left: 40px;
+    }
+    .product-brand {
+        font-size: 20px;
+    }
+    .product-name {
+        font-size: 20px;
+    }
+    .product-price-title {
+        font-size: 10px;
+    }
+    
+    .product-currency-price {
+        font-size: 16px;
+    }
+    
+    .product-button {
+        height: 47px;
+        width: 264px;
     }
 }
 
-@media screen and (max-width: 1255px) {
+@media screen and (max-width: 1000px) {
     .product {
-        margin-right: 188px;
+        margin-right: 70px;
     }
     .product-info-section {
-        margin-left: 82px;
+        margin-left: 40px;
+    }
+    .product-brand {
+        font-size: 22px;
+    }
+    .product-name {
+        font-size: 22px;
+    }
+    .product-price-title {
+        font-size: 13px;
+    }
+    
+    .product-currency-price {
+        font-size: 14px;
+    }
+    
+    .product-button {
+        height: 46px;
+        width: 257px;
     }
 }
- */
+
+@media screen and (max-width: 900px) {
+    .product {
+        margin-right: 50px;
+    }
+    .product-button {
+        height: 46px;
+        width: 250px;
+    }
+}

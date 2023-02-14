@@ -20,7 +20,6 @@ describe("CartPage.utils.ts", () => {
 
   test.only("getQuantityCartIcon()", () => {
     const cartItems = [CART_ITEM, CART_ITEM];
-    // const quantity = 2;
     expect(getQuantityCartIcon(cartItems)).toEqual(2);
   });
 });

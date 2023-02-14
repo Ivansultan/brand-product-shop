@@ -24,11 +24,6 @@ class ProductAttributes extends React.Component<Props, State> {
     this.state = {};
   }
 
-  // renderAttributeName = (attribute: Attribute, item: AttributeItem) => {
-  //   const { place } = this.props;
-
-  // }
-
   renderAttributeValue = (attribute: Attribute, item: AttributeItem) => {
     const { place } = this.props;
     let containerClassName;
@@ -74,8 +69,6 @@ class ProductAttributes extends React.Component<Props, State> {
     const { attributes, productId, setProductPageAttributeValue, place } =
       this.props;
 
-    // console.log("ProductAttributes", place, attributes);
-
     return (
       <>
         {attributes.map((attribute) => {
@@ -114,7 +107,7 @@ class ProductAttributes extends React.Component<Props, State> {
                               ? setProductPageAttributeValue!(
                                   attribute.id,
                                   item.id
-                                ) //  отр sweetабатывает setState
+                                ) //  отрабатывает setState
                               : this.chooseAttribute({
                                   // отрабатывает reducer
                                   productId: productId,
@@ -165,178 +158,6 @@ class ProductAttributes extends React.Component<Props, State> {
             </div>
           );
         })}
-
-        {/* {attributes.map((attribute) => {
-          if (attribute.name === "Capacity" && place === "POPUP") {
-            return (
-              <div>
-                <div className={styles["popup-capacity-name"]}>
-                  {attribute.name}
-                </div>
-                <div className={styles["popup-capacity-section"]}>
-                  {attribute.items.map((item) => {
-                    if (attribute.id === "Capacity" && place === "POPUP") {
-                      return (
-                        <div key={item.id}>
-                          <div className={styles["popup-capacity"]}>
-                            {item.id}
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          }
-
-          if (attribute.name === "Capacity" && place === "PAGE") {
-            return (
-              <div>
-                <div className={styles["page-capacity-name"]}>
-                  {attribute.name}
-                </div>
-                <div className={styles["page-capacity-section"]}>
-                  {attribute.items.map((item) => {
-                    if (attribute.id === "Capacity" && place === "PAGE") {
-                      return (
-                        <div key={item.id}>
-                          <div className={styles["page-capacity"]}>
-                            {item.id}
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          }
-
-          if (attribute.name === "Color" && place === "POPUP") {
-            return (
-              <div
-                className={styles["popup-color-name-section"]}
-                key={attribute.name}
-              >
-                {attribute.name}
-                <div className={styles["popup-color-section"]}>
-                  {attribute.items.map((item) => {
-                    if (attribute.id === "Color" && place === "POPUP") {
-                      const style = { backgroundColor: item.id.toLowerCase() };
-                      return (
-                        <div
-                          className={styles["popup-color"]}
-                          key={item.id}
-                          style={style}
-                        >
-                          <ul key={item.id}></ul>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          }
-
-          if (attribute.name === "Color" && place === "PAGE") {
-            return (
-              <div
-                className={styles["page-color-name-section"]}
-                key={attribute.name}
-              >
-                {attribute.name}
-                <div className={styles["page-color-section"]}>
-                  {attribute.items.map((item) => {
-                    if (attribute.id === "Color" && place === "PAGE") {
-                      const style = { backgroundColor: item.id.toLowerCase() };
-                      return (
-                        <div
-                          className={styles["page-color"]}
-                          key={item.id}
-                          style={style}
-                        >
-                          <ul key={item.id}></ul>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          }
-
-          if (attribute.name === "Size" && place === "PAGE") {
-            return (
-              <div className={styles["page-size-name-section"]}>
-                <div className={styles["page-size-name"]}>{attribute.name}</div>
-                <div className={styles["page-size-section"]}>
-                  {attribute.items.map((attributeValue) => {
-                    if (attribute.id === "Size" && place === "PAGE") {
-                      return (
-                        <div key={attributeValue.id}>
-                          <div
-                            className={styles["page-size"]}
-                            style={
-                              attributeValue.isSelected
-                                ? { backgroundColor: "red" }
-                                : {}
-                            }
-                            onClick={() => {
-                              this.chooseAttribute({
-                                productId: productId,
-                                attributeId: attribute.id,
-                                attributeValueId: attributeValue.id,
-                              });
-                            }}
-                          >
-                            {sizeLabel[attributeValue.id] || attributeValue.id}
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          }
-
-          if (attribute.name === "Size" && place === "POPUP") {
-            return (
-              <div className={styles["popup-size-name-section"]}>
-                {attribute.name}
-                <div className={styles["popup-size-section"]}>
-                  {attribute.items.map((item) => {
-                    if (attribute.id === "Size" && place === "POPUP") {
-                      return (
-                        <div key={item.id}>
-                          <div className={styles["popup-size"]}>
-                            {sizeLabel[item.id] || item.id}
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return <div></div>;
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          } else {
-            return <div></div>;
-          }
-        })} */}
       </>
     );
   }

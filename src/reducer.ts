@@ -3,9 +3,7 @@ import { SelectedAttributeValues } from "./pages/ProductPage";
 
 export type CartProduct = Product & {
   quantity: number;
-  // isSelected?: boolean; // TODO: Delete?
 };
-
 
 export type AppState = {
   cartItems: CartProduct[];
@@ -57,7 +55,6 @@ export type CategoryNamePayload = {
 };
 
 export type UpdateAttributesPayload = {
-  // productId: Product.productId;
   params: {
     productId: string;
     attributeId: string;
@@ -66,7 +63,7 @@ export type UpdateAttributesPayload = {
 };
 
 type Action = {
-  type: ActionType; //Обязательный параметр (ActionType с которым мы что-то делаем)
+  type: ActionType; // required parameter (ActionType with which we do something)
   payload:
     | CartAddItemPayload
     | CartRemoveItemPayload
@@ -74,34 +71,16 @@ type Action = {
     | CartDecrementItemPayload
     | CurrencyPayload
     | CategoryNamePayload
-    | UpdateAttributesPayload; // Необязательный параметр (тип ActionType, доп. инфа)
+    | UpdateAttributesPayload; // optional parameter (payload, additional info)
 };
-
-// export const updateProductAttributes = (
-//   attributes: CartProduct["attributes"],
-//   selectedAttributeValues: { [key: string]: string }
-// ) => {
-//   return attributes.map((attribute) => {
-//     return {
-//       ...attribute,
-//       items: attribute.items.map((item) => {
-//         const isSelected = item.id === selectedAttributeValues[attribute.id];
-//         return {
-//           ...item,
-//           isSelected,
-//         };
-//       }),
-//     };
-//   });
-// };
 
 export const updateAttributes = (
   attributes: Product["attributes"],
   selectedAttributeValues: { [key: string]: string }
 ) => {
   const updatedAttributes = attributes.map((attribute) => {
-    // при переборке attribute у нас есть возможность показать их список или модифицировать нужные нам
-    return !!selectedAttributeValues[attribute.id] // !! - преобразование в boolean type / проверка выбран аттрибут или нет
+    // with map attribute we have the opportunity show the attribute list or modify what we need
+    return !!selectedAttributeValues[attribute.id] // !! - transformation in boolean type / check attribute is selected or not
       ? {
           ...attribute,
           items: attribute.items.map((attrValue) => {
@@ -110,15 +89,6 @@ export const updateAttributes = (
               isSelected:
                 selectedAttributeValues[attribute.id] === attrValue.id,
             };
-            // return selectedAttributeValues[attribute.id] === attrValue.id
-            //   ? {
-            //       ...attrValue,
-            //       isSelected: true,
-            //     }
-            //   : {
-            //       ...attrValue,
-            //       isSelected: false,
-            //     };
           }),
         }
       : attribute;
@@ -127,20 +97,11 @@ export const updateAttributes = (
 };
 
 const rootReducer = (state = initialState, action: Action): AppState => {
-  // console.log("----- STATE ----");
-  // console.log(JSON.stringify(state, null, 2));
-  // console.log("----- ACTION ----");
-  // console.log(JSON.stringify(action, null, 2));
-
   switch (action.type) {
     case "UPDATE_ATTRIBUTES":
       const { productId, attributeId, attributeValueId } = (
         action.payload as UpdateAttributesPayload
       ).params;
-
-      // console.log("productId", productId);
-      // console.log("attributeId", attributeId);
-      // console.log("attributeValueId", attributeValueId);
 
       return {
         ...state,
@@ -155,12 +116,6 @@ const rootReducer = (state = initialState, action: Action): AppState => {
             : cartItem;
         }),
       };
-
-    // Шаги
-    // 1. По productId найти carteItem.id
-    // 2. По attributeName  найти carteItem.attributes.id
-    // 3. По attributeValue  найти carteItem.attributes.items.id
-    // 4. Добавить carteItem.attributes.items.isSelected = True
 
     case "CART_ADD_ITEM":
       const { product, selectedAttributeValues } =

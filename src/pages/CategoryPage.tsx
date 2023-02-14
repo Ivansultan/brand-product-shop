@@ -50,7 +50,6 @@ class CategoryPage extends React.Component<Props, State> {
       type: "SET_CATEGORY_NAME",
       payload: { categoryName: this.props.params.name },
     });
-    // console.log(this.props.params.name);
   }
 
   render() {

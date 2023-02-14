@@ -3,7 +3,6 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
 .currency-icon {
     margin-top: 28px;
     width: 12px;
@@ -11,7 +10,6 @@
     display: flex;
     align-items: center;
 }
-
 .vector-up {
     margin-top: 44px;
     margin-left: 10px;
@@ -22,7 +20,6 @@
     padding: 2.5px;
     transform: rotate(-135deg);
 }
-
 .vector-down {
     margin-top: 44px;
     margin-left: 10px;
@@ -33,7 +30,6 @@
     padding: 2.5px;
     transform: rotate(45deg);
 }
-
 .currency-popup {
     position: absolute;
     top: 60px;
@@ -45,7 +41,6 @@
     flex-direction: column;
     background-color: white;
 }
-
 .currency-section {
     display: flex;
     align-items: center;

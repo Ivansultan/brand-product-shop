@@ -130,7 +130,6 @@ class CartPopup extends React.Component<Props, State> {
                     style={{
                       maxHeight: "446px",
                       overflow: "auto",
-                      // backgroundColor: "yellow",
                     }}
                   >
                     <Cart place="POPUP" />

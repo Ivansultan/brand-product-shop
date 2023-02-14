@@ -12,7 +12,7 @@ type OwnProps = {};
 
 type GraphQLProps = {
   data: CurrencyQueryResult;
-}
+};
 
 type CurrencyQueryResult = {
   loading: boolean;
@@ -45,9 +45,6 @@ class Currencies extends React.Component<Props, State> {
 
   render() {
     const { currencies } = this.props.data;
-    // if (loading) {
-    //   return <div>Loading...</div>;
-    // }
     return (
       <div className={styles["currency-icon-vector"]}>
         <div className={styles["currency-icon"]}>

@@ -14,9 +14,7 @@ import { Product } from "../graphql/types";
 
 export type SelectedAttributeValues = { [key: string]: string };
 
-type OwnProps = {
-  // place: "PAGE" | "POPUP";
-};
+type OwnProps = {};
 
 type StoreProps = {
   cartItems: AppState["cartItems"];
@@ -49,12 +47,11 @@ class ProductPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       visibility: false,
-      selectedAttributeValues: {}, // Внутреннее состояние атрибутов продукта
+      selectedAttributeValues: {},
     };
   }
 
   addProductToCart = () => {
-    // Добавляет продукт в корзину
     store.dispatch({
       type: "CART_ADD_ITEM",
       payload: {
@@ -65,7 +62,6 @@ class ProductPage extends React.Component<Props, State> {
   };
 
   deleteProductFromCart = () => {
-    // Удаляет продукт из корзины
     store.dispatch({
       type: "CART_REMOVE_ITEM",
       payload: {
@@ -76,7 +72,7 @@ class ProductPage extends React.Component<Props, State> {
 
   getProductAttributes = (attributes: Product["attributes"]) => {
     const { selectedAttributeValues } = this.state;
-    return updateAttributes(attributes, selectedAttributeValues); // updateAttributes берём из reducer, возвращает атрибут с isSelected true или false
+    return updateAttributes(attributes, selectedAttributeValues); // updateAttributes from reducer, return attribute with isSelected true or false
   };
 
   setProductPageAttributeValue = (
@@ -132,9 +128,9 @@ class ProductPage extends React.Component<Props, State> {
 
     const inCart = this.props.cartItems
       .map((item) => item.id)
-      .includes(product.id); //  Проходимся по cartItems и если в нём есть product.id, возвращаем true.
-    const cartButtonTitle = inCart ? "REMOVE" : "ADD TO CART"; // В зависимости true или false в inCart, cartButtonTitle показывает "REMOVE" или "ADD TO CART"
-    const cartButtonCallback = inCart //  эта функция отрабатывает при клике на кнопку
+      .includes(product.id); // map in cartItems and if we have product.id, return true.
+    const cartButtonTitle = inCart ? "REMOVE" : "ADD TO CART"; // Depending true or false in inCart, cartButtonTitle shows "REMOVE" or "ADD TO CART"
+    const cartButtonCallback = inCart //  work when you click the button
       ? this.deleteProductFromCart
       : this.addProductToCart;
 

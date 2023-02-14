@@ -38,7 +38,6 @@ class Header extends React.Component<Props, State> {
   render() {
     return (
       <div className={styles["header"]}>
-        {/* {this.props.categoryName} */}
         <div className={styles["category-links"]}>
           {this.props.categoryName === undefined ? (
             <div className={styles["category-item"]}>

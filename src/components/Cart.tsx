@@ -97,7 +97,7 @@ class Cart extends React.Component<Props, State> {
             return (
               <div
                 className={styles["popup-product"]}
-                key={cartItem.id} // Уникальный ключ для родительского блока
+                key={cartItem.id} // unique key
               >
                 <div className={styles["popup-product-info"]}>
                   <div className={styles["popup-brand-name"]}>
@@ -164,7 +164,7 @@ class Cart extends React.Component<Props, State> {
             return (
               <div
                 className={styles["borders"]}
-                key={`${cartItem.id}`} // Уникальный ключ не похожий в первом блоке
+                key={`${cartItem.id}`} // different unique key
               >
                 <div className={styles["page-product"]}>
                   <div

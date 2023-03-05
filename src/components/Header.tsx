@@ -2,13 +2,14 @@ import { gql } from "@apollo/client";
 import { graphql } from "@apollo/client/react/hoc/graphql";
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { compose } from "recompose";
 import { Category } from "../graphql/types";
 import { AppState } from "../reducer";
 import CartPopup from "./CartPopup";
 import Currencies from "./Currencies";
-import styles from "./Header.module.css"; // Import css modules stylesheet as styles
+import styles from "./Header.module.css";
+import { ReactComponent as LogoIcon } from "./assets/logo.svg";
+import { store } from "../store";
 
 type OwnProps = {};
 
@@ -35,47 +36,49 @@ class Header extends React.Component<Props, State> {
     this.state = {};
   }
 
+  navigateToCategory = (category: Category) => {
+    store.dispatch({
+      type: "SET_CATEGORY_NAME",
+      payload: { categoryName: category.name },
+    });
+
+    document.location =
+      category.name === "all" ? "/" : `/category/${category.name}`;
+  };
+
   render() {
     return (
       <div className={styles["header"]}>
-        <div className={styles["category-links"]}>
+        <div className={styles["categories-section"]}>
           {!this.props.data.loading &&
             this.props.data.categories.map((category) => {
+              const isActive =
+                category.name == (this.props.categoryName || "all");
               return (
-                <div key={category.name} className={styles["category-item"]}>
-                  <Link
-                    className={
-                      category.name === (this.props.categoryName || "all")
-                        ? styles["link-active"]
-                        : styles["link"]
-                    }
-                    to={
-                      category.name === "all"
-                        ? "/"
-                        : `/category/${category.name}`
-                    }
-                  >
-                    {category.name}
-                  </Link>
+                <div
+                  key={category.name}
+                  className={`${isActive && styles["category-active"]} ${
+                    styles["category"]
+                  }`}
+                  style={{
+                    cursor: isActive ? "default" : "pointer",
+                  }}
+                  onClick={() => !isActive && this.navigateToCategory(category)}
+                >
+                  <div className={styles["category-name"]}>{category.name}</div>
                 </div>
               );
             })}
         </div>
 
-        <div className={styles["icon-section"]}>
-          <div className={styles["icon-block"]}>
-            <div className={styles["semicircle"]}>
-              <div className={styles["vector"]}></div>
-            </div>
-          </div>
-        </div>
+        <LogoIcon />
 
-        <div className={styles["currency-cart-section"]}>
+        <div className={styles["header-right"]}>
           <div className={styles["currency"]}>
             <Currencies />
           </div>
           <div className={styles["cart"]}>
-            <CartPopup place="POPUP" />
+            <CartPopup />
           </div>
         </div>
       </div>

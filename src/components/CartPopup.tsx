@@ -8,10 +8,9 @@ import styles from "./CartPopup.module.css";
 import { Product } from "../graphql/types";
 import { compose } from "recompose";
 import { connect } from "react-redux";
+import { ReactComponent as CartIcon } from "./assets/cart.svg";
 
-type OwnProps = {
-  place: "PAGE" | "POPUP";
-};
+type OwnProps = {};
 
 type NavigationProps = {
   params: { id: Product["id"] };
@@ -30,7 +29,7 @@ type GraphQLProps = {
   data: CartQueryResult;
 };
 
-type Props = OwnProps & NavigationProps & StoreProps & GraphQLProps;
+type Props = NavigationProps & StoreProps & GraphQLProps;
 
 type State = {
   isVisible: boolean;
@@ -65,33 +64,18 @@ class CartPopup extends React.Component<Props, State> {
 
   renderCartIconWithCount = (itemsInCart: number) => {
     return (
-      <>
-        <div>
-          <div
-            onClick={this.handleClick}
-            className={styles["cart-icon-section"]}
-          >
-            <div className={styles["cart-icon-block"]}>
-              <div className={styles["vector"]}></div>
-
-              <div className={styles["trapezoid"]}></div>
-
-              <div className={styles["circle-section"]}>
-                <div className={styles["circle"]}></div>
-
-                <div className={styles["circle"]}></div>
-              </div>
-            </div>
-          </div>
+      <div className={styles["cart-icon"]}>
+        <div onClick={this.handleClick}>
+          <CartIcon />
         </div>
         {itemsInCart >= 1 ? (
-          <div onClick={this.handleClick} className={styles["items-in-cart"]}>
+          <div onClick={this.handleClick} className={styles["cart-icon-count"]}>
             {itemsInCart}
           </div>
         ) : (
           ""
         )}
-      </>
+      </div>
     );
   };
 

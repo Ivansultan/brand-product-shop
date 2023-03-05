@@ -1,11 +1,7 @@
 .cart-page {
-  margin-bottom: 274px;
 }
 
 .cart-title {
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-top: 80px;
   margin-bottom: 55px;
   font-size: 32px;
   font-weight: 700;
@@ -13,14 +9,10 @@
 
 .delimiter {
   border: 0.1px solid lightGray;
-  margin-left: 100px;
-  margin-right: 100px;
 }
 
 .ordering {
   margin-top: 32px;
-  margin-left: 100px;
-  margin-right: 100px;
 }
 
 .cart-tax {

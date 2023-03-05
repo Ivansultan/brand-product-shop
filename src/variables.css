@@ -1,0 +1,8 @@
+
+/* breakpoints.css */
+/* Values from Bootstrap 5 https://getbootstrap.com/docs/5.0/layout/breakpoints/ */
+@value breakpoint-xxl: (min-width: 1200px);
+@value breakpoint-xl: (max-width: 1200px);
+@value breakpoint-l: (max-width: 992px);
+@value breakpoint-m: (max-width: 768px);
+@value breakpoint-s: (max-width: 576px);

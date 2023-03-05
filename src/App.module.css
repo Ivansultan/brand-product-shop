@@ -1,0 +1,39 @@
+@value breakpoint-s, breakpoint-m, breakpoint-l, breakpoint-xl, breakpoint-xxl from "./variables.css";
+
+
+@media breakpoint-xxl {
+    :root {
+        --page-gap: 101px;
+    }
+}
+@media breakpoint-xl {
+    :root {
+        --page-gap: 80px;
+    }
+}
+@media breakpoint-l {
+    :root {
+        --page-gap: 60px;
+    }
+}
+@media breakpoint-m {
+    :root {
+        --page-gap: 40px;
+    }
+}
+@media breakpoint-s {
+    :root {
+        --page-gap: 20px;
+    }
+}
+
+.wrapper {
+    margin-top: var(--header-height);
+    margin-left: var(--page-gap);
+    margin-right:var(--page-gap);
+    margin-bottom: 191px;
+}
+
+.content {
+  margin-top: calc(var(--header-height) * 2);
+}

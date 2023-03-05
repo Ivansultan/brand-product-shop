@@ -162,10 +162,7 @@ class Cart extends React.Component<Props, State> {
 
           if (place === "PAGE") {
             return (
-              <div
-                className={styles["borders"]}
-                key={`${cartItem.id}`} // different unique key
-              >
+              <div key={cartItem.id}>
                 <div className={styles["page-product"]}>
                   <div
                     className={styles["page-product-info"]}

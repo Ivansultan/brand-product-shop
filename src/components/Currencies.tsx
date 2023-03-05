@@ -5,9 +5,12 @@ import { store } from "../store";
 import { AppState } from "../reducer";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import { currencyLabel } from "../utils";
 import styles from "./Currencies.module.css";
 import { Currency } from "../graphql/types";
+import { ReactComponent as CurrencyIcon } from "./assets/currency.svg";
+import { ReactComponent as ArrowDownIcon } from "./assets/arrow-down.svg";
+import { ReactComponent as ArrowUpIcon } from "./assets/arrow-up.svg";
+import { currencyLabel } from "../utils";
 
 type OwnProps = {};
 
@@ -47,50 +50,45 @@ class Currencies extends React.Component<Props, State> {
   render() {
     const { currencies } = this.props.data;
     return (
-      <div className={styles["currency-icon-vector"]}>
-        <div className={styles["currency-icon"]}>
-          {currencyLabel[this.props.currency]}
-        </div>
+      <>
         <div
+          className={styles["currency"]}
           onClick={() => {
             this.setState({ visibility: !this.state.visibility });
           }}
         >
-          {this.state.visibility ? (
-            <div className={styles["vector-up"]}></div>
-          ) : (
-            <div className={styles["vector-down"]}></div>
-          )}
+          <div className={styles["currency-symbol"]}>
+            {currencyLabel[this.props.currency]}
+          </div>
+          {this.state.visibility ? <ArrowUpIcon /> : <ArrowDownIcon />}
         </div>
-        {this.state.visibility ? (
+        {this.state.visibility && (
           <div className={styles["currency-popup"]}>
-            {currencies.map((currency) => (
-              <div className={styles["currency-section"]} key={currency.label}>
+            <div className={styles["currencies"]}>
+              {currencies.map((currency) => (
                 <div
-                  className={
-                    currency.label === this.props.currency
-                      ? styles["currency-current"]
-                      : styles["currency-expected"]
-                  }
                   key={currency.label}
+                  className={`
+                    ${styles["currency-item"]}
+                    ${
+                      currency.label === this.props.currency &&
+                      styles["currency-current"]
+                    }
+                  `}
                   onClick={() => {
                     currency.label !== this.props.currency &&
                       this.changeCurrency(currency.label);
                   }}
                 >
-                  <div className={styles["currency-label"]}>
-                    <div className={styles["label"]}>{currency.label}</div>
-
-                    <div className={styles["currency"]}>{currency.symbol}</div>
+                  <div className={styles["currency-item"]}>
+                    {currency.symbol} {currency.label}
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        ) : (
-          <div style={{ display: "none" }}></div>
         )}
-      </div>
+      </>
     );
   }
 }

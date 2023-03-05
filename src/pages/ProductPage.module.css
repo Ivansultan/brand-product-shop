@@ -1,10 +1,6 @@
 .product {
-  margin-left: 97px;
-  margin-right: 219px;
-  margin-top: 73px;
   flex-direction: row;
   display: flex;
-  padding-bottom: 178px;
 }
 
 .gallery-section {

@@ -1,272 +1,271 @@
 .popup-product {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 32px;
 }
 
 .popup-product-info {
-    width: "136px",
+  width: 136px;
 }
 
 .popup-brand-name {
-    display: flex;
-    flex-direction: column;
-    line-height: 25.6px;
+  display: flex;
+  flex-direction: column;
+  line-height: 25.6px;
 }
 
 .popup-brand {
-    color: #1D1F22;
-    font-size: 16px;
-    font-weight: 300;
+  color: #1d1f22;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .popup-name {
-    color: #1D1F22;
-    font-size: 16px;
-    font-weight: 300;
+  color: #1d1f22;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .popup-currency-price {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 500;
-    height: 26px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  height: 26px;
 }
 
 .popup-quantity-section {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .popup-quantity-block {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .popup-increment {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid black;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-quantity {
-    display: flex;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-decrement {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid black;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-decrement-default {
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-image-section {
-    border: 0.5px solid lightGray;
-    margin-left: 8px;
-    width: 121px;
-    height: 190px;
-    align-items: center;
-    display: flex;
+  border: 0.5px solid lightGray;
+  margin-left: 8px;
+  width: 121px;
+  height: 190px;
+  align-items: center;
+  display: flex;
 }
 
 .popup-image {
-    max-width: 121px;
-    max-height: 190px;
+  max-width: 121px;
+  max-height: 190px;
 }
 
 .switcher {
-    position: relative;
-    right: 74px;
-    top: 247px;
-    width: 56px;
-    height: 24px;
-    display: flex;
-    justify-content: space-between;
+  position: relative;
+  right: 74px;
+  top: 247px;
+  width: 56px;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .switcher-left {
-    width: 24px;
-    height: 24px;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .switcher-left:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .vector-left {
-    border: solid white;
-    margin-left: 5px;
-    border-width: 0 1.5px 1.5px 0;
-    display: inline-block;
-    padding: 4px;
-    transform: rotate(-225deg);
+  border: solid white;
+  margin-left: 5px;
+  border-width: 0 1.5px 1.5px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-225deg);
 }
 
 .switcher-right {
-    width: 24px;
-    height: 24px;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .switcher-right:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .vector-right {
-    border: solid white;
-    margin-right: 5px;
-    border-width: 0 1.5px 1.5px 0;
-    display: inline-block;
-    padding: 4px;
-    transform: rotate(-45deg);
+  border: solid white;
+  margin-right: 5px;
+  border-width: 0 1.5px 1.5px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-45deg);
 }
 
 .borders {
-    margin-left: 100px; 
-    margin-right: 100px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .page-product {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    margin-top: -8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-top: -8px;
 }
 
 .page-product-info {
-    width: "292px",
+  width: 292px;
 }
 
 .page-brand-name {
-    flex-direction: column;
-    display: flex;
+  flex-direction: column;
+  display: flex;
 }
 
 .page-brand {
-    color: #1D1F22;
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 27px;
+  color: #1d1f22;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 27px;
 }
 
 .page-name {
-    margin-top: 16px;
-    font-size: 30px;
-    font-weight: 400;
-    line-height: 27px;
+  margin-top: 16px;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 27px;
 }
 
 .page-currency-price {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 24px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
 }
 
 .page-quantity-section {
-    display: flex;
-    flex-direction: row;
-    
+  display: flex;
+  flex-direction: row;
 }
 
 .page-quantity-block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .page-increment {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid black;
-    width: 45px;
-    height: 45px;
-    font-size: 35px;
-    font-weight: 200;
-    color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+  font-size: 35px;
+  font-weight: 200;
+  color: black;
 }
 
 .page-quantity {
-    display: flex;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .page-decrement {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid black;
-    width: 45px;
-    height: 45px;
-    font-size: 35px;
-    font-weight: 200;
-    color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+  font-size: 35px;
+  font-weight: 200;
+  color: black;
 }
 
 .page-decrement-default {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    width: 45px;
-    height: 45px;
-    font-size: 35px;
-    font-weight: 200;
-    color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+  font-size: 35px;
+  font-weight: 200;
+  color: black;
 }
 
 .page-image-section {
-    border: 0.5px solid lightGray;
-    margin-left: 24px;
-    width: 200px;
-    height: 288px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    overflow: hidden;
+  border: 0.5px solid lightGray;
+  margin-left: 24px;
+  width: 200px;
+  height: 288px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
 }
 
 .page-image {
-    max-width: 100%;
-    height: auto; 
-    max-height: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
 }
 
 .delimiter {
-    border: 0.1px solid lightGray;
-    margin-top: -1px;
+  border: 0.1px solid lightGray;
+  margin-top: -1px;
 }

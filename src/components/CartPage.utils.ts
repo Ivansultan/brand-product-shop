@@ -1,5 +1,5 @@
 import { AppState } from "../reducer";
-import {Currency} from "../graphql/types";
+import { Currency } from "../graphql/types";
 
 type Price = {
   currency: Currency;

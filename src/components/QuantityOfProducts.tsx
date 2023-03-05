@@ -3,8 +3,7 @@ import React from "react";
 type Props = {};
 type State = { count: number };
 
-
-export const DEFAULT_COUNT = 1
+export const DEFAULT_COUNT = 1;
 
 class QuantityOfProducts extends React.Component<Props, State> {
   constructor(props: Props) {

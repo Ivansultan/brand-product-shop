@@ -227,7 +227,6 @@ const productQueryOptions = {
   },
 };
 
-
 const mapStateToProps = (state: AppState): StoreProps => {
   return {
     cartItems: state.cartItems,

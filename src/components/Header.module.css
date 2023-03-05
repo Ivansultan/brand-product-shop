@@ -1,89 +1,88 @@
 .header {
-    background-color: #FFFFFF;
-    padding-right: 101px;
-    height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
+  background-color: #ffffff;
+  padding-right: 101px;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
 }
 
 .category-links {
-    display: flex;
-    flex-direction: row;
-    margin-left: 117px;
-    
+  display: flex;
+  flex-direction: row;
+  margin-left: 117px;
 }
 .category-item {
-    margin: 10px;
-    font-size: 16px;
-    line-height: 19.2px;
-    margin-top: 28px;
-    text-transform: uppercase;
+  margin: 10px;
+  font-size: 16px;
+  line-height: 19.2px;
+  margin-top: 28px;
+  text-transform: uppercase;
 }
 
 .icon-section {
-    margin-right: 125px;
-    margin-top: 30px;
+  margin-right: 125px;
+  margin-top: 30px;
 }
 
 .icon-block {
-    display: flex;
-    justify-content: center;
-    border-bottom: 25px solid #52D67A;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    height: 0;
-    width: 25px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 25px solid #52d67a;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  height: 0;
+  width: 25px;
 }
 
 .semicircle {
-    margin-top: 10px;
-    width: 9px;
-    height: 6px;
-    border-radius: 0 0 100px 100px;
-    border-bottom: 1px solid #FFFFFF;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
+  margin-top: 10px;
+  width: 9px;
+  height: 6px;
+  border-radius: 0 0 100px 100px;
+  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
 }
 
 .vector {
-    position: relative;
-    bottom: 2px;
-    left: 0.2px;
-    margin-bottom: 20px;
-    margin-left: 7.25px;
-    border: 1px solid #FFFFFF;
-    border-width: 0 1px 1px 0;
-    display: inline-block;
-    padding: 1.7px;
-    transform: rotate(-135deg);
+  position: relative;
+  bottom: 2px;
+  left: 0.2px;
+  margin-bottom: 20px;
+  margin-left: 7.25px;
+  border: 1px solid #ffffff;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 1.7px;
+  transform: rotate(-135deg);
 }
 
 .currency-cart-section {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .currency {
-    margin-right: 22px;
+  margin-right: 22px;
 }
 
 .cart {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .link-default {
-    text-decoration: none;
-    color:black;
+  text-decoration: none;
+  color: black;
 }
 
 .link {
-    text-decoration: none;
-    color:black;
+  text-decoration: none;
+  color: black;
 }
 
 .link-active {
-    text-decoration: underline;
-    text-underline-offset: 32px;
-    text-decoration-thickness: 2px;
-    color:#5ECE7B;
+  text-decoration: underline;
+  text-underline-offset: 32px;
+  text-decoration-thickness: 2px;
+  color: #5ece7b;
 }

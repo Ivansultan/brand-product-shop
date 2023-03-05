@@ -39,45 +39,26 @@ class Header extends React.Component<Props, State> {
     return (
       <div className={styles["header"]}>
         <div className={styles["category-links"]}>
-          {this.props.categoryName === undefined ? (
-            <div className={styles["category-item"]}>
-              <Link className={styles["link-active"]} to="/">
-                ALL
-              </Link>
-            </div>
-          ) : (
-            <div className={styles["category-item"]}>
-              <Link className={styles["link-default"]} to="/">
-                ALL
-              </Link>
-            </div>
-          )}
-
           {!this.props.data.loading &&
             this.props.data.categories.map((category) => {
-              if (category.name === this.props.categoryName) {
-                return (
-                  <div key={category.name} className={styles["category-item"]}>
-                    <Link
-                      className={styles["link-active"]}
-                      to={`/category/${category.name}`}
-                    >
-                      {category.name}
-                    </Link>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={category.name} className={styles["category-item"]}>
-                    <Link
-                      className={styles["link"]}
-                      to={`/category/${category.name}`}
-                    >
-                      {category.name}
-                    </Link>
-                  </div>
-                );
-              }
+              return (
+                <div key={category.name} className={styles["category-item"]}>
+                  <Link
+                    className={
+                      category.name === (this.props.categoryName || "all")
+                        ? styles["link-active"]
+                        : styles["link"]
+                    }
+                    to={
+                      category.name === "all"
+                        ? "/"
+                        : `/category/${category.name}`
+                    }
+                  >
+                    {category.name}
+                  </Link>
+                </div>
+              );
             })}
         </div>
 

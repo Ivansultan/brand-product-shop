@@ -1,54 +1,54 @@
 .cart-page {
-    margin-bottom: 274px;
+  margin-bottom: 274px;
 }
 
 .cart-title {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 80px;
-    margin-bottom: 55px;
-    font-size: 32px;
-    font-weight: 700;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 80px;
+  margin-bottom: 55px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
 .delimiter {
-    border: 0.1px solid lightGray;
-    margin-left: 100px;
-    margin-right: 100px;
+  border: 0.1px solid lightGray;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .ordering {
-    margin-top: 32px;
-    margin-left: 100px;
-    margin-right: 100px;
+  margin-top: 32px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .cart-tax {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 28px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
 }
 
 .cart-quantity {
-    margin-top: 8px;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 28px;
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
 }
 
 .cart-total {
-    margin-top: 8px;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 28px;
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
 }
 
 .order-button {
-    margin-top: 16px;
-    width: 279px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #5ECE7B;
+  margin-top: 16px;
+  width: 279px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5ece7b;
 }

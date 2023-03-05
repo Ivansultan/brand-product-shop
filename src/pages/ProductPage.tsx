@@ -167,7 +167,7 @@ class ProductPage extends React.Component<Props, State> {
           <div>
             <div className={styles["product-price-title"]}>PRICE:</div>
             <div className={styles["product-currency-price"]}>
-              {currencyLabel[price.currency]}
+              {currencyLabel[price.currency.label]}
               {price.amount}
             </div>
             <div
@@ -207,7 +207,10 @@ const productQuery = gql`
         }
       }
       prices {
-        currency
+        currency {
+          label
+          symbol
+        }
         amount
       }
     }
@@ -224,11 +227,6 @@ const productQueryOptions = {
   },
 };
 
-const currencyQuery = gql`
-  query {
-    currencies
-  }
-`;
 
 const mapStateToProps = (state: AppState): StoreProps => {
   return {
@@ -239,7 +237,6 @@ const mapStateToProps = (state: AppState): StoreProps => {
 
 export default compose<Props, OwnProps>(
   withParams,
-  graphql(currencyQuery),
   graphql(productQuery, productQueryOptions),
   connect(mapStateToProps)
 )(ProductPage);

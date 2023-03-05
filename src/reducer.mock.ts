@@ -1,10 +1,11 @@
 import { AppState, initialState, CartProduct } from "./reducer";
+import { Product } from "./graphql/types";
 
 export const INITIAL_STATE: AppState = {
   ...initialState,
 };
 
-export const PRODUCT = {
+export const PRODUCT: Product = {
   __typename: "Product",
   id: "huarache-x-stussy-le",
   name: "Nike Air Huarache Le",
@@ -120,27 +121,42 @@ export const PRODUCT = {
   prices: [
     {
       __typename: "Price",
-      currency: "USD" as const,
+      currency: {
+        label: "USD",
+        symbol: "$",
+      },
       amount: 144.69,
     },
     {
       __typename: "Price",
-      currency: "GBP" as const,
+      currency: {
+        label: "GBP",
+        symbol: "£",
+      },
       amount: 104,
     },
     {
       __typename: "Price",
-      currency: "AUD" as const,
+      currency: {
+        label: "AUD",
+        symbol: "A$",
+      },
       amount: 186.65,
     },
     {
       __typename: "Price",
-      currency: "JPY" as const,
+      currency: {
+        label: "JPY",
+        symbol: "¥",
+      },
       amount: 15625.24,
     },
     {
       __typename: "Price",
-      currency: "RUB" as const,
+      currency: {
+        label: "RUB",
+        symbol: "₽",
+      },
       amount: 10941.76,
     },
   ],

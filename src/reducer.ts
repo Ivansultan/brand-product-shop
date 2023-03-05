@@ -1,4 +1,4 @@
-import { Currency, Product } from "./graphql/types";
+import { CurrencyLabel, Product } from "./graphql/types";
 import { SelectedAttributeValues } from "./pages/ProductPage";
 
 export type CartProduct = Product & {
@@ -7,7 +7,7 @@ export type CartProduct = Product & {
 
 export type AppState = {
   cartItems: CartProduct[];
-  currency: Currency;
+  currency: CurrencyLabel;
   categoryName: string;
 };
 
@@ -47,7 +47,7 @@ export type CartDecrementItemPayload = {
 };
 
 export type CurrencyPayload = {
-  currency: Currency;
+  currency: CurrencyLabel;
 };
 
 export type CategoryNamePayload = {

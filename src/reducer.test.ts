@@ -8,7 +8,7 @@ import rootReducer, {
 import { ACTION_ADD, ACTION_REMOVE, INITIAL_STATE } from "./reducer.mock";
 import { updateAttributes } from "./reducer";
 import { PRODUCT } from "./reducer.mock";
-import { Currency, Product } from "./graphql/types";
+import { CurrencyLabel, Product } from "./graphql/types";
 
 type CartItem = {
   id: string;
@@ -59,7 +59,7 @@ describe("rootReducer()", () => {
   });
 
   test("action_type: SET_CURRENCY", () => {
-    const newCurrency: Currency = "GBP";
+    const newCurrency: CurrencyLabel = "GBP";
     const result = rootReducer(
       {
         ...INITIAL_STATE,

@@ -7,6 +7,7 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 import { currencyLabel } from "../utils";
 import styles from "./Currencies.module.css";
+import { Currency } from "../graphql/types";
 
 type OwnProps = {};
 
@@ -16,7 +17,7 @@ type GraphQLProps = {
 
 type CurrencyQueryResult = {
   loading: boolean;
-  currencies: AppState["currency"][];
+  currencies: Currency[];
 };
 
 type StoreProps = {
@@ -64,25 +65,23 @@ class Currencies extends React.Component<Props, State> {
         {this.state.visibility ? (
           <div className={styles["currency-popup"]}>
             {currencies.map((currency) => (
-              <div className={styles["currency-section"]} key={currency}>
+              <div className={styles["currency-section"]} key={currency.label}>
                 <div
                   className={
-                    currency === this.props.currency
+                    currency.label === this.props.currency
                       ? styles["currency-current"]
                       : styles["currency-expected"]
                   }
-                  key={currency}
+                  key={currency.label}
                   onClick={() => {
-                    currency !== this.props.currency &&
-                      this.changeCurrency(currency);
+                    currency.label !== this.props.currency &&
+                      this.changeCurrency(currency.label);
                   }}
                 >
                   <div className={styles["currency-label"]}>
-                    <div className={styles["label"]}>
-                      {currencyLabel[currency]}
-                    </div>
+                    <div className={styles["label"]}>{currency.label}</div>
 
-                    <div className={styles["currency"]}>{currency}</div>
+                    <div className={styles["currency"]}>{currency.symbol}</div>
                   </div>
                 </div>
               </div>
@@ -98,7 +97,10 @@ class Currencies extends React.Component<Props, State> {
 
 const currencyQuery = gql`
   query {
-    currencies
+    currencies {
+      label
+      symbol
+    }
   }
 `;
 

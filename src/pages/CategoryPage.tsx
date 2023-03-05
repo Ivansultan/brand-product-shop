@@ -190,7 +190,10 @@ const categoriesQuery = gql`
           }
         }
         prices {
-          currency
+          currency {
+            label
+            symbol
+          }
           amount
         }
       }

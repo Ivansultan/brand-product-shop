@@ -1,7 +1,8 @@
 import { AppState } from "../reducer";
+import {Currency} from "../graphql/types";
 
 type Price = {
-  currency: AppState["currency"];
+  currency: Currency;
   amount: number;
 };
 
@@ -9,7 +10,7 @@ export const getPrice = (
   prices: Price[],
   currency: AppState["currency"]
 ): Price => {
-  return prices.filter((item) => item.currency === currency)[0];
+  return prices.filter((item) => item.currency.label === currency)[0];
 };
 
 export const getTotalPrice = (
